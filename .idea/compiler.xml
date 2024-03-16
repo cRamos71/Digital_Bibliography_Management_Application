@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="aed2_lp2_2324" />
+        <module name="project_aed2_lp2_2324" />
       </profile>
     </annotationProcessing>
   </component>
