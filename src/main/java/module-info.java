@@ -14,5 +14,5 @@ module edu.ufp {
     requires java.desktop;
 
     opens edu.ufp.inf.lp2.p06_gui_javafx.helloword to javafx.fxml;
-   // exports edu.ufp.inf.lp2.p06_gui_javafx.helloword;
+    exports edu.ufp.inf.p06_gui_javafx.helloword;
 }
