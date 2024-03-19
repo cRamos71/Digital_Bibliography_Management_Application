@@ -12,6 +12,7 @@ module edu.ufp {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires spring.security.core;
 
     opens edu.ufp.inf.lp2.p06_gui_javafx.helloword to javafx.fxml;
     exports edu.ufp.inf.p06_gui_javafx.helloword;

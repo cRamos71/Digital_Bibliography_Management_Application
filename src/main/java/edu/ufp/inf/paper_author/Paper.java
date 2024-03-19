@@ -1,9 +1,6 @@
 package edu.ufp.inf.paper_author;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Paper {
    private String title;
@@ -11,8 +8,8 @@ public class Paper {
    private String anAbstract;
    private Date date;
    private Long numDownloads;
-   private Map<Date, Long> numViewsPerDay;
-   private Map<Date, Long> numLikesPerDay;
+   private Map<Date, Long> numViewsPerDay = new HashMap<>();
+   private Map<Date, Long> numLikesPerDay = new HashMap<>();
 
    private ArrayList<Author> authors = new ArrayList<>();
 
@@ -98,7 +95,46 @@ public class Paper {
         if(!this.authors.contains(a)) this.authors.add(a);
     }
 
-    public static void main(String[] args) {
+    /**
+     *
+     */
+    public void addView(){
+        Date curr = new Date();
+        if(!this.numViewsPerDay.containsKey(curr)) this.numViewsPerDay.put(curr, (long) 1);
+        else this.numViewsPerDay.put(curr, (this.numViewsPerDay.get(curr)) + 1);
+    }
 
+    public void addLike(){
+        Date curr = new Date();
+        if(!this.numLikesPerDay.containsKey(curr)) this.numLikesPerDay.put(curr, (long) 1);
+        else this.numLikesPerDay.put(curr, (this.numLikesPerDay.get(curr)) + 1);
+    }
+
+    public void addNumDownload(){
+       this.numDownloads++;
+    }
+
+    public long getNumViewsDay(Date d){
+        if(!this.numViewsPerDay.containsKey(d)) return 0;
+        return this.numViewsPerDay.get(d);
+    }
+
+    public long getNumLikesDay(Date d){
+        if(!this.numLikesPerDay.containsKey(d)) return 0;
+        return this.numLikesPerDay.get(d);
+    }
+
+
+
+    public static void main(String[] args) {
+        Paper p = new Paper();
+        Date d1 = new Date();
+        Date d2 = new Date(1, 12, 2020);
+        p.addView();
+        p.addView();
+        p.addView();
+        p.addView();
+        System.out.println("Num views in " + d1.getDate()+ " " + p.getNumViewsDay(d1));
+        System.out.println(p.getNumViewsDay(d2));
     }
 }
