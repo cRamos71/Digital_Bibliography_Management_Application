@@ -1,12 +1,13 @@
 package edu.ufp.inf.paper_author;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Paper {
    private String title;
    private String keywords;
    private String anAbstract;
-   private Date date;
+   private LocalDate date;
    private Long numDownloads;
    private Map<Date, Long> numViewsPerDay = new HashMap<>();
    private Map<Date, Long> numLikesPerDay = new HashMap<>();
@@ -16,7 +17,7 @@ public class Paper {
     public Paper() {
     }
 
-    public Paper(String title, String keywords, String anAbstract, Date date, Author a) {
+    public Paper(String title, String keywords, String anAbstract, LocalDate date, Author a) {
         this.title = title;
         this.keywords = keywords;
         this.anAbstract = anAbstract;
@@ -47,11 +48,11 @@ public class Paper {
         this.anAbstract = anAbstract;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

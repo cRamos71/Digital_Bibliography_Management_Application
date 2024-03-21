@@ -5,7 +5,6 @@ import java.time.Period;
 import java.util.Objects;
 
 public class Person {
-
     private int idNumber;
 
     private LocalDate birthDate;

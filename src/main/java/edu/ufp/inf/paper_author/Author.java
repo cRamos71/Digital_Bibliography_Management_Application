@@ -96,5 +96,4 @@ private ArrayList<Paper> papers = new ArrayList<>();
 
 
     }
-
 }
