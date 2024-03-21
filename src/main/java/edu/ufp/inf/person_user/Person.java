@@ -95,7 +95,7 @@ public class Person {
         System.out.println(bdate.getYear());
 
         Person p = new Person(10, bdate, "ola", "4500-368");
-       System.out.println(p.age());
+        System.out.println(p.age());
 
     }
 
