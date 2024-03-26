@@ -59,7 +59,7 @@ private ArrayList<Paper> papers = new ArrayList<>();
     public Paper searchPaperYear(String t, long y){
 
         for (Paper paper : papers){
-            LocalDate date = LocalDate.of(paper.getDate().getYear(), paper.getDate().getMonth(), paper.getDate().getDay());
+            LocalDate date = LocalDate.of(paper.getDate().getYear(), paper.getDate().getMonth(), paper.getDate().getDayOfYear());
             if (date.getYear() == y && paper.getTitle().equals(t)){
                 return paper;
             }
@@ -76,16 +76,20 @@ private ArrayList<Paper> papers = new ArrayList<>();
         return null;
     }
 
+    public ArrayList<Paper> listPapers(){
+        return this.papers;
+    }
+
     public static void main(String[] args) {
         LocalDate bdate = LocalDate.of(2000, 10, 10);
         Author a = new Author(10, bdate, "ola", "4500-368", "1", "2", "3", "4", "5", "6" );
 
         Date d2 = new Date();
-        Paper p = new Paper("ola", "1", "2", d2, a);
+       // Paper p = new Paper("ola", "1", "2", d2, a);
 
 
 
-        p.setTitle("ola");
+       /* p.setTitle("ola");
         a.papers.add(p);
 
         System.out.println(a.searchPaperTitle("ola").getTitle());
@@ -94,6 +98,6 @@ private ArrayList<Paper> papers = new ArrayList<>();
         System.out.println("\n--\n");
         a.removePaper("ola", (long)p.getDate().getYear());
 
-
+*/
     }
 }
