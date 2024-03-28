@@ -1,56 +1,67 @@
 package edu.ufp.inf.database;
 
-import edu.princeton.cs.algs4.BST;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
 
-import java.io.CharArrayReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 
-public class DataBase<A extends Author, P extends Paper> implements ManageAuthorsI<A>, ManagdePapersI<P> {
+public class DataBase<A extends Author, P extends Paper> implements ManageAuthorsI<A>, ManagePapersI<P> {
     private RedBlackBST<Long, A> authorsTree = new RedBlackBST<>();
     private RedBlackBST<Date, A> dateAuthorsTree = new RedBlackBST<>();
     private RedBlackBST<Long, P> papersTree = new RedBlackBST<>();
     private RedBlackBST<Date, P> datePapersTree = new RedBlackBST<>();
     private HashMap<Long, A> mapUID = new HashMap<>();
+    private HashMap<String, P> mapDOI = new HashMap<>();
     private long uID;
 
-    //insert // remove....
+    @Override
     public void insert(A author) {
         mapUID.put(this.uID++, author);
     }
 
+    @Override
     public void update(A author) {
 
     }
-
+    @Override
     public void remove(A author) {
-        //Ver depois
-        //mapUID.remove(1, author);
+        mapUID.remove(author.getIdNumber(), author);
     }
-
+    @Override
     public void insert(P paper) {
-
-        //datePapersTree.put();
+        paper.setDoi(generateDoi());
+        mapDOI.put(paper.getDoi() ,paper);
     }
-
+    @Override
     public void update(P paper) {
 
     }
-
+    @Override
     public void remove(P paper) {
+        ArrayList<Author> authorsAL = new ArrayList<>();
+        authorsAL = paper.getAuthors();
 
+        for(Author a : authorsAL){
+            a.removePaper(paper);
+        }
+        mapDOI.remove(paper.getDoi());
     }
 
-    public ArrayList<Paper> paperAuthorByIdPeriod(int idAuthor, LocalDate startDate, LocalDate endDate) {
-        //authorsTree.get();
-        BST<Long, A> bstDate = new BST<>();
+    @Override
+    public String generateDoi() {
+        //Combined timestamp with random component
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
+    }
 
-        return null;
+    public Paper getPaperTest(String doi){
+        // This is a test function
+        return this.mapDOI.get(doi);
     }
 
     public ArrayList<String> paperAuthorByIdPeriodIn(Long idAuthor, LocalDate startDate, LocalDate endDate) {
@@ -89,7 +100,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
 
 
         Long id1 = 1L;
-        Author a1 = new Author(1,bdate,"Joel", "Rua dos Pombos", "JJ","Porto Editora", "19","19","joelgamesxd","joelgames23");
+        Author a1 = new Author(1L,bdate,"Joel", "Rua dos Pombos", "JJ","Porto Editora", "19","19","joelgamesxd","joelgames23");
         Paper p1 = new Paper();
         p1.setDate(bdate);
         p1.setTitle("A historia de Joel, o Homem!");
@@ -100,13 +111,14 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
         a1.addPaper(p1);
 
         db.insert(a1);
+        db.insert(p1);
 
+        Paper test = db.getPaperTest(p1.getDoi());
 
+        System.out.println(test);
 
        ArrayList<String> a =   db.paperAuthorByIdPeriodIn(id1, LocalDate.of(999, 10, 21), LocalDate.now());
 
-       for (String k : a){
-          System.out.println(k);
-       }
+
     }
 }

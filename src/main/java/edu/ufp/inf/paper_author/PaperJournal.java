@@ -11,8 +11,8 @@ public class PaperJournal extends Paper{
     private String scopusID;
 
 
-    public PaperJournal(String title, String keywords, String anAbstract, LocalDate date, Author a, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
-        super(title, keywords, anAbstract, date, a);
+    public PaperJournal(String doi, String title, String keywords, String anAbstract, LocalDate date, Author a, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
+        super(doi, title, keywords, anAbstract, date, a);
         this.publisher = publisher;
         this.periodicity = periodicity;
         this.jcrIF = jcrIF;

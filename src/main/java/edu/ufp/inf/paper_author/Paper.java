@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Paper {
+
+   private String doi;
    private String title;
    private String keywords;
    private String anAbstract;
@@ -17,11 +19,25 @@ public class Paper {
     public Paper() {
     }
 
-    public Paper(String title, String keywords, String anAbstract, LocalDate date, Author a) {
+    public Paper(String doi, String title, String keywords, String anAbstract, LocalDate date, Author a) {
+        this.doi = doi;
         this.title = title;
         this.keywords = keywords;
         this.anAbstract = anAbstract;
         this.date = date;
+    }
+
+
+    public String getDoi() {
+        return doi;
+    }
+
+    public void setDoi(String doi) {
+        this.doi = doi;
+    }
+
+    public ArrayList<Author> getAuthors() {
+        return authors;
     }
 
     public String getTitle() {
