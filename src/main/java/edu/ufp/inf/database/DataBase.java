@@ -54,25 +54,14 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     }
 
     public ArrayList<String> paperAuthorByIdPeriodIn(Long idAuthor, LocalDate startDate, LocalDate endDate) {
-        BST<Integer, ArrayList<String>> bstDate = new BST<>();
+        RedBlackBST<Integer, ArrayList<String>> bstDate = new RedBlackBST<>();
         Author author = this.mapUID.get(idAuthor);
 
         if(author  == null)return null;
 
         // Update bst with curr paper title and year
-        for (Paper p:author.listPapers()){
-            Integer key = p.getDate().getYear();
-            if(bstDate.contains(key)){
-              ArrayList<String> a = bstDate.get(key);
-              if(!a.contains(p.getTitle())){
-                  a.add(p.getTitle());
-                  bstDate.put(key, a);
-              }
-            }
-            ArrayList<String>temp =  new ArrayList<>();
-            temp.add(p.getTitle());
-            bstDate.put(key, temp);
-        }
+
+        bstDate = author.bstPapersPeriod();
 
         ArrayList<String> papers = new ArrayList<>();
         for (Integer key : bstDate.keys(startDate.getYear(), endDate.getYear())){

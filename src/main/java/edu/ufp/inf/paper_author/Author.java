@@ -1,5 +1,7 @@
 package edu.ufp.inf.paper_author;
 
+import edu.princeton.cs.algs4.BST;
+import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.person_user.Person;
 
 import java.time.LocalDate;
@@ -79,6 +81,26 @@ private ArrayList<Paper> papers = new ArrayList<>();
     public ArrayList<Paper> listPapers(){
         return this.papers;
     }
+
+    public RedBlackBST<Integer, ArrayList<String>> bstPapersPeriod(){
+        RedBlackBST<Integer, ArrayList<String>> bstDate = new RedBlackBST<>();
+
+        for (Paper p: listPapers()){
+            Integer key = p.getDate().getYear();
+            if(bstDate.contains(key)){
+                ArrayList<String> a = bstDate.get(key);
+                if(!a.contains(p.getTitle())){
+                    a.add(p.getTitle());
+                    bstDate.put(key, a);
+                }
+            }
+            ArrayList<String>temp =  new ArrayList<>();
+            temp.add(p.getTitle());
+            bstDate.put(key, temp);
+        }
+        return bstDate;
+    }
+
 
     public static void main(String[] args) {
         LocalDate bdate = LocalDate.of(2000, 10, 10);
