@@ -93,10 +93,11 @@ private ArrayList<Paper> papers = new ArrayList<>();
                     a.add(p.getTitle());
                     bstDate.put(key, a);
                 }
+            }else{
+                ArrayList<String>temp =  new ArrayList<>();
+                temp.add(p.getTitle());
+                bstDate.put(key, temp);
             }
-            ArrayList<String>temp =  new ArrayList<>();
-            temp.add(p.getTitle());
-            bstDate.put(key, temp);
         }
         return bstDate;
     }
