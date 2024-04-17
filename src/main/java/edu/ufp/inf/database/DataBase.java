@@ -1,5 +1,7 @@
 package edu.ufp.inf.database;
 
+import edu.princeton.cs.algs4.Quick;
+import edu.princeton.cs.algs4.QuickFindUF;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
@@ -108,17 +110,50 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
         return authorsAllPapers;
     }
 
+    public ArrayList<Paper> top3PapersMostDownloads() {
+        ArrayList<Paper> papers = new ArrayList<>(mapDOI.values());
+
+        //this.mapDOI.
+        papers.sort((paper1, paper2) -> Math.toIntExact(paper2.getNumDownloads() - paper1.getNumDownloads()));
+        System.out.println(papers);
+
+        Paper[] p = new Paper[3];
+        for (int i= 0; i < p.length && i < papers.size(); i++){
+            p[i] = papers.get(i);
+        }
+
+        for (int i= 0; i < p.length; i++){
+            System.out.println( i+ " " +p[i] );
+        }
+        //System.out.println(p);
+        return papers;
+    }
+
+
     public ArrayList<Paper> paperAuthorByOrcidPeriod(String orcidAuthor, LocalDate startDate, LocalDate endDate) {
         //authorsTree.get();
         return null;
+    }
+
+    public ArrayList<Paper> papersNotDownloadedNotViewed() {
+        ArrayList<Paper> papersFound = new ArrayList<>();
+
+        for (String curr : mapDOI.keySet()){
+            Paper p = mapDOI.get(curr);
+            if (p.getNumDownloads() == 0 && p.getTotalNumViews() == 0){
+                papersFound.add(p);
+            }
+        }
+
+      return papersFound;
     }
 
 
     public static void main(String[] args) {
         DataBase db = new DataBase();
 
-        LocalDate bdate =LocalDate.of(2000,10,30);
-        LocalDate bdate1 =LocalDate.of(100,10,30);
+        LocalDate bdate = LocalDate.of(2000,10,30);
+        LocalDate bdate1 = LocalDate.of(100,10,30);
 
 
         Long id1 = 1L;
@@ -133,9 +168,15 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
         p1.setDate(bdate);
         a1.addPaper(p2);
         a1.addPaper(p1);
+        p1.addView();
+        p2.addView();
+
+        p2.addView();
+
 
         db.insert(a1);
         db.insert(p1);
+        db.insert(p2);
 
         /*
         Paper test = db.getPaperTest(p1.getDoi());
@@ -144,11 +185,17 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
         System.out.println("\n");
         */
 
+        ArrayList<Paper> testPaperNoViewsNoDownloads =  db.papersNotDownloadedNotViewed();
+
+        System.out.println(testPaperNoViewsNoDownloads);
 
        //ArrayList<String> a =   db.paperAuthorByIdPeriodIn(id1, LocalDate.of(999, 10, 21), LocalDate.now());
-       ArrayList<String> testAuthorName =   db.paperAuthorByNamePeriod("Joel", LocalDate.of(800, 10, 21), LocalDate.now());
+       ArrayList<String> testAuthorName = db.paperAuthorByNamePeriod("Joel", LocalDate.of(800, 10, 21), LocalDate.now());
 
        System.out.println(testAuthorName);
 
+       ArrayList<Paper> pex = db.top3PapersMostDownloads();
+
+       //System.out.println(pex);
     }
 }
