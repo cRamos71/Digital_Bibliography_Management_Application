@@ -20,7 +20,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
 
     @Override
     public void insert(A author) {
-        //this.mapUID++
+        author.setIdNumber(this.uID++);
         mapUID.put(author.getIdNumber(), author);
     }
 
@@ -32,6 +32,14 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     public void remove(A author) {
         mapUID.remove(author.getIdNumber(), author);
     }
+
+    @Override
+    public void listAuthors() {
+        for(Long l : this.mapUID.keySet()){
+            System.out.println("Key : " + l + " Val: " + this.mapUID.get(l));
+        }
+    }
+
     @Override
     public void insert(P paper) {
         paper.setDoi(generateDoi());
@@ -43,7 +51,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     }
     @Override
     public void remove(P paper) {
-        ArrayList<Author> authorsAL = new ArrayList<>();
+        ArrayList<Author> authorsAL = null;
         authorsAL = paper.getAuthors();
 
         for(Author a : authorsAL){
@@ -53,16 +61,20 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     }
 
     @Override
+    public void listPapers() {
+        for(String l : this.mapDOI.keySet()){
+            System.out.println("Key : " + l + " Val: " + this.mapDOI.get(l));
+        }
+    }
+
+
+    @Override
     public String generateDoi() {
         //Combined timestamp with random component
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
     }
 
-    public Paper getPaperTest(String doi){
-        // This is a test function
-        return this.mapDOI.get(doi);
-    }
 
     public ArrayList<String> paperAuthorByIdPeriodIn(Long idAuthor, LocalDate startDate, LocalDate endDate) {
         RedBlackBST<Integer, ArrayList<String>> bstDate = new RedBlackBST<>();
@@ -157,8 +169,10 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
 
 
         Long id1 = 1L;
-        Author a1 = new Author(id1,bdate,"Joel", "Rua dos Pombos", "JJ","Porto Editora", "19","19","joelgamesxd","joelgames23");
+        Author a1 = new Author(null,bdate,"Joel", "Rua dos Pombos", "JJ","Porto Editora", "19","19","joelgamesxd","joelgames23");
         Paper p1 = new Paper();
+        Author a2 = new Author(null,bdate,"Joel", "Rua dos Pombos", "JJ","Porto Editora", "19","19","joelgamesxd","joelgames23");
+
         p1.setDate(bdate);
         p1.setTitle("A historia de Joel, o Homem!");
         Paper p2 = new Paper();
@@ -175,6 +189,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
 
 
         db.insert(a1);
+        db.insert(a2);
         db.insert(p1);
         db.insert(p2);
 
@@ -185,17 +200,20 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
         System.out.println("\n");
         */
 
-        ArrayList<Paper> testPaperNoViewsNoDownloads =  db.papersNotDownloadedNotViewed();
+       /* ArrayList<Paper> testPaperNoViewsNoDownloads =  db.papersNotDownloadedNotViewed();
 
         System.out.println(testPaperNoViewsNoDownloads);
 
        //ArrayList<String> a =   db.paperAuthorByIdPeriodIn(id1, LocalDate.of(999, 10, 21), LocalDate.now());
        ArrayList<String> testAuthorName = db.paperAuthorByNamePeriod("Joel", LocalDate.of(800, 10, 21), LocalDate.now());
 
-       System.out.println(testAuthorName);
+       System.out.println(testAuthorName);*/
 
        ArrayList<Paper> pex = db.top3PapersMostDownloads();
 
-       //System.out.println(pex);
+       System.out.println(pex);
+
+       db.listAuthors();
+       db.listPapers();
     }
 }

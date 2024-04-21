@@ -9,6 +9,8 @@ public interface ManagePapersI<P extends Paper> {
 
     public void remove(P paper);
 
+    public void listPapers();
+
     public String generateDoi();
 
 }
