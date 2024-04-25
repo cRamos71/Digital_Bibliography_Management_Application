@@ -5,7 +5,7 @@ import java.time.Period;
 import java.util.Objects;
 
 public class Person {
-    private Long idNumber;
+    private Integer idNumber;
 
     private LocalDate birthDate;
 
@@ -16,7 +16,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(Long idNumber, LocalDate birthDate, String name, String address) {
+    public Person(Integer idNumber, LocalDate birthDate, String name, String address) {
         this.idNumber = idNumber;
         this.birthDate = birthDate;
         this.name = name;
@@ -24,11 +24,11 @@ public class Person {
     }
 
 
-    public Long getIdNumber() {
+    public Integer getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(Long idNumber) {
+    public void setIdNumber(Integer idNumber) {
         this.idNumber = idNumber;
     }
 
@@ -93,7 +93,7 @@ public class Person {
         LocalDate bdate = LocalDate.of(2000, 10, 10);
         System.out.println(bdate.getYear());
 
-        Person p = new Person(10L, bdate, "ola", "4500-368");
+        Person p = new Person(10, bdate, "ola", "4500-368");
         System.out.println(p.age());
 
     }

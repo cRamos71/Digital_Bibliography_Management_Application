@@ -24,7 +24,7 @@ public class TestDB {
 
         for(int i = 0; i < numUsers; i++){
             // Split the input string into key-value pairs
-            String[] pairs = fp.readLine().split("; ");
+            String[] pairs = fp.readLine().split(";");
 
             // Create a map to store the extracted information
             Map<String, String> infoMap = new HashMap<>();
@@ -51,8 +51,8 @@ public class TestDB {
             String scienceID = infoMap.get("scienceID");
             String googleScholarID = infoMap.get("googleScholarID");
             String ScopusAuthorID = infoMap.get("ScopusAuthorID");
-
-            db.insert(new Author(-1L, LocalDate.of(Integer.parseInt(birthDate[2]),Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0])), name, address, affiliation,penName, ORCID, scienceID, googleScholarID, ScopusAuthorID));
+            //System.out.println();
+            db.insert(new Author(-1, LocalDate.of(Integer.parseInt(birthDate[2]),Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0])), name, address, affiliation,penName, ORCID, scienceID, googleScholarID, ScopusAuthorID));
         }
 
         db.listAuthors();
