@@ -1,22 +1,25 @@
 package edu.ufp.inf.database;
 
-import edu.princeton.cs.algs4.Quick;
-import edu.princeton.cs.algs4.QuickFindUF;
-import edu.princeton.cs.algs4.RedBlackBST;
+import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.Date;
 
 public class DataBase<A extends Author, P extends Paper> implements ManageAuthorsI<A>, ManagePapersI<P> {
     private RedBlackBST<Long, A> authorsTree = new RedBlackBST<>();
     private RedBlackBST<Date, A> dateAuthorsTree = new RedBlackBST<>();
     private RedBlackBST<Long, P> papersTree = new RedBlackBST<>();
     private RedBlackBST<Date, P> datePapersTree = new RedBlackBST<>();
-    private HashMap<Long, A> mapUID = new HashMap<>();
+    private HashMap<Integer, A> mapUID = new HashMap<>();
     private HashMap<String, P> mapDOI = new HashMap<>();
-    private long uID;
+
+    Graph authorsGraph = new Graph(10);
+
+    Digraph PapersDigraph = new Digraph(10);
+    private int uID;
 
     @Override
     public void insert(A author) {
@@ -35,7 +38,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
 
     @Override
     public void listAuthors() {
-        for(Long l : this.mapUID.keySet()){
+        for(Integer l : this.mapUID.keySet()){
             System.out.println("Key : " + l + " Val: " + this.mapUID.get(l));
         }
     }
@@ -76,7 +79,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     }
 
 
-    public ArrayList<String> paperAuthorByIdPeriodIn(Long idAuthor, LocalDate startDate, LocalDate endDate) {
+    public ArrayList<String> paperAuthorByIdPeriodIn(Integer idAuthor, LocalDate startDate, LocalDate endDate) {
         RedBlackBST<Integer, ArrayList<String>> bstDate = new RedBlackBST<>();
         Author author = this.mapUID.get(idAuthor);
 
@@ -98,7 +101,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
         ArrayList<Author> authorsAL = new ArrayList<>();
         ArrayList<String> authorsAllPapers = new ArrayList<>();
 
-        for (Map.Entry<Long, A> current : mapUID.entrySet()){
+        for (Map.Entry<Integer, A> current : mapUID.entrySet()){
             Author a = current.getValue();
             if (a.getName().compareTo(nameAuthor) == 0){
                 authorsAL.add(a);
@@ -158,6 +161,13 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
         }
 
       return papersFound;
+    }
+    /**
+    @param a -
+     Function to get the number of co-authors of a given author
+     */
+    public int numberCoAuthors(Author a){
+        return this.authorsGraph.degree(a.getIdNumber());
     }
 
 

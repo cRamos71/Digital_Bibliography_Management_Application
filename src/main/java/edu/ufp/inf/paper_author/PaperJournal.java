@@ -66,7 +66,7 @@ public class PaperJournal extends Paper{
 
     @Override
     public String toString() {
-        return "PaperJournal{" +
+        return super.toString() +  "PaperJournal{" +
                 "publisher='" + publisher + '\'' +
                 ", periodicity=" + periodicity +
                 ", jcrIF=" + jcrIF +
