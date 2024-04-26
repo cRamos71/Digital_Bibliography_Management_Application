@@ -26,7 +26,7 @@ private ArrayList<Paper> papers = new ArrayList<>();
     public Author() {
     }
 
-    public Author(Integer idNumber, LocalDate birthDate, String name, String address, String penName, String affiliation, String orcID, String scienceID, String googleScholarID, String scopusAuthorID) {
+    public Author(Long idNumber, LocalDate birthDate, String name, String address, String penName, String affiliation, String orcID, String scienceID, String googleScholarID, String scopusAuthorID) {
         super(idNumber, birthDate, name, address);
         this.penName = penName;
         this.affiliation = affiliation;
@@ -34,6 +34,62 @@ private ArrayList<Paper> papers = new ArrayList<>();
         this.scienceID = scienceID;
         this.googleScholarID = googleScholarID;
         this.scopusAuthorID = scopusAuthorID;
+    }
+
+    public String getPenName() {
+        return penName;
+    }
+
+    public void setPenName(String penName) {
+        this.penName = penName;
+    }
+
+    public String getAffiliation() {
+        return affiliation;
+    }
+
+    public void setAffiliation(String affiliation) {
+        this.affiliation = affiliation;
+    }
+
+    public String getOrcID() {
+        return orcID;
+    }
+
+    public void setOrcID(String orcID) {
+        this.orcID = orcID;
+    }
+
+    public String getScienceID() {
+        return scienceID;
+    }
+
+    public void setScienceID(String scienceID) {
+        this.scienceID = scienceID;
+    }
+
+    public String getGoogleScholarID() {
+        return googleScholarID;
+    }
+
+    public void setGoogleScholarID(String googleScholarID) {
+        this.googleScholarID = googleScholarID;
+    }
+
+    public String getScopusAuthorID() {
+        return scopusAuthorID;
+    }
+
+    public void setScopusAuthorID(String scopusAuthorID) {
+        this.scopusAuthorID = scopusAuthorID;
+    }
+
+    public ArrayList<Paper> getPapers() {
+        return papers;
+    }
+
+    public void setPapers(ArrayList<Paper> papers) {
+        this.papers = papers;
     }
 
     public void addPaper(Paper p){
@@ -107,6 +163,8 @@ private ArrayList<Paper> papers = new ArrayList<>();
         return this.papers.remove(p);
     }
 
+
+
     private Paper getPaperDoi(String doi){
         for(Paper a : papers){
             if(a.getDoi().compareTo(doi) == 0){
@@ -131,12 +189,10 @@ private ArrayList<Paper> papers = new ArrayList<>();
 
     public static void main(String[] args) {
         LocalDate bdate = LocalDate.of(2000, 10, 10);
-        Author a = new Author(10, bdate, "ola", "4500-368", "1", "2", "3", "4", "5", "6" );
+        Author a = new Author(10L, bdate, "ola", "4500-368", "1", "2", "3", "4", "5", "6" );
 
         Date d2 = new Date();
        // Paper p = new Paper("ola", "1", "2", d2, a);
-
-
 
        /* p.setTitle("ola");
         a.papers.add(p);
@@ -146,7 +202,6 @@ private ArrayList<Paper> papers = new ArrayList<>();
         System.out.println(a.searchPaperYear("ola", (long)p.getDate().getYear()).getTitle());
         System.out.println("\n--\n");
         a.removePaperTitleYear("ola", (long)p.getDate().getYear());
-
 */
     }
 }

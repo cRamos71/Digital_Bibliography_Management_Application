@@ -3,7 +3,7 @@ package edu.ufp.inf.database;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
-
+import edu.ufp.inf.Graph.Graph;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.Date;
@@ -13,32 +13,52 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     private RedBlackBST<Date, A> dateAuthorsTree = new RedBlackBST<>();
     private RedBlackBST<Long, P> papersTree = new RedBlackBST<>();
     private RedBlackBST<Date, P> datePapersTree = new RedBlackBST<>();
-    private HashMap<Integer, A> mapUID = new HashMap<>();
+    private HashMap<Long, A> mapUID = new HashMap<>();
     private HashMap<String, P> mapDOI = new HashMap<>();
+
+    private HashMap<Long, String> mapRemovedA = new HashMap<>();
+
+    private HashMap<Long, Integer> graphAuthorsMap = new HashMap<>();
 
     Graph authorsGraph = new Graph(10);
 
     Digraph PapersDigraph = new Digraph(10);
-    private int uID;
+    private Long uID;
+
+    private Integer graphID;
 
     @Override
     public void insert(A author) {
         author.setIdNumber(this.uID++);
-        mapUID.put(author.getIdNumber(), author);
+        if (!mapUID.containsKey(author.getIdNumber()))
+            mapUID.put(author.getIdNumber(), author);
     }
 
     @Override
     public void update(A author) {
-
+        if (!mapUID.containsKey(author.getIdNumber())) return;
+        mapUID.put(author.getIdNumber(),author);
     }
     @Override
     public void remove(A author) {
         mapUID.remove(author.getIdNumber(), author);
+        mapRemovedA.put(author.getIdNumber(),author.getName());
+
+        removeAuthorPapersMap((ArrayList<P>) author.getPapers());
+    }
+
+    private void removeAuthorPapersMap(ArrayList<P> papers){
+        for (P p : papers){
+            ArrayList<Author> authorsAL = null;
+            authorsAL = p.getAuthors();
+            // only removes if the paper has only 1 author assigned
+            if (authorsAL.size() == 1) remove(p);
+        }
     }
 
     @Override
     public void listAuthors() {
-        for(Integer l : this.mapUID.keySet()){
+        for(Long l : this.mapUID.keySet()){
             System.out.println("Key : " + l + " Val: " + this.mapUID.get(l));
         }
     }
@@ -50,7 +70,8 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     }
     @Override
     public void update(P paper) {
-
+        if(!mapDOI.containsKey(paper.getDoi())) return;
+        mapDOI.put(paper.getDoi(), paper);
     }
     @Override
     public void remove(P paper) {
@@ -79,7 +100,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     }
 
 
-    public ArrayList<String> paperAuthorByIdPeriodIn(Integer idAuthor, LocalDate startDate, LocalDate endDate) {
+    public ArrayList<String> paperAuthorByIdPeriodIn(Long idAuthor, LocalDate startDate, LocalDate endDate) {
         RedBlackBST<Integer, ArrayList<String>> bstDate = new RedBlackBST<>();
         Author author = this.mapUID.get(idAuthor);
 
@@ -101,7 +122,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
         ArrayList<Author> authorsAL = new ArrayList<>();
         ArrayList<String> authorsAllPapers = new ArrayList<>();
 
-        for (Map.Entry<Integer, A> current : mapUID.entrySet()){
+        for (Map.Entry<Long, A> current : mapUID.entrySet()){
             Author a = current.getValue();
             if (a.getName().compareTo(nameAuthor) == 0){
                 authorsAL.add(a);
@@ -145,10 +166,6 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     }
 
 
-    public ArrayList<Paper> paperAuthorByOrcidPeriod(String orcidAuthor, LocalDate startDate, LocalDate endDate) {
-        //authorsTree.get();
-        return null;
-    }
 
     public ArrayList<Paper> papersNotDownloadedNotViewed() {
         ArrayList<Paper> papersFound = new ArrayList<>();
@@ -167,8 +184,33 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
      Function to get the number of co-authors of a given author
      */
     public int numberCoAuthors(Author a){
-        return this.authorsGraph.degree(a.getIdNumber());
+        int idA = graphAuthorsMap.get(a.getIdNumber());
+        return this.authorsGraph.degree(idA);
     }
+
+    /**
+     Function to get number of papers between 2 Authors
+
+     */
+    public int numberPapersBetweenAuthors(Author a1, Author a2) {
+        int idA1 = graphAuthorsMap.get(a1.getIdNumber());
+        int idA2 = graphAuthorsMap.get(a2.getIdNumber());
+        if(!authorsGraph.hasEdge(idA1, idA2)){
+            return 0;
+        }
+
+        int sharedEdges = 0;
+
+        for(Integer n : this.authorsGraph.adj(idA1)){
+            if(n.compareTo(idA2) == 0){
+                sharedEdges++;
+            }
+        }
+
+            return sharedEdges;
+    }
+
+
 
 
     public static void main(String[] args) {

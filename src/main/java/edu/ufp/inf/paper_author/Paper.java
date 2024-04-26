@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Paper {
-
    private String doi;
    private String title;
    private String keywords;
@@ -152,6 +151,7 @@ public class Paper {
         Date curr = new Date();
         if(!this.numLikesPerDay.containsKey(curr)){
             this.numLikesPerDay.put(curr, (long) 1);
+            this.totalNumLikes++;
         } else{
             this.numLikesPerDay.put(curr, (this.numLikesPerDay.get(curr)) + 1);
             this.totalNumLikes++;
@@ -173,17 +173,83 @@ public class Paper {
         return this.numLikesPerDay.get(d);
     }
 
+    public long getNumViewsYear(int year){
+        long totalViews = 0;
+        for ( Date d1 : numViewsPerDay.keySet()) {
+            long views = numViewsPerDay.get(d1);
+
+            int year2 = d1.getYear() + 1900;
+
+            // If the year matches the given year, add views to the total count
+            if (year2 == year) {
+                totalViews += views;
+            }
+        }
+        return totalViews;
+    }
+
+    public long getNumViewsMonth(short month,int year){
+        long totalViews = 0;
+        for (Date d1 : numViewsPerDay.keySet()) {
+            long views = numViewsPerDay.get(d1);
+
+            int year2 = d1.getYear() + 1900;
+            int m = d1.getMonth();
+
+            if (year2 == year && m == month) {
+                totalViews += views;
+            }
+        }
+        return totalViews;
+    }
+
+    public long getNumLikesYear(int year){
+        long totalLikes = 0;
+
+        for ( Date d1 : numLikesPerDay.keySet()) {
+            long views = numLikesPerDay.get(d1);
+
+            int year2 = d1.getYear() + 1900;
+
+            if (year2 == year) {
+                totalLikes += views;
+            }
+        }
+        return totalLikes;
+    }
+
+    public long getNumLikesMonth(int month, int year){
+        long totalLikes = 0;
+
+        for ( Date d1 : numLikesPerDay.keySet()) {
+            long views = numLikesPerDay.get(d1);
+
+            if (d1.getYear() == year && d1.getMonth() == month) {
+                totalLikes += views;
+            }
+        }
+        return totalLikes;
+    }
 
 
     public static void main(String[] args) {
         Paper p = new Paper();
         Date d1 = new Date();
         Date d2 = new Date(1, 12, 2020);
+
+        //p.setDate(d2);
         p.addView();
         p.addView();
         p.addView();
         p.addView();
+        p.addLike();
         System.out.println("Num views in " + d1.getDate()+ " " + p.getNumViewsDay(d1));
-        System.out.println(p.getNumViewsDay(d2));
+        System.out.println(p.getNumViewsDay(new Date()));
+
+
+        //System.out.println(p.getNumLikesYear());
+       // System.out.println(p.totalNumLikes);
+
+
     }
 }

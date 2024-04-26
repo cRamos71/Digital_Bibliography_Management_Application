@@ -52,7 +52,7 @@ public class TestDB {
             String googleScholarID = infoMap.get("googleScholarID");
             String ScopusAuthorID = infoMap.get("ScopusAuthorID");
             //System.out.println();
-            db.insert(new Author(-1, LocalDate.of(Integer.parseInt(birthDate[2]),Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0])), name, address, affiliation,penName, ORCID, scienceID, googleScholarID, ScopusAuthorID));
+            db.insert(new Author(-1L, LocalDate.of(Integer.parseInt(birthDate[2]),Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0])), name, address, affiliation,penName, ORCID, scienceID, googleScholarID, ScopusAuthorID));
         }
 
         db.listAuthors();
