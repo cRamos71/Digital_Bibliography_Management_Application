@@ -1,0 +1,7 @@
+nAuthors: 2
+Author: 0 ; birthDate: 2023-10-20; Name: Paulo; Address: 4500; penName: Joao, P. ; Affiliation: none; ORCID: 13292323242; scienceID: 3213331; googleScholarID: 3123114; ScopusAuthorID: 81392323
+nPapers: 1
+Paper: fagaaaa1; Title: O joaozinho ;Keywords: null ; anAbstract: null ; Date: 2023-10-20 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto
+Author: 1 ; birthDate: 2023-10-20; Name: Paulo; Address: 4500; penName: Carlos, P. ; Affiliation: none; ORCID: 13292323242; scienceID: 3213331; googleScholarID: 3123114; ScopusAuthorID: 81392323
+nPapers: 1
+Paper: fagaaaa1; Title: O joaozinho ;Keywords:  ; anAbstract:  ; Date: 2023-10-20 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto

@@ -11,8 +11,9 @@ public class PaperJournal extends Paper{
     private String scopusID;
 
 
-    public PaperJournal(String doi, String title, String keywords, String anAbstract, LocalDate date, Author a, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
-        super(doi, title, keywords, anAbstract, date, a);
+
+    public PaperJournal(String doi, String title, String keywords, String anAbstract, LocalDate date, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
+        super(doi, title, keywords, anAbstract, date);
         this.publisher = publisher;
         this.periodicity = periodicity;
         this.jcrIF = jcrIF;
@@ -75,7 +76,7 @@ public class PaperJournal extends Paper{
 
     @Override
     public String toString() {
-        return  "PaperJournal{" +
+        return super.toString() +  "PaperJournal{" +
                 "publisher='" + publisher + '\'' +
                 ", periodicity=" + periodicity +
                 ", jcrIF=" + jcrIF +

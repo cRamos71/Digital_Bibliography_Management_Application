@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataBaseLog {
-    private DataBase db;
 
+    private DataBase db;
     public DataBaseLog(DataBase db) {
         this.db = db;
     }
@@ -77,7 +77,7 @@ public class DataBaseLog {
 
             String DOI = infoMap.get("Paper");
             String Title = infoMap.get("Title");
-            String Keywords = infoMap.get("anAbstract");
+            String Keywords = infoMap.get("Keywords");
             String anAbstract = infoMap.get("anAbstract");
             String[] Date = infoMap.get("Date").strip().split("-");
             String numDownloads = infoMap.get("numDownloads");
@@ -110,7 +110,7 @@ public class DataBaseLog {
     public void saveAuthorsTxt(String fn) {
         Out fp = new Out(fn);
 
-        fp.println("nAuuthors: " + db.getMapUID().size());
+        fp.println("nAuthors: " + db.getMapUID().size());
         for (Object entry : db.getMapUID().keySet()) {
             Long id = (Long) entry;
             Author a = (Author) db.getMapUID().get(id);
@@ -146,8 +146,8 @@ public class DataBaseLog {
         DataBaseLog dbLog = new DataBaseLog(db);
 
         dbLog.fillDBA();
-
         db.listPapers();
+
 
         dbLog.saveAuthorsTxt("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/teste.txt");
 

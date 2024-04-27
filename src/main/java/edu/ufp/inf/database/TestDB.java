@@ -3,6 +3,7 @@ import edu.ufp.inf.paper_author.Periodicity;
 import edu.princeton.cs.algs4.In;
 import edu.ufp.inf.paper_author.*;
 
+import java.security.Key;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class TestDB {
     /**
         Insert Authors and Papers through a file
      */
-    public static void fillDB(){
+    public static void fillDBA(){
         In fp = new In("../../Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/authors.txt");
         String s = " ";
         int numAuthors = Integer.parseInt(fp.readLine().split(":")[1].trim());
@@ -108,8 +109,14 @@ public class TestDB {
     }
 
 
+    private void fillDBP(){
+
+    }
+
 
     public static void main(String[] args) {
-        fillDB();
+        fillDBA();
+        db.listAuthors();
+        db.listPapers();
     }
 }

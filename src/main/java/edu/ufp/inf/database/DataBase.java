@@ -112,7 +112,8 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
     @Override
     public void insert(A author) {
-        author.setIdNumber(this.uID++);
+        if (author.getIdNumber() == null)
+            author.setIdNumber(this.uID++);
         if (!mapUID.containsKey(author.getIdNumber()))
             mapUID.put(author.getIdNumber(), author);
     }
@@ -148,12 +149,13 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
     @Override
     public void insert(P paper) {
-        if (paper.getDoi() == null)
+        if (paper.getDoi() == null) {
             paper.setDoi(generateDoi());
-        if(paper instanceof PaperConference){
-            paper.setDoi(paper.getDoi() + "1");
-        }else if(paper instanceof  PaperJournal){
-            paper.setDoi(paper.getDoi() + "0");
+            if (paper instanceof PaperConference) {
+                paper.setDoi(paper.getDoi() + "1");
+            } else if (paper instanceof PaperJournal) {
+                paper.setDoi(paper.getDoi() + "0");
+            }
         }
 
         mapDOI.put(paper.getDoi() ,paper);
@@ -355,7 +357,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
        //System.out.println(pex);
 
-       db.listAuthors();
+       //db.listAuthors();
        db.listPapers();
     }
 }
