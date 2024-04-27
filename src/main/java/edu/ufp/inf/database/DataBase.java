@@ -4,11 +4,14 @@ import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
 import edu.ufp.inf.Graph.Graph;
+import edu.ufp.inf.paper_author.PaperConference;
+import edu.ufp.inf.paper_author.PaperJournal;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.Date;
 
-public class DataBase<A extends Author, P extends Paper> implements ManageAuthorsI<A>, ManagePapersI<P> {
+public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper> implements ManageAuthorsI<A>, ManagePapersI<P> {
     private RedBlackBST<Long, A> authorsTree = new RedBlackBST<>();
     private RedBlackBST<Date, A> dateAuthorsTree = new RedBlackBST<>();
     private RedBlackBST<Long, P> papersTree = new RedBlackBST<>();
@@ -23,9 +26,89 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
     Graph authorsGraph = new Graph(10);
 
     Digraph PapersDigraph = new Digraph(10);
-    private Long uID;
+    private Long uID = 0L;
 
     private Integer graphID;
+
+    public RedBlackBST<Long, A> getAuthorsTree() {
+        return authorsTree;
+    }
+
+    public void setAuthorsTree(RedBlackBST<Long, A> authorsTree) {
+        this.authorsTree = authorsTree;
+    }
+
+    public RedBlackBST<Date, A> getDateAuthorsTree() {
+        return dateAuthorsTree;
+    }
+
+    public void setDateAuthorsTree(RedBlackBST<Date, A> dateAuthorsTree) {
+        this.dateAuthorsTree = dateAuthorsTree;
+    }
+
+    public RedBlackBST<Long, P> getPapersTree() {
+        return papersTree;
+    }
+
+    public void setPapersTree(RedBlackBST<Long, P> papersTree) {
+        this.papersTree = papersTree;
+    }
+
+    public RedBlackBST<Date, P> getDatePapersTree() {
+        return datePapersTree;
+    }
+
+    public void setDatePapersTree(RedBlackBST<Date, P> datePapersTree) {
+        this.datePapersTree = datePapersTree;
+    }
+
+    public HashMap<Long, A> getMapUID() {
+        return mapUID;
+    }
+
+    public void setMapUID(HashMap<Long, A> mapUID) {
+        this.mapUID = mapUID;
+    }
+
+    public HashMap<String, P> getMapDOI() {
+        return mapDOI;
+    }
+
+    public void setMapDOI(HashMap<String, P> mapDOI) {
+        this.mapDOI = mapDOI;
+    }
+
+    public HashMap<Long, String> getMapRemovedA() {
+        return mapRemovedA;
+    }
+
+    public void setMapRemovedA(HashMap<Long, String> mapRemovedA) {
+        this.mapRemovedA = mapRemovedA;
+    }
+
+    public HashMap<Long, Integer> getGraphAuthorsMap() {
+        return graphAuthorsMap;
+    }
+
+    public void setGraphAuthorsMap(HashMap<Long, Integer> graphAuthorsMap) {
+        this.graphAuthorsMap = graphAuthorsMap;
+    }
+
+    public Graph getAuthorsGraph() {
+        return authorsGraph;
+    }
+
+    public void setAuthorsGraph(Graph authorsGraph) {
+        this.authorsGraph = authorsGraph;
+    }
+
+    public Digraph getPapersDigraph() {
+        return PapersDigraph;
+    }
+
+    public void setPapersDigraph(Digraph papersDigraph) {
+        PapersDigraph = papersDigraph;
+    }
 
     @Override
     public void insert(A author) {
@@ -65,7 +148,14 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
 
     @Override
     public void insert(P paper) {
-        paper.setDoi(generateDoi());
+        if (paper.getDoi() == null)
+            paper.setDoi(generateDoi());
+        if(paper instanceof PaperConference){
+            paper.setDoi(paper.getDoi() + "1");
+        }else if(paper instanceof  PaperJournal){
+            paper.setDoi(paper.getDoi() + "0");
+        }
+
         mapDOI.put(paper.getDoi() ,paper);
     }
     @Override
@@ -227,7 +317,7 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
 
         p1.setDate(bdate);
         p1.setTitle("A historia de Joel, o Homem!");
-        Paper p2 = new Paper();
+        Paper p2 = new PaperConference();
         p2.setDate(bdate1);
         p2.setTitle("A historia de Joelzinho, o Rapaz!");
         p2.setDate(bdate1);
@@ -261,9 +351,9 @@ public class DataBase<A extends Author, P extends Paper> implements ManageAuthor
 
        System.out.println(testAuthorName);*/
 
-       ArrayList<Paper> pex = db.top3PapersMostDownloads();
+      // ArrayList<Paper> pex = db.top3PapersMostDownloads();
 
-       System.out.println(pex);
+       //System.out.println(pex);
 
        db.listAuthors();
        db.listPapers();

@@ -19,6 +19,15 @@ public class PaperJournal extends Paper{
         this.scopusID = scopusID;
     }
 
+    public PaperJournal(String doi, String title, String keywords, String anAbstract, LocalDate date, Long totalLikes, Long totalViews, Long totalDownloads, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
+        super(doi, title, keywords, anAbstract, date, totalLikes, totalViews, totalDownloads);
+        this.publisher = publisher;
+        this.periodicity = periodicity;
+        this.jcrIF = jcrIF;
+        this.scopusID = scopusID;
+    }
+
+
     public String getPublisher() {
         return publisher;
     }
@@ -66,7 +75,7 @@ public class PaperJournal extends Paper{
 
     @Override
     public String toString() {
-        return super.toString() +  "PaperJournal{" +
+        return  "PaperJournal{" +
                 "publisher='" + publisher + '\'' +
                 ", periodicity=" + periodicity +
                 ", jcrIF=" + jcrIF +

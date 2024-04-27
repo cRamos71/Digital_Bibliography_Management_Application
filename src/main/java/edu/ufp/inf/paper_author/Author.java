@@ -36,6 +36,18 @@ private ArrayList<Paper> papers = new ArrayList<>();
         this.scopusAuthorID = scopusAuthorID;
     }
 
+    public Author( LocalDate birthDate, String name, String address, String penName, String affiliation, String orcID, String scienceID, String googleScholarID, String scopusAuthorID) {
+        super( birthDate, name, address);
+        this.penName = penName;
+        this.affiliation = affiliation;
+        this.orcID = orcID;
+        this.scienceID = scienceID;
+        this.googleScholarID = googleScholarID;
+        this.scopusAuthorID = scopusAuthorID;
+    }
+
+
+
     public String getPenName() {
         return penName;
     }

@@ -20,13 +20,25 @@ public class Paper {
     public Paper() {
     }
 
-    public Paper(String doi, String title, String keywords, String anAbstract, LocalDate date, Author a) {
+    public Paper(String doi, String title, String keywords, String anAbstract, LocalDate date) {
         this.doi = doi;
         this.title = title;
         this.keywords = keywords;
         this.anAbstract = anAbstract;
         this.date = date;
     }
+
+    public Paper(String doi, String title, String keywords, String anAbstract, LocalDate date, Long totalLikes, Long totalViews, Long totalDownloads) {
+        this.doi = doi;
+        this.title = title;
+        this.keywords = keywords;
+        this.anAbstract = anAbstract;
+        this.date = date;
+        this.totalNumLikes = totalLikes;
+        this.totalNumViews = totalViews;
+        this.numDownloads = totalDownloads;
+    }
+
 
 
     public Long getTotalNumViews() {

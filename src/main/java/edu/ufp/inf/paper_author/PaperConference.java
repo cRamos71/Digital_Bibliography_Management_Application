@@ -1,6 +1,7 @@
 package edu.ufp.inf.paper_author;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class PaperConference {
     private Integer editionNumber;
