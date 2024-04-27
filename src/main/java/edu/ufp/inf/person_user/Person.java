@@ -23,6 +23,12 @@ public class Person {
         this.address = address;
     }
 
+    public Person(LocalDate birthDate, String name, String address) {
+        this.birthDate = birthDate;
+        this.name = name;
+        this.address = address;
+    }
+
 
     public Long getIdNumber() {
         return idNumber;
