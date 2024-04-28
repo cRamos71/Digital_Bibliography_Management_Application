@@ -1,18 +1,18 @@
 package edu.ufp.inf.Graph;
 
-import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.*;
 
-public class Graph extends edu.princeton.cs.algs4.Graph {
+public class UGraph extends edu.princeton.cs.algs4.Graph {
 
-    public Graph(int V) {
+    public UGraph(int V) {
         super(V);
     }
 
-    public Graph(In in) {
+    public UGraph(In in) {
         super(in);
     }
 
-    public Graph(edu.princeton.cs.algs4.Graph G) {
+    public UGraph(edu.princeton.cs.algs4.Graph G) {
         super(G);
     }
 
