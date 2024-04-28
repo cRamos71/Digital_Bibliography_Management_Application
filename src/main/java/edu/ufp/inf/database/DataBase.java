@@ -3,7 +3,7 @@ package edu.ufp.inf.database;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
-import edu.ufp.inf.Graph.Graph;
+import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
 
@@ -23,7 +23,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
     private HashMap<Long, Integer> graphAuthorsMap = new HashMap<>();
 
-    Graph authorsGraph = new Graph(10);
+    UGraph authorsUGraph = new UGraph(10);
 
     Digraph PapersDigraph = new Digraph(10);
     private Long uID = 0L;
@@ -94,12 +94,12 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         this.graphAuthorsMap = graphAuthorsMap;
     }
 
-    public Graph getAuthorsGraph() {
-        return authorsGraph;
+    public UGraph getAuthorsGraph() {
+        return authorsUGraph;
     }
 
-    public void setAuthorsGraph(Graph authorsGraph) {
-        this.authorsGraph = authorsGraph;
+    public void setAuthorsGraph(UGraph authorsUGraph) {
+        this.authorsUGraph = authorsUGraph;
     }
 
     public Digraph getPapersDigraph() {
@@ -277,7 +277,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
      */
     public int numberCoAuthors(Author a){
         int idA = graphAuthorsMap.get(a.getIdNumber());
-        return this.authorsGraph.degree(idA);
+        return this.authorsUGraph.degree(idA);
     }
 
     /**
@@ -287,13 +287,13 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     public int numberPapersBetweenAuthors(Author a1, Author a2) {
         int idA1 = graphAuthorsMap.get(a1.getIdNumber());
         int idA2 = graphAuthorsMap.get(a2.getIdNumber());
-        if(!authorsGraph.hasEdge(idA1, idA2)){
+        if(!authorsUGraph.hasEdge(idA1, idA2)){
             return 0;
         }
 
         int sharedEdges = 0;
 
-        for(Integer n : this.authorsGraph.adj(idA1)){
+        for(Integer n : this.authorsUGraph.adj(idA1)){
             if(n.compareTo(idA2) == 0){
                 sharedEdges++;
             }
