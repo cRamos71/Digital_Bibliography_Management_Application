@@ -58,24 +58,22 @@ public class UGraph extends Graph {
         return true;
     }
 
-    public void dfsConnected(int v, boolean[] visited, int[] numVisited) {
-        visited[v] = true;
-        numVisited[0]++;
-        for (int neighbor : super.adj(v)) {
-            if (!visited[neighbor]) {
-                dfsConnected(neighbor, visited, numVisited);
+    public boolean isConexo() {
+        int V = super.V();
+        boolean[] visited = new boolean[V];
+        Arrays.fill(visited, false);
+        int count = 0;
+
+        for (int v = 0; v < V; v++) {
+            if (!visited[v]) {
+                dfs(v, visited);
+                count++;
             }
         }
+        return count == 1;
     }
 
-    public boolean isConexo() {
-        boolean[] visited = new boolean[super.V()];
-        int num[] = new int[1];
-        num[0] = 0;
-        dfsConnected(0, visited, num);
 
-        return num[0] == this.V();
-    }
 
     private Set<Integer> vertexSet(){
         Set<Integer> set = new HashSet<>();
@@ -101,7 +99,6 @@ public class UGraph extends Graph {
     }
 
     public Integer minimumHopsBetween(int orig, int dest){
-
         boolean marked[] = new boolean[super.V()];
         int edgeTo[] = new int[super.V()];
         int distTo[] = new int[super.V()];
@@ -132,10 +129,9 @@ public class UGraph extends Graph {
         Graph g1 = new Graph(new In("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/graphE.txt"));
         UGraph ug = new UGraph(g1);
 
-
-
         System.out.println(ug.minimumHopsBetween(0, 3));
         System.out.println(ug.isConexo());
+        System.out.println(ug.isConexov2());
     }
 
 }
