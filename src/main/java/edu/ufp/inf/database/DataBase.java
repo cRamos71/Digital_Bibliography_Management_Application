@@ -1,6 +1,7 @@
 package edu.ufp.inf.database;
 
 import edu.princeton.cs.algs4.*;
+import edu.ufp.inf.ManageGraphs.AuthorsGraph;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
 import edu.ufp.inf.Graph.UGraph;
@@ -16,17 +17,14 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     private RedBlackBST<Date, A> dateAuthorsTree = new RedBlackBST<>();
     private RedBlackBST<Long, P> papersTree = new RedBlackBST<>();
     private RedBlackBST<Date, P> datePapersTree = new RedBlackBST<>();
-    private HashMap<Long, A> mapUID = new HashMap<>();
+    private HashMap<Integer, A> mapUID = new HashMap<>();
     private HashMap<String, P> mapDOI = new HashMap<>();
 
-    private HashMap<Long, String> mapRemovedA = new HashMap<>();
+    private HashMap<Integer, String> mapRemovedA = new HashMap<>();
 
-    private HashMap<Long, Integer> graphAuthorsMap = new HashMap<>();
-
-    UGraph authorsUGraph = new UGraph(10);
-
+    private AuthorsGraph aGraph = new AuthorsGraph(new UGraph(10), this.mapUID);
     Digraph PapersDigraph = new Digraph(10);
-    private Long uID = 0L;
+    private Integer uID = 0;
 
     private Integer graphID;
 
@@ -62,11 +60,11 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         this.datePapersTree = datePapersTree;
     }
 
-    public HashMap<Long, A> getMapUID() {
+    public HashMap<Integer, A> getMapUID() {
         return mapUID;
     }
 
-    public void setMapUID(HashMap<Long, A> mapUID) {
+    public void setMapUID(HashMap<Integer, A> mapUID) {
         this.mapUID = mapUID;
     }
 
@@ -78,29 +76,14 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         this.mapDOI = mapDOI;
     }
 
-    public HashMap<Long, String> getMapRemovedA() {
+    public HashMap<Integer, String> getMapRemovedA() {
         return mapRemovedA;
     }
 
-    public void setMapRemovedA(HashMap<Long, String> mapRemovedA) {
+    public void setMapRemovedA(HashMap<Integer, String> mapRemovedA) {
         this.mapRemovedA = mapRemovedA;
     }
 
-    public HashMap<Long, Integer> getGraphAuthorsMap() {
-        return graphAuthorsMap;
-    }
-
-    public void setGraphAuthorsMap(HashMap<Long, Integer> graphAuthorsMap) {
-        this.graphAuthorsMap = graphAuthorsMap;
-    }
-
-    public UGraph getAuthorsGraph() {
-        return authorsUGraph;
-    }
-
-    public void setAuthorsGraph(UGraph authorsUGraph) {
-        this.authorsUGraph = authorsUGraph;
-    }
 
     public Digraph getPapersDigraph() {
         return PapersDigraph;
@@ -142,7 +125,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
     @Override
     public void listAuthors() {
-        for(Long l : this.mapUID.keySet()){
+        for(Integer l : this.mapUID.keySet()){
             System.out.println("Key : " + l + " Val: " + this.mapUID.get(l));
         }
     }
@@ -192,7 +175,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
 
-    public ArrayList<String> paperAuthorByIdPeriodIn(Long idAuthor, LocalDate startDate, LocalDate endDate) {
+    public ArrayList<String> paperAuthorByIdPeriodIn(Integer idAuthor, LocalDate startDate, LocalDate endDate) {
         RedBlackBST<Integer, ArrayList<String>> bstDate = new RedBlackBST<>();
         Author author = this.mapUID.get(idAuthor);
 
@@ -214,7 +197,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         ArrayList<Author> authorsAL = new ArrayList<>();
         ArrayList<String> authorsAllPapers = new ArrayList<>();
 
-        for (Map.Entry<Long, A> current : mapUID.entrySet()){
+        for (Map.Entry<Integer, A> current : mapUID.entrySet()){
             Author a = current.getValue();
             if (a.getName().compareTo(nameAuthor) == 0){
                 authorsAL.add(a);
@@ -271,37 +254,6 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
       return papersFound;
     }
-    /**
-    @param a -
-     Function to get the number of co-authors of a given author
-     */
-    public int numberCoAuthors(Author a){
-        int idA = graphAuthorsMap.get(a.getIdNumber());
-        return this.authorsUGraph.degree(idA);
-    }
-
-    /**
-     Function to get number of papers between 2 Authors
-
-     */
-    public int numberPapersBetweenAuthors(Author a1, Author a2) {
-        int idA1 = graphAuthorsMap.get(a1.getIdNumber());
-        int idA2 = graphAuthorsMap.get(a2.getIdNumber());
-        if(!authorsUGraph.hasEdge(idA1, idA2)){
-            return 0;
-        }
-
-        int sharedEdges = 0;
-
-        for(Integer n : this.authorsUGraph.adj(idA1)){
-            if(n.compareTo(idA2) == 0){
-                sharedEdges++;
-            }
-        }
-
-            return sharedEdges;
-    }
-
 
 
 

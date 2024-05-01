@@ -47,13 +47,12 @@ public class DataBaseLog {
             String googleScholarID = infoMap.get("googleScholarID");
             String ScopusAuthorID = infoMap.get("ScopusAuthorID");
             edu.ufp.inf.paper_author.Author a = new Author(LocalDate.of(Integer.parseInt(birthDate[2]), Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0])), name, address, penName, affiliation, ORCID, scienceID, googleScholarID, ScopusAuthorID);
-            a.setIdNumber(Long.parseLong(Author));
+            a.setIdNumber(Integer.parseInt(Author));
             db.insert(a);
             fillAuthorPapers(a, fp);
         }
 
         //db.listAuthors();
-
         fp.close();
     }
 

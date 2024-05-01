@@ -2,7 +2,11 @@ package edu.ufp.inf.Graph;
 
 import edu.princeton.cs.algs4.*;
 
-public class UGraph extends edu.princeton.cs.algs4.Graph {
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class UGraph extends Graph {
 
     public UGraph(int V) {
         super(V);
@@ -12,7 +16,7 @@ public class UGraph extends edu.princeton.cs.algs4.Graph {
         super(in);
     }
 
-    public UGraph(edu.princeton.cs.algs4.Graph G) {
+    public UGraph(Graph G) {
         super(G);
     }
 
@@ -52,6 +56,52 @@ public class UGraph extends edu.princeton.cs.algs4.Graph {
             }
         }
         return true;
+    }
+
+    public void dfsConnected(int v, boolean[] visited, int[] numVisited) {
+        visited[v] = true;
+        numVisited[0]++;
+        for (int neighbor : super.adj(v)) {
+            if (!visited[neighbor]) {
+                dfs(neighbor, visited);
+            }
+        }
+    }
+
+    public boolean isConexo() {
+        boolean[] visited = new boolean[super.V()];
+        int num[] = new int[1];
+        num[0] = 1;
+        dfsConnected(0, visited, num);
+
+        return num[0] == this.vertexSet().size();
+    }
+
+    public Set<Integer> vertexSet(){
+        Set<Integer> set = new HashSet<>();
+        for(int i = 0 ; i < super.V(); i++){
+            set.add(i);
+        }
+        return set;
+    }
+
+    public boolean isConexov2() {
+        boolean[] visited = new boolean[super.V()];
+        Arrays.fill(visited, false);
+
+        dfs(0, visited);
+
+        // Check if all vertices have been visited
+        for (boolean v : visited) {
+            if (!v) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+
     }
 
 
