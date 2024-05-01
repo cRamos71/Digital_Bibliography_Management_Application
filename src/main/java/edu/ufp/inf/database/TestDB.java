@@ -48,7 +48,7 @@ public class TestDB {
             String ScopusAuthorID = infoMap.get("ScopusAuthorID");
            // System.out.println();
             Author a = new Author(LocalDate.of(Integer.parseInt(birthDate[2]),Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0])), name, address,penName, affiliation, ORCID, scienceID, googleScholarID, ScopusAuthorID);
-            a.setIdNumber(Long.parseLong(Author));
+            a.setIdNumber(Integer.parseInt(Author));
             db.insert(a);
             fillAuthorPapers(a,fp);
         }

@@ -26,7 +26,7 @@ private ArrayList<Paper> papers = new ArrayList<>();
     public Author() {
     }
 
-    public Author(Long idNumber, LocalDate birthDate, String name, String address, String penName, String affiliation, String orcID, String scienceID, String googleScholarID, String scopusAuthorID) {
+    public Author(Integer idNumber, LocalDate birthDate, String name, String address, String penName, String affiliation, String orcID, String scienceID, String googleScholarID, String scopusAuthorID) {
         super(idNumber, birthDate, name, address);
         this.penName = penName;
         this.affiliation = affiliation;
@@ -201,7 +201,7 @@ private ArrayList<Paper> papers = new ArrayList<>();
 
     public static void main(String[] args) {
         LocalDate bdate = LocalDate.of(2000, 10, 10);
-        Author a = new Author(10L, bdate, "ola", "4500-368", "1", "2", "3", "4", "5", "6" );
+        Author a = new Author(10, bdate, "ola", "4500-368", "1", "2", "3", "4", "5", "6" );
 
         Date d2 = new Date();
        // Paper p = new Paper("ola", "1", "2", d2, a);

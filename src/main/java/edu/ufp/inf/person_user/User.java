@@ -15,7 +15,7 @@ public class User extends Person{
     public User() {
     }
 
-    public User(Long idNumber, LocalDate birthDate, String name, String address, String username, String password, String email, String zip, Integer phoneNumber, String countryCode) {
+    public User(Integer idNumber, LocalDate birthDate, String name, String address, String username, String password, String email, String zip, Integer phoneNumber, String countryCode) {
         super(idNumber, birthDate, name, address);
         this.username = username;
         this.password = password;
