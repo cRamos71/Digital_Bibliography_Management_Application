@@ -101,9 +101,12 @@ public class UGraph extends Graph {
     }
 
     public static void main(String[] args) {
+        Graph g1 = new Graph(2);
+        g1.addEdge(0, 1);
+        g1.addEdge(0, 1);
 
+
+        System.out.println(g1.E());
     }
-
-
 
 }
