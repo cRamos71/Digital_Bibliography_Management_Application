@@ -14,6 +14,6 @@ module edu.ufp {
     requires java.desktop;
     requires spring.security.core;
 
-    opens edu.ufp.inf.lp2.p06_gui_javafx.helloword to javafx.fxml;
-    exports edu.ufp.inf.p06_gui_javafx.helloword;
+  /*  opens edu.ufp.inf.javafx.Models to javafx.fxml;
+    exports edu.ufp.inf.javafx.Controllers;*/
 }

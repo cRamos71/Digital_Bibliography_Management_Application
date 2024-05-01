@@ -58,26 +58,24 @@ public class UGraph extends Graph {
         return true;
     }
 
-    public void dfsConnected(int v, boolean[] visited, int[] numVisited) {
-        visited[v] = true;
-        numVisited[0]++;
-        for (int neighbor : super.adj(v)) {
-            if (!visited[neighbor]) {
-                dfs(neighbor, visited);
+    public boolean isConexo() {
+        int V = super.V();
+        boolean[] visited = new boolean[V];
+        Arrays.fill(visited, false);
+        int count = 0;
+
+        for (int v = 0; v < V; v++) {
+            if (!visited[v]) {
+                dfs(v, visited);
+                count++;
             }
         }
+        return count == 1;
     }
 
-    public boolean isConexo() {
-        boolean[] visited = new boolean[super.V()];
-        int num[] = new int[1];
-        num[0] = 1;
-        dfsConnected(0, visited, num);
 
-        return num[0] == this.vertexSet().size();
-    }
 
-    public Set<Integer> vertexSet(){
+    private Set<Integer> vertexSet(){
         Set<Integer> set = new HashSet<>();
         for(int i = 0 ; i < super.V(); i++){
             set.add(i);
@@ -100,13 +98,40 @@ public class UGraph extends Graph {
         return true;
     }
 
+    public Integer minimumHopsBetween(int orig, int dest){
+        boolean marked[] = new boolean[super.V()];
+        int edgeTo[] = new int[super.V()];
+        int distTo[] = new int[super.V()];
+
+        Queue<Integer> q = new Queue<>();
+        q.enqueue(orig);
+        marked[orig] = true;
+        distTo[orig] = 0;
+        while (!q.isEmpty()) {
+            int v = q.dequeue();
+            for (int w : super.adj(v)) {
+                if (!marked[w]) {
+                    q.enqueue(w);
+                    marked[w] = true;
+                    edgeTo[w] = v;
+                    distTo[w] = distTo[v] + 1;
+                }
+                if(w == dest){
+                    return distTo[w];
+                }
+            }
+        }
+        return -1;
+    }
+
+
     public static void main(String[] args) {
-        Graph g1 = new Graph(2);
-        g1.addEdge(0, 1);
-        g1.addEdge(0, 1);
+        Graph g1 = new Graph(new In("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/graphE.txt"));
+        UGraph ug = new UGraph(g1);
 
-
-        System.out.println(g1.E());
+        System.out.println(ug.minimumHopsBetween(0, 3));
+        System.out.println(ug.isConexo());
+        System.out.println(ug.isConexov2());
     }
 
 }

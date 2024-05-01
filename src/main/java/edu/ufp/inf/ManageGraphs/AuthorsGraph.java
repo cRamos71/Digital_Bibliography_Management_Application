@@ -1,41 +1,54 @@
 package edu.ufp.inf.ManageGraphs;
-
-import edu.princeton.cs.algs4.Graph;
+import edu.princeton.cs.algs4.BreadthFirstPaths;
+import edu.princeton.cs.algs4.Queue;
 import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 public class AuthorsGraph<A extends Author, P extends Paper> {
    private UGraph authorsUGraph;
-   private HashMap<Integer, A> authorsMap;
+   private HashMap<Integer, A> authorsMap = new HashMap<>();
+   private Integer ids = 0;
 
-   public AuthorsGraph(UGraph authorsUGraph, HashMap<Integer, A> hashA) {
-      this.authorsUGraph = authorsUGraph;
-      this.authorsMap = hashA;
-   }
 
-   public AuthorsGraph(UGraph authorsUGraph) {
+  public AuthorsGraph(UGraph authorsUGraph) {
       this.authorsUGraph = authorsUGraph;
    }
 
+   public AuthorsGraph(UGraph authorsUGraph, HashMap<Integer, A> hashAuthor) {
+      this.authorsUGraph = authorsUGraph;
+       for (Integer k : hashAuthor.keySet()){
+           this.authorsMap.put(this.ids++, hashAuthor.get(k));
+       }
+   }
 
-  /* public void addCoAuthor(Author v, Author w, Paper p){
-      edgesMap.put(authorsUGraph.E(),  p);
-      authorsUGraph.addEdge(v.getIdNumber(), w.getIdNumber());
-   }*/
+
+   private Integer getIDMapGraph(Author a){
+       for (Integer k : authorsMap.keySet()){
+           if(authorsMap.get(k).equals((a))) return k;
+       }
+       return -1;
+   }
 
    /**
     @param a -
     Function to get the number of co-authors of a given author
     */
    public int numberCoAuthors(Author a){
-      return this.authorsUGraph.degree(a.getIdNumber());
+       int id = getIDMapGraph(a);
+       ArrayList<Integer> arr = new ArrayList<>();
+       int count = 0; // Cost-effective
+
+       for (Integer key : authorsUGraph.adj(id)){
+           if(!arr.contains(key)){
+               arr.add(id);
+               count++;
+           }
+       }
+       return count;
    }
 
    /**
@@ -43,8 +56,8 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
 
     */
    public int numPapersBetweenAuthors(Author a1, Author a2) {
-      int idA1 = a1.getIdNumber();
-      int idA2 = a2.getIdNumber();
+      int idA1 = getIDMapGraph(a1);
+      int idA2 = getIDMapGraph(a2);
       if(!authorsUGraph.hasEdge(idA1, idA2)){
          return 0;
       }
@@ -60,27 +73,53 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
    }
 
    public AuthorsGraph subGraphAuthorsFilter(String affiliation){
-      Set<Integer> setVertex = new HashSet<>();
+      HashMap<Integer, A> setVertex = new HashMap<>();
       //search in map the Authors who are of a given affiliation
       for (Integer id : this.authorsMap.keySet()){
          if(authorsMap.get(id).getAffiliation().compareTo(affiliation) == 0){
-            setVertex.add(id);
+            setVertex.put(id,authorsMap.get(id));
          }
       }
 
       if(setVertex.isEmpty()) return null;
       UGraph ug = new UGraph(setVertex.size());
 
-      for (Integer v : setVertex){
+      for (Integer v : setVertex.keySet()){
          for(Integer w : this.authorsUGraph.adj(v)){
-            if(setVertex.contains(w)){
+            if(setVertex.containsKey(w)){
                ug.addEdge(v, w);
             }
          }
       }
 
-      AuthorsGraph subGraph = new AuthorsGraph(ug);
+      AuthorsGraph subGraph = new AuthorsGraph(ug, setVertex);
       return subGraph;
+   }
+
+   public Integer minimumHopsBetweenAuthors(A author1, A author2){
+       int a1 = getIDMapGraph(author1);
+       int a2 = getIDMapGraph(author2);
+
+       return this.authorsUGraph.minimumHopsBetween(a1, a2);
+   }
+
+   public void listVertexAuthorAffilliation(String affiliation){
+       HashMap<Integer, A> vertexMap = new HashMap<>();
+       //search in map the Authors who are of a given affiliation
+       for (Integer id : this.authorsMap.keySet()){
+           if(authorsMap.get(id).getAffiliation().compareTo(affiliation) == 0){
+               vertexMap.put(id,authorsMap.get(id));
+               System.out.println(id);
+           }
+       }
+
+       for(Integer v : vertexMap.keySet()){
+           for(Integer w : this.authorsUGraph.adj(v)){
+               if(vertexMap.containsKey(w))
+                   System.out.println("EDGE: " + v + " : "   + w);
+           }
+       }
+
    }
 
 
@@ -106,23 +145,35 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
       a2.setAffiliation("PT");
       a2.setIdNumber(1);
       aMap.put(1, a2);
+
+       Author a3 = new Author();
+       a3.setPenName("olasolas");
+       a3.setAffiliation("nigga");
+       a3.setIdNumber(2);
+       aMap.put(2, a3);
+
       Paper p1 = new Paper();
       p1.setTitle("jkjk");
-      UGraph ug = new UGraph(2);
-      ug.addEdge(1, 0);
-      AuthorsGraph aG = new AuthorsGraph(ug, aMap);
-      System.out.println(aG.numberCoAuthors(a1));
+      UGraph ug = new UGraph(3);
+      ug.addEdge(0, 1);
+       ug.addEdge(0, 2);
+
+
+       AuthorsGraph aG = new AuthorsGraph(ug, aMap);
+      //System.out.println(aG.numberCoAuthors(a1));
       boolean[] visited = new boolean[2];
       int num[] = new int[1];
       num[0] = 0;
      // aG.addCoAuthor(a1,a2,  p1);
       //System.out.println("Edges: " + aG.edges());
-      ug.dfsConnected(0, visited, num);
-      System.out.println(num[0]);
-      System.out.println(ug.isConexo());
-      System.out.println(ug.isConexo());
-      AuthorsGraph ag2 = aG.subGraphAuthorsFilter("PT");
-      System.out.println(ag2.edges());
+      //ug.dfsConnected(0, visited, num);
+      //System.out.println(num[0]);
+      //System.out.println(ug.isConexo());
+      //System.out.println(ug.isConexo());
+      //AuthorsGraph ag2 = aG.subGraphAuthorsFilter("PT");
+      aG.listVertexAuthorAffilliation("PT");
+      //System.out.println(ug.adj(0));
+      //System.out.println(ag2.edges());
 
    }
 }
