@@ -1,14 +1,19 @@
 package edu.ufp.inf.paper_author;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import edu.princeton.cs.algs4.Date;
 
 public class Paper {
    private String doi;
    private String title;
    private String keywords;
    private String anAbstract;
-   private LocalDate date;
+   private Date date;
    private Long numDownloads = 0L;
    private Long totalNumViews = 0L;
    private Long totalNumLikes = 0L;
@@ -17,10 +22,12 @@ public class Paper {
 
    private ArrayList<Author> authors = new ArrayList<>();
 
+   private ArrayList<Paper> quotes = new ArrayList<>();
+
     public Paper() {
     }
 
-    public Paper(String doi, String title, String keywords, String anAbstract, LocalDate date) {
+    public Paper(String doi, String title, String keywords, String anAbstract, Date date) {
         this.doi = doi;
         this.title = title;
         this.keywords = keywords;
@@ -28,7 +35,7 @@ public class Paper {
         this.date = date;
     }
 
-    public Paper(String doi, String title, String keywords, String anAbstract, LocalDate date, Long totalLikes, Long totalViews, Long totalDownloads) {
+    public Paper(String doi, String title, String keywords, String anAbstract, Date date, Long totalLikes, Long totalViews, Long totalDownloads) {
         this.doi = doi;
         this.title = title;
         this.keywords = keywords;
@@ -93,11 +100,11 @@ public class Paper {
         this.anAbstract = anAbstract;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -113,12 +120,12 @@ public class Paper {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Paper paper)) return false;
-        return Objects.equals(title, paper.title) && Objects.equals(keywords, paper.keywords) && Objects.equals(anAbstract, paper.anAbstract) && Objects.equals(date, paper.date) && Objects.equals(numDownloads, paper.numDownloads) && Objects.equals(numViewsPerDay, paper.numViewsPerDay) && Objects.equals(numLikesPerDay, paper.numLikesPerDay);
+        return Objects.equals(doi, paper.doi) && Objects.equals(title, paper.title) && Objects.equals(keywords, paper.keywords) && Objects.equals(anAbstract, paper.anAbstract) && Objects.equals(date, paper.date) && Objects.equals(numDownloads, paper.numDownloads) && Objects.equals(totalNumViews, paper.totalNumViews) && Objects.equals(totalNumLikes, paper.totalNumLikes) && Objects.equals(numViewsPerDay, paper.numViewsPerDay) && Objects.equals(numLikesPerDay, paper.numLikesPerDay) && Objects.equals(authors, paper.authors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, keywords, anAbstract, date, numDownloads, numViewsPerDay, numLikesPerDay);
+        return Objects.hash(doi, title, keywords, anAbstract, date, numDownloads, totalNumViews, totalNumLikes, numViewsPerDay, numLikesPerDay, authors);
     }
 
     @Override
@@ -149,7 +156,8 @@ public class Paper {
      *
      */
     public void addView(){
-        Date curr = new Date();
+        edu.ufp.inf.Util.Date d =new edu.ufp.inf.Util.Date(); // auto day gen
+        Date curr = new Date(d.getMonth(), d.getDay(), d.getYear());
         if(!this.numViewsPerDay.containsKey(curr)){
             this.numViewsPerDay.put(curr, (long) 1);
             this.totalNumViews++;
@@ -160,7 +168,8 @@ public class Paper {
     }
 
     public void addLike(){
-        Date curr = new Date();
+        edu.ufp.inf.Util.Date d =new edu.ufp.inf.Util.Date(); // auto day gen
+        Date curr = new Date(d.getMonth(), d.getDay(), d.getYear());
         if(!this.numLikesPerDay.containsKey(curr)){
             this.numLikesPerDay.put(curr, (long) 1);
             this.totalNumLikes++;
@@ -190,7 +199,7 @@ public class Paper {
         for ( Date d1 : numViewsPerDay.keySet()) {
             long views = numViewsPerDay.get(d1);
 
-            int year2 = d1.getYear() + 1900;
+            int year2 = d1.year();
 
             // If the year matches the given year, add views to the total count
             if (year2 == year) {
@@ -205,8 +214,8 @@ public class Paper {
         for (Date d1 : numViewsPerDay.keySet()) {
             long views = numViewsPerDay.get(d1);
 
-            int year2 = d1.getYear() + 1900;
-            int m = d1.getMonth();
+            int year2 = d1.year();
+            int m = d1.month();
 
             if (year2 == year && m == month) {
                 totalViews += views;
@@ -221,7 +230,7 @@ public class Paper {
         for ( Date d1 : numLikesPerDay.keySet()) {
             long views = numLikesPerDay.get(d1);
 
-            int year2 = d1.getYear() + 1900;
+            int year2 = d1.year();
 
             if (year2 == year) {
                 totalLikes += views;
@@ -236,7 +245,7 @@ public class Paper {
         for ( Date d1 : numLikesPerDay.keySet()) {
             long views = numLikesPerDay.get(d1);
 
-            if (d1.getYear() == year && d1.getMonth() == month) {
+            if (d1.year() == year && d1.month() == month) {
                 totalLikes += views;
             }
         }
@@ -246,7 +255,7 @@ public class Paper {
 
     public static void main(String[] args) {
         Paper p = new Paper();
-        Date d1 = new Date();
+        Date d1 = new Date(1,2,2);
         Date d2 = new Date(1, 12, 2020);
 
         //p.setDate(d2);
@@ -255,8 +264,8 @@ public class Paper {
         p.addView();
         p.addView();
         p.addLike();
-        System.out.println("Num views in " + d1.getDate()+ " " + p.getNumViewsDay(d1));
-        System.out.println(p.getNumViewsDay(new Date()));
+        System.out.println("Num views in " + d1 + " " + p.getNumViewsDay(d1));
+       // System.out.println(p.getNumViewsDay(new Date()));
 
 
         //System.out.println(p.getNumLikesYear());

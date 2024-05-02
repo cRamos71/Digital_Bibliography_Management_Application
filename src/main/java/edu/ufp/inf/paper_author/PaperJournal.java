@@ -1,7 +1,6 @@
 package edu.ufp.inf.paper_author;
-
+import edu.princeton.cs.algs4.Date;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class PaperJournal extends Paper{
@@ -12,7 +11,10 @@ public class PaperJournal extends Paper{
 
 
 
-    public PaperJournal(String doi, String title, String keywords, String anAbstract, LocalDate date, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
+    public PaperJournal(){
+    }
+
+    public PaperJournal(String doi, String title, String keywords, String anAbstract, Date date, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
         super(doi, title, keywords, anAbstract, date);
         this.publisher = publisher;
         this.periodicity = periodicity;
@@ -20,7 +22,7 @@ public class PaperJournal extends Paper{
         this.scopusID = scopusID;
     }
 
-    public PaperJournal(String doi, String title, String keywords, String anAbstract, LocalDate date, Long totalLikes, Long totalViews, Long totalDownloads, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
+    public PaperJournal(String doi, String title, String keywords, String anAbstract, Date date, Long totalLikes, Long totalViews, Long totalDownloads, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
         super(doi, title, keywords, anAbstract, date, totalLikes, totalViews, totalDownloads);
         this.publisher = publisher;
         this.periodicity = periodicity;

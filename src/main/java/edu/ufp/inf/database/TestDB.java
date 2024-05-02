@@ -1,4 +1,5 @@
 package edu.ufp.inf.database;
+import edu.princeton.cs.algs4.Date;
 import edu.ufp.inf.paper_author.Periodicity;
 import edu.princeton.cs.algs4.In;
 import edu.ufp.inf.paper_author.*;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.DelayQueue;
 
 public class TestDB {
     static DataBase<Author, Paper> db = new DataBase<>();
@@ -47,7 +49,7 @@ public class TestDB {
             String googleScholarID = infoMap.get("googleScholarID");
             String ScopusAuthorID = infoMap.get("ScopusAuthorID");
            // System.out.println();
-            Author a = new Author(LocalDate.of(Integer.parseInt(birthDate[2]),Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0])), name, address,penName, affiliation, ORCID, scienceID, googleScholarID, ScopusAuthorID);
+            Author a = new Author(new Date(Integer.parseInt(birthDate[1]),Integer.parseInt(birthDate[0]), Integer.parseInt(birthDate[2])), name, address,penName, affiliation, ORCID, scienceID, googleScholarID, ScopusAuthorID);
             a.setIdNumber(Integer.parseInt(Author));
             db.insert(a);
             fillAuthorPapers(a,fp);
@@ -90,13 +92,13 @@ public class TestDB {
             if ( DOI.charAt(DOI.length() - 1) == '1'){
                 String editionNumber = infoMap.get("editionNumber");
                 String local = infoMap.get("Local");
-                p = new PaperConference(DOI, Title, Keywords , anAbstract, LocalDate.of(Integer.parseInt(Date[2]),Integer.parseInt(Date[1]), Integer.parseInt(Date[0])), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews),Long.parseLong(numDownloads),Integer.parseInt(editionNumber), local);
+                p = new PaperConference(DOI, Title, Keywords , anAbstract, new Date(Integer.parseInt(Date[1]),Integer.parseInt(Date[0]), Integer.parseInt(Date[2])), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews),Long.parseLong(numDownloads),Integer.parseInt(editionNumber), local);
             }else{
                 String Publisher = infoMap.get("Publisher");
                 String Periodicity = infoMap.get("Periodicity");
                 String jcrIF = infoMap.get("jcrIF");
                 String scopusID = infoMap.get("ScopusID");
-                p =  new PaperJournal(DOI, Title, Keywords, anAbstract, LocalDate.of(Integer.parseInt(Date[2]),Integer.parseInt(Date[1]), Integer.parseInt(Date[0])), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews),Long.parseLong(numDownloads), Publisher, edu.ufp.inf.paper_author.Periodicity.valueOf(Periodicity), Double.parseDouble(jcrIF), scopusID);
+                p =  new PaperJournal(DOI, Title, Keywords, anAbstract, new Date(Integer.parseInt(Date[1]),Integer.parseInt(Date[0]), Integer.parseInt(Date[2])), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews),Long.parseLong(numDownloads), Publisher, edu.ufp.inf.paper_author.Periodicity.valueOf(Periodicity), Double.parseDouble(jcrIF), scopusID);
             }
 
             p.getAuthors().add(a);

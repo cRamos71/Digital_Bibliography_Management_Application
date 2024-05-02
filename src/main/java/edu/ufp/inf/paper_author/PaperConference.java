@@ -1,5 +1,5 @@
 package edu.ufp.inf.paper_author;
-
+import edu.princeton.cs.algs4.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -12,13 +12,13 @@ public class PaperConference extends Paper{
 
     }
 
-    public PaperConference(String doi, String title, String keywords, String anAbstract, LocalDate date, Integer editionNumber, String local) {
+    public PaperConference(String doi, String title, String keywords, String anAbstract, Date date, Integer editionNumber, String local) {
         super(doi, title, keywords, anAbstract, date);
         this.editionNumber = editionNumber;
         this.local = local;
     }
 
-    public PaperConference(String doi, String title, String keywords, String anAbstract, LocalDate date, Long totalLikes, Long totalViews, Long totalDownloads, Integer editionNumber, String local) {
+    public PaperConference(String doi, String title, String keywords, String anAbstract, Date date, Long totalLikes, Long totalViews, Long totalDownloads, Integer editionNumber, String local) {
         super(doi, title, keywords, anAbstract, date, totalLikes, totalViews, totalDownloads);
         this.editionNumber = editionNumber;
         this.local = local;

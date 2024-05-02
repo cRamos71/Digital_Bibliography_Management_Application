@@ -126,7 +126,7 @@ public class UGraph extends Graph {
 
 
     public static void main(String[] args) {
-        Graph g1 = new Graph(new In("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/graphE.txt"));
+        Graph g1 = new Graph(new In("/.../.../Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/graphE.txt"));
         UGraph ug = new UGraph(g1);
 
         System.out.println(ug.minimumHopsBetween(0, 3));

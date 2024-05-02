@@ -8,9 +8,9 @@ import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
 
-import java.time.LocalDate;
+import edu.princeton.cs.algs4.Date;
 import java.util.*;
-import java.util.Date;
+
 
 public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper> implements ManageAuthorsI<A>, ManagePapersI<P> {
     private RedBlackBST<Long, A> authorsTree = new RedBlackBST<>();
@@ -175,7 +175,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
 
-    public ArrayList<String> paperAuthorByIdPeriodIn(Integer idAuthor, LocalDate startDate, LocalDate endDate) {
+    public ArrayList<String> paperAuthorByIdPeriodIn(Integer idAuthor, Date startDate, Date endDate) {
         RedBlackBST<Integer, ArrayList<String>> bstDate = new RedBlackBST<>();
         Author author = this.mapUID.get(idAuthor);
 
@@ -186,13 +186,13 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         bstDate = author.bstPapersPeriod();
 
         ArrayList<String> papers = new ArrayList<>();
-        for (Integer key : bstDate.keys(startDate.getYear(), endDate.getYear())){
+        for (Integer key : bstDate.keys(startDate.year(), endDate.year())){
             papers.addAll(bstDate.get(key));
         }
         return papers;
     }
 
-    public ArrayList<String> paperAuthorByNamePeriod(String nameAuthor, LocalDate startDate, LocalDate endDate) {
+    public ArrayList<String> paperAuthorByNamePeriod(String nameAuthor, Date startDate, Date endDate) {
 
         ArrayList<Author> authorsAL = new ArrayList<>();
         ArrayList<String> authorsAllPapers = new ArrayList<>();
@@ -260,8 +260,8 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     public static void main(String[] args) {
         DataBase db = new DataBase();
 
-        LocalDate bdate = LocalDate.of(2000,10,30);
-        LocalDate bdate1 = LocalDate.of(100,10,30);
+        Date bdate = new Date(12,10,2003);
+        Date bdate1 = new Date(10,10,1290);
 
 
         Long id1 = 1L;
