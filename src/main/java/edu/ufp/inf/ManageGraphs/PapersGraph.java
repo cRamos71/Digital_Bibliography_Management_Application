@@ -1,9 +1,6 @@
 package edu.ufp.inf.ManageGraphs;
 
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.EdgeWeightedDigraph;
-import edu.princeton.cs.algs4.Date;
-import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.Graph.PGraph;
 import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.Author;
@@ -34,7 +31,6 @@ public class PapersGraph<P extends Paper> {
 
 
     public void listPapersJournalAndTime(Date start, Date end){
-
         for (Integer id : papersMap.keySet()){
             if(papersMap.get(id) instanceof PaperJournal ) {
                 if (papersMap.get(id).getDate().isBefore(end) && papersMap.get(id).getDate().isAfter(start)) {
@@ -42,9 +38,6 @@ public class PapersGraph<P extends Paper> {
                 }
             }
         }
-
-
-
     }
 
     public void listPapersConferenceTime(Date start, Date end){
@@ -60,28 +53,94 @@ public class PapersGraph<P extends Paper> {
         }
     }
 
+    public int calculateFirstOrderQuotes(P paper){
+        int key = paperMapKeyFinder(paper);
+        if (key == -1) return 0;
+        return papersPGraph.indegree(key);
+    }
+
+    public int calculateSecondOrderQuotes(P paper){
+        int key = paperMapKeyFinder(paper);
+        if (key == -1) return 0;
+        return calculateFirstOrderQuotes(paper) + caculateSecondOrderVertexes(key);
+    }
+
+    public int caculateSecondOrderVertexes(Integer root){
+        int returnCount = 0;
+        for (Integer keyMap : this.papersMap.keySet()){
+            for (DirectedEdge w : this.papersPGraph.adj(keyMap)){
+                if (w.to() == root){
+                    returnCount += calculateFirstOrderQuotes(this.papersMap.get(keyMap));
+                }
+            }
+        }
+        return returnCount;
+    }
+
+    public int selfQuotes(P paper){
+        //int key = paperMapKeyFinder(paper);
+        int key =0;
+        if (key == -1) return 0;
+        int selfQuoteCounter = 0;
+
+        for (DirectedEdge edge : this.papersPGraph.adj(key)){
+            if (papersMap.get(edge.to()).getAuthors().equals(paper.getAuthors())){
+                selfQuoteCounter++;
+            }
+        }
+        return selfQuoteCounter;
+    }
+
+
+    private int paperMapKeyFinder(P paper){
+        for (Integer key : this.papersMap.keySet()){
+            if (this.papersMap.get(key).equals(paper)){
+                return key;
+            }
+        }
+        return -1;
+    }
 
 
 
     public static void main(String[] args) {
         PGraph pg = new PGraph(new In("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt"));
         HashMap<Integer, Paper> m = new HashMap<>();
+        Author a1 = new Author();
+        a1.setPenName("olaoao");
+        a1.setAffiliation("PT");
+        a1.setIdNumber(0);
+        Author a2 = new Author();
+        a2.setPenName("mundodd");
+        a2.setAffiliation("PT");
+        a2.setIdNumber(1);
+        Paper p1 = new PaperConference();
+        Paper p2 = new PaperJournal();
+        Paper p3 = new PaperConference();
         for(int i= 0; i < 8 ; i++){
-            if(i % 2 == 0){
-                Paper p1 = new PaperConference();
+            if (i == 2){
+                p3.setDate(new Date(10, 1 + i, 2000));
+                p3.addAuthor(a2);
+                m.put(i, p3);
+            }
+             else if(i % 2 == 0){
+
                 p1.setDate(new Date(10, 1 + i, 2000));
+                p1.addAuthor(a1);
                 m.put(i, p1);
             }else{
-                Paper p2 = new PaperJournal();
+
+                p2.addAuthor(a1);
                 p2.setDate(new Date(10, 1 + i, 2000));
                 m.put(i, p2);
+
             }
         }
 
         PapersGraph pa =new PapersGraph(pg, m);
 
-        pa.listPapersConferenceTime(new Date(10, 1, 2000), new Date(12, 1, 2024));
-
+        //pa.listPapersConferenceTime(new Date(10, 1, 2000), new Date(12, 1, 2024));
+        System.out.println(pa.selfQuotes(p1));
 
     }
 
