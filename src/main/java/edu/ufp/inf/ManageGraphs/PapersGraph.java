@@ -8,8 +8,10 @@ import edu.ufp.inf.paper_author.Paper;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class PapersGraph<P extends Paper> {
 
@@ -102,6 +104,67 @@ public class PapersGraph<P extends Paper> {
     }
 
 
+    // Peso, diferença entre artigos
+
+    public Iterable<Integer> dijkstraShortestPath(P paperStart, P paperEnd) {
+        Integer keyPaperS = paperMapKeyFinder(paperStart);
+        Integer keyPaperE = paperMapKeyFinder(paperEnd);
+
+        int n = this.papersPGraph.V(); // Number of vertices
+        double[] distances = new double[n];
+        int[] edgeTo = new int[n];
+        boolean[] visited = new boolean[n];
+        Arrays.fill(distances, Double.POSITIVE_INFINITY);
+        distances[keyPaperS] = 0;
+
+        // Priority queue to store vertices based on their distances
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        pq.offer(keyPaperS);
+
+        while (!pq.isEmpty()) {
+            int u = pq.poll();
+
+            // Skip vertex if already visited
+            if (visited[u]) continue;
+
+
+            visited[u] = true;
+
+            // Update distances to adjacent vertices
+            for (DirectedEdge edge : this.papersPGraph.adj(u)) {
+                int v = edge.to();
+                double weight = edge.weight();
+                if (!visited[v]) {
+                    double newDist = distances[u] + weight;
+                    if (newDist < distances[v]) {
+                        distances[v] = newDist;
+                        edgeTo[v] = u;
+                        pq.offer(v);
+                    }
+                }
+            }
+        }
+
+        // Reconstruct the shortest path from paperStart to paperEnd
+        Stack<Integer> path = new Stack<>();
+        int[] edgeToTest = new int[n];
+        if (Arrays.equals(edgeTo, edgeToTest)) {
+
+            return    null;
+        }else {
+            for (int v = keyPaperE; v != keyPaperS; v = edgeTo[v]) {
+                path.push(v);
+            }
+            path.push(keyPaperS); // Add the start paper to the path
+        }
+
+
+        return path;
+    }
+
+
+
+
 
     public static void main(String[] args) {
         PGraph pg = new PGraph(new In("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt"));
@@ -118,7 +181,7 @@ public class PapersGraph<P extends Paper> {
         Paper p2 = new PaperJournal();
         Paper p3 = new PaperConference();
         for(int i= 0; i < 8 ; i++){
-            if (i == 2){
+            if (i == 7){
                 p3.setDate(new Date(10, 1 + i, 2000));
                 p3.addAuthor(a2);
                 m.put(i, p3);
@@ -137,10 +200,18 @@ public class PapersGraph<P extends Paper> {
             }
         }
 
-        PapersGraph pa =new PapersGraph(pg, m);
+        PapersGraph pa = new PapersGraph(pg, m);
+        System.out.println(pa.paperMapKeyFinder(p1));
+        System.out.println(pa.paperMapKeyFinder(p3));
+        Iterable<Integer> p =pa.dijkstraShortestPath(p1, p3);
+if(p != null) {
+    for (Object a : p) {
+        System.out.println((Integer) a);
+    }
+}
 
         //pa.listPapersConferenceTime(new Date(10, 1, 2000), new Date(12, 1, 2024));
-        System.out.println(pa.selfQuotes(p1));
+        //System.out.println(pa.selfQuotes(p1));
 
     }
 
