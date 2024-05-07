@@ -1,7 +1,6 @@
 package edu.ufp.inf.paper_author;
-
+import edu.princeton.cs.algs4.Date;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class PaperJournal extends Paper{
@@ -11,13 +10,26 @@ public class PaperJournal extends Paper{
     private String scopusID;
 
 
-    public PaperJournal(String doi, String title, String keywords, String anAbstract, LocalDate date, Author a, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
-        super(doi, title, keywords, anAbstract, date, a);
+
+    public PaperJournal(){
+    }
+
+    public PaperJournal(String doi, String title, String keywords, String anAbstract, Date date, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
+        super(doi, title, keywords, anAbstract, date);
         this.publisher = publisher;
         this.periodicity = periodicity;
         this.jcrIF = jcrIF;
         this.scopusID = scopusID;
     }
+
+    public PaperJournal(String doi, String title, String keywords, String anAbstract, Date date, Long totalLikes, Long totalViews, Long totalDownloads, String publisher, Periodicity periodicity, double jcrIF, String scopusID) {
+        super(doi, title, keywords, anAbstract, date, totalLikes, totalViews, totalDownloads);
+        this.publisher = publisher;
+        this.periodicity = periodicity;
+        this.jcrIF = jcrIF;
+        this.scopusID = scopusID;
+    }
+
 
     public String getPublisher() {
         return publisher;
@@ -66,7 +78,7 @@ public class PaperJournal extends Paper{
 
     @Override
     public String toString() {
-        return "PaperJournal{" +
+        return super.toString() +  "PaperJournal{" +
                 "publisher='" + publisher + '\'' +
                 ", periodicity=" + periodicity +
                 ", jcrIF=" + jcrIF +

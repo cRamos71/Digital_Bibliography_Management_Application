@@ -1,7 +1,7 @@
 package edu.ufp.inf.person_user;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import java.time.LocalDate;
+
 import java.util.Objects;
+import edu.princeton.cs.algs4.Date;
 
 public class User extends Person{
     private String username;
@@ -15,7 +15,7 @@ public class User extends Person{
     public User() {
     }
 
-    public User(Long idNumber, LocalDate birthDate, String name, String address, String username, String password, String email, String zip, Integer phoneNumber, String countryCode) {
+    public User(Integer idNumber, Date birthDate, String name, String address, String username, String password, String email, String zip, Integer phoneNumber, String countryCode) {
         super(idNumber, birthDate, name, address);
         this.username = username;
         this.password = password;

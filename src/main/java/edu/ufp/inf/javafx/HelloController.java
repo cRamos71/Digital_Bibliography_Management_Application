@@ -1,4 +1,4 @@
-package edu.ufp.inf.p06_gui_javafx.helloword;
+package edu.ufp.inf.javafx;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
