@@ -1,6 +1,7 @@
 package edu.ufp.inf.ManageGraphs;
 import edu.princeton.cs.algs4.BreadthFirstPaths;
-import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.DirectedEdge;
+import edu.princeton.cs.algs4.Out;
 import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
@@ -122,12 +123,28 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
 
    }
 
+    public void writeGraphToFile(String fn){
+        Out fp = new Out(fn);
+        boolean[] visited = new boolean[this.authorsUGraph.V()];
+        fp.println(this.authorsUGraph.V());
+        fp.println(this.authorsUGraph.E());
+        for(int i = 0; i < this.authorsUGraph.V(); i++){
+            visited[i] = true;
+            for (Integer id : this.authorsUGraph.adj(i)){
+                if(!visited[id]) {
+                    fp.println(id + " " + i);
+                }
+            }
+        }
+    }
 
-   public int edges(){
+
+
+    private int edges(){
       return this.authorsUGraph.E();
    }
 
-   public int vertex(){
+   private int vertex(){
       return this.authorsUGraph.V();
    }
 
@@ -172,6 +189,7 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
       //System.out.println(ug.isConexo());
       //AuthorsGraph ag2 = aG.subGraphAuthorsFilter("PT");
       aG.listVertexAuthorAffilliation("PT");
+      aG.writeGraphToFile("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/aGraph.txt");
       //System.out.println(ug.adj(0));
       //System.out.println(ag2.edges());
 
