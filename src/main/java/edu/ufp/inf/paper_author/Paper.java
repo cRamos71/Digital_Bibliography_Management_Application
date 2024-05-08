@@ -1,5 +1,4 @@
 package edu.ufp.inf.paper_author;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +13,7 @@ public class Paper {
    private String keywords;
    private String anAbstract;
    private Date date;
+   private Integer graphId = -1;
    private Long numDownloads = 0L;
    private Long totalNumViews = 0L;
    private Long totalNumLikes = 0L;
@@ -72,6 +72,42 @@ public class Paper {
         this.doi = doi;
     }
 
+    public Integer getGraphId() {
+        return graphId;
+    }
+
+    public void setGraphId(Integer graphId) {
+        this.graphId = graphId;
+    }
+
+    public Map<Date, Long> getNumViewsPerDay() {
+        return numViewsPerDay;
+    }
+
+    public void setNumViewsPerDay(Map<Date, Long> numViewsPerDay) {
+        this.numViewsPerDay = numViewsPerDay;
+    }
+
+    public Map<Date, Long> getNumLikesPerDay() {
+        return numLikesPerDay;
+    }
+
+    public void setNumLikesPerDay(Map<Date, Long> numLikesPerDay) {
+        this.numLikesPerDay = numLikesPerDay;
+    }
+
+    public void setAuthors(ArrayList<Author> authors) {
+        this.authors = authors;
+    }
+
+    public ArrayList<Paper> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(ArrayList<Paper> quotes) {
+        this.quotes = quotes;
+    }
+
     public ArrayList<Author> getAuthors() {
         return authors;
     }
@@ -120,12 +156,12 @@ public class Paper {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Paper paper)) return false;
-        return Objects.equals(doi, paper.doi) && Objects.equals(title, paper.title) && Objects.equals(keywords, paper.keywords) && Objects.equals(anAbstract, paper.anAbstract) && Objects.equals(date, paper.date) && Objects.equals(numDownloads, paper.numDownloads) && Objects.equals(totalNumViews, paper.totalNumViews) && Objects.equals(totalNumLikes, paper.totalNumLikes) && Objects.equals(numViewsPerDay, paper.numViewsPerDay) && Objects.equals(numLikesPerDay, paper.numLikesPerDay) && Objects.equals(authors, paper.authors);
+        return Objects.equals(doi, paper.doi) && Objects.equals(title, paper.title) && Objects.equals(keywords, paper.keywords) && Objects.equals(anAbstract, paper.anAbstract) && Objects.equals(date, paper.date) && Objects.equals(graphId, paper.graphId) && Objects.equals(numDownloads, paper.numDownloads) && Objects.equals(totalNumViews, paper.totalNumViews) && Objects.equals(totalNumLikes, paper.totalNumLikes) && Objects.equals(numViewsPerDay, paper.numViewsPerDay) && Objects.equals(numLikesPerDay, paper.numLikesPerDay) && Objects.equals(authors, paper.authors) && Objects.equals(quotes, paper.quotes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(doi, title, keywords, anAbstract, date, numDownloads, totalNumViews, totalNumLikes, numViewsPerDay, numLikesPerDay, authors);
+        return Objects.hash(doi, title, keywords, anAbstract, date, graphId, numDownloads, totalNumViews, totalNumLikes, numViewsPerDay, numLikesPerDay, authors, quotes);
     }
 
     @Override
@@ -136,12 +172,14 @@ public class Paper {
                 ", keywords='" + keywords + '\'' +
                 ", anAbstract='" + anAbstract + '\'' +
                 ", date=" + date +
+                ", graphId=" + graphId +
                 ", numDownloads=" + numDownloads +
                 ", totalNumViews=" + totalNumViews +
                 ", totalNumLikes=" + totalNumLikes +
                 ", numViewsPerDay=" + numViewsPerDay +
                 ", numLikesPerDay=" + numLikesPerDay +
                 ", authors=" + authors +
+                ", quotes=" + quotes +
                 '}';
     }
 

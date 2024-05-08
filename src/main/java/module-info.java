@@ -1,4 +1,4 @@
-module edu.ufp {
+module edu.ufp.inf {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -13,7 +13,9 @@ module edu.ufp {
     requires com.almasb.fxgl.all;
     requires java.desktop;
     requires spring.security.core;
+    opens edu.ufp.inf.javafx to javafx.graphics;
+    exports edu.ufp.inf.javafx.login to javafx.graphics;
 
-  /*  opens edu.ufp.inf.javafx.Models to javafx.fxml;
-    exports edu.ufp.inf.javafx.Controllers;*/
+
+
 }
