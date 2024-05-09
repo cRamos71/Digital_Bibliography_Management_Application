@@ -188,10 +188,20 @@ public class PapersGraph<P extends Paper> {
     }
 
 
+    public void readGraphFromFile(String fn){
+        In fp = new In(fn);
+        int vertex = fp.readInt();
+        int edges = fp.readInt();
+
+        for (int i = 0; i < edges; i++){
+            this.papersPGraph.addEdge(new DirectedEdge(fp.readInt(), fp.readInt(), fp.readDouble()));
+        }
+        //System.out.println(papersPGraph);
+    }
 
 
     public static void main(String[] args) {
-        PGraph pg = new PGraph(new In("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt"));
+        PGraph pg = new PGraph(new In("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt"));
         HashMap<Integer, Paper> m = new HashMap<>();
         Author a1 = new Author();
         a1.setPenName("olaoao");
@@ -229,9 +239,17 @@ public class PapersGraph<P extends Paper> {
         PapersGraph pa = new PapersGraph(pg, m);
         pa.addEdge(p1, p3);
         pa.addEdge(p1, p4);
-        pa.writeGraphToFile("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/ola.txt");
 
-       /* System.out.println(pa.paperMapKeyFinder(p1));
+
+
+        PGraph pag = new PGraph(8);
+        HashMap<Integer, Paper> hm = new HashMap<>();
+        PapersGraph pG = new PapersGraph(pag, hm);
+        //pa.writeGraphToFile("/Users/claudio/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt");
+        pG.readGraphFromFile("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt");
+
+
+        /* System.out.println(pa.paperMapKeyFinder(p1));
         System.out.println(pa.paperMapKeyFinder(p3));
         Iterable<Integer> p =pa.dijkstraShortestPath(p1, p3);
 if(p != null) {
