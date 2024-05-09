@@ -1,6 +1,7 @@
 package edu.ufp.inf.ManageGraphs;
 import edu.princeton.cs.algs4.BreadthFirstPaths;
 import edu.princeton.cs.algs4.DirectedEdge;
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.Author;
@@ -139,6 +140,17 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
     }
 
 
+    public void readGraphFromFile(String fn){
+       In fp = new In(fn);
+       int vertexes = fp.readInt();
+       int edges = fp.readInt();
+
+       for (int i = 0; i < vertexes; i++){
+           this.authorsUGraph.addEdge(fp.readInt(), fp.readInt());
+       }
+    }
+
+
 
     private int edges(){
       return this.authorsUGraph.E();
@@ -189,7 +201,13 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
       //System.out.println(ug.isConexo());
       //AuthorsGraph ag2 = aG.subGraphAuthorsFilter("PT");
       aG.listVertexAuthorAffilliation("PT");
-      aG.writeGraphToFile("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/aGraph.txt");
+      // aG.writeGraphToFile("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/tinyG.txt");
+
+       UGraph ug1 = new UGraph(13);
+       HashMap<Integer, Author> aMap1 = new HashMap<>();
+      AuthorsGraph aGTest = new AuthorsGraph(ug1 ,aMap1);
+      aGTest.readGraphFromFile("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/tinyG.txt");
+       System.out.println(aGTest.authorsUGraph);
       //System.out.println(ug.adj(0));
       //System.out.println(ag2.edges());
 
