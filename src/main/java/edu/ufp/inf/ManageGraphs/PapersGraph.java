@@ -200,6 +200,47 @@ public class PapersGraph<P extends Paper> {
     }
 
 
+
+    //need to test
+    //need to test
+    //need to test
+    public PapersGraph subGraphArticleFilter(String type){
+        HashMap<Integer, P> subGraphHash = new HashMap<>();
+        int filter = 0;
+
+        if (type.equals("PaperConference"))
+            filter = 1;
+
+        for (Integer id : papersMap.keySet()){
+            if (filter == 0){
+                if(papersMap.get(id) instanceof PaperJournal){
+                    subGraphHash.put(id, papersMap.get(id));
+                }
+            }else{
+                if(papersMap.get(id) instanceof PaperConference){
+                    subGraphHash.put(id, papersMap.get(id));
+                }
+            }
+        }
+
+        if (subGraphHash.isEmpty())
+            return null;
+        PGraph pg = new PGraph(subGraphHash.size());
+
+        for (Integer id : subGraphHash.keySet()){
+            for (DirectedEdge edge : papersPGraph.adj(id)){
+                if (subGraphHash.containsKey(edge.to())){
+                    pg.addEdge(new DirectedEdge(edge.from(), edge.to(), edge.weight()));
+                }
+            }
+        }
+
+        PapersGraph subGraph = new PapersGraph(pg, subGraphHash);
+
+        return subGraph;
+    }
+
+
     public static void main(String[] args) {
         PGraph pg = new PGraph(new In("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt"));
         HashMap<Integer, Paper> m = new HashMap<>();
