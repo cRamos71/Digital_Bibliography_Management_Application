@@ -17,7 +17,7 @@ public class DataBaseLog {
     }
 
     public void fillDBA() {
-        In fp = new In("../../Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/authors.txt");
+        In fp = new In("./data/authors.txt");
         String s = " ";
         int numAuthors = Integer.parseInt(fp.readLine().split(":")[1].trim());
 

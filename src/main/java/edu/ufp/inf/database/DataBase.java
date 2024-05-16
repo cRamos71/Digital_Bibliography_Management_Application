@@ -124,10 +124,13 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
     @Override
-    public void listAuthors() {
+    public ArrayList<Author> listAuthors() {
+        ArrayList<Author> a = new ArrayList<>();
         for(Integer l : this.mapUID.keySet()){
-            System.out.println("Key : " + l + " Val: " + this.mapUID.get(l));
+            //System.out.println("Key : " + l + " Val: " + this.mapUID.get(l));
+            a.add(this.mapUID.get(l));
         }
+        return a;
     }
 
     @Override
