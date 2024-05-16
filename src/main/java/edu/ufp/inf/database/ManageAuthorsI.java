@@ -11,5 +11,5 @@ public interface ManageAuthorsI<A extends Author> {
 
     public void remove(A author);
 
-    public void listAuthors();
+    public ArrayList<Author> listAuthors();
 }
