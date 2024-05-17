@@ -1,13 +1,14 @@
 package edu.ufp.inf.ManageGraphs;
 import edu.princeton.cs.algs4.*;
+import edu.princeton.cs.algs4.Date;
+import edu.princeton.cs.algs4.Stack;
 import edu.ufp.inf.Graph.PGraph;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.PriorityQueue;
+
+import java.util.*;
 
 public class PapersGraph<P extends Paper> {
 
@@ -200,45 +201,92 @@ public class PapersGraph<P extends Paper> {
     }
 
 
-
-    //need to test
-    //need to test
-    //need to test
+    /**
+     * Filters the papers in the graph based on the provided type.
+     * <p>
+     * This method creates a subgraph containing papers of a specific type (e.g., PaperConference or PaperJournal)
+     * and returns a {@link PapersGraph} representing this subgraph.
+     * </p>
+     * <p>
+     * The type parameter specifies the type of papers to filter. Valid values are "PaperConference" and "PaperJournal".
+     * </p>
+     *
+     * @param type the type of papers to filter
+     * @return a {@link PapersGraph} representing the subgraph containing papers of the specified type,
+     * or {@code null} if the subgraph is empty
+     */
     public PapersGraph subGraphArticleFilter(String type){
+        // subGraphHash -> maps the vertices that we want
         HashMap<Integer, P> subGraphHash = new HashMap<>();
-        int filter = 0;
+        // map original graph ids to new ids
+        HashMap<Integer, Integer> subGraphFilter = new HashMap<>();
 
-        if (type.equals("PaperConference"))
-            filter = 1;
+        //if set to false = PaperJournal else PaperConference
+        boolean filter = type.equals("PaperConference");
+
+        subHashFilter(filter, subGraphHash, subGraphFilter);
+
+       // return null if the subHash is empty
+        if (subGraphHash.isEmpty())
+            return null;
+        //Initialize subgraph
+        PGraph pg = new PGraph(subGraphHash.size());
+
+        // for each of the old ids that are of a given type
+       for (Integer id : subGraphFilter.keySet()){
+           // Iterate over edges and check if they are of a given type
+            for (DirectedEdge edge : papersPGraph.adj(id)){
+                if (filter){
+                    if (papersMap.get(edge.to()) instanceof PaperConference){
+                        // add to the new subgraph the directed edge using the correspondent ids given by the subGraphFilter Map
+                        pg.addEdge(new DirectedEdge(subGraphFilter.get(id),  subGraphFilter.get(edge.to()), edge.weight()));
+                    }
+                }else{
+                    if (papersMap.get(edge.to()) instanceof PaperJournal){
+                        pg.addEdge(new DirectedEdge(subGraphFilter.get(id),  subGraphFilter.get(edge.to()), edge.weight()));
+                    }
+                }
+            }
+       }
+        return new PapersGraph<>(pg, subGraphHash);
+    }
+
+    /**
+     * Filters the papers in the provided map based on the specified criteria and populates the provided subgraph hash and filter maps.
+     * <p>
+     * This method iterates over the keys of the papersMap and filters the papers based on the value of the filter parameter.
+     * If the filter parameter is false, it adds papers of type PaperJournal to the subGraphHash and subGraphFilter maps.
+     * If the filter parameter is true, it adds papers of type PaperConference to the subGraphHash and subGraphFilter maps.
+     * </p>
+     * <p>
+     * The subGraphHash map contains the papers filtered by type, with their hash ID as the key.
+     * The subGraphFilter map contains the original IDs of the papers mapped to their corresponding hash IDs in subGraphHash.
+     * </p>
+     *
+     * @param filter         specifies whether to include papers of type PaperJournal (false) or PaperConference (true) in the subgraph
+     * @param subGraphHash   the hash map to populate with the filtered papers, where the hash ID is the key and the paper object is the value
+     * @param subGraphFilter the filter map to populate with the original paper IDs mapped to their corresponding hash IDs in subGraphHash
+     */
+    private void subHashFilter(boolean filter, HashMap<Integer, P> subGraphHash ,HashMap<Integer, Integer> subGraphFilter){
+        int hashID = 0;
 
         for (Integer id : papersMap.keySet()){
-            if (filter == 0){
+            if (!filter){
                 if(papersMap.get(id) instanceof PaperJournal){
-                    subGraphHash.put(id, papersMap.get(id));
+                    //System.out.println("ID" + id + " hashID " + hashID);
+                    subGraphFilter.put(id,hashID);
+                    subGraphHash.put(hashID++, papersMap.get(id));
                 }
             }else{
                 if(papersMap.get(id) instanceof PaperConference){
-                    subGraphHash.put(id, papersMap.get(id));
+                    //System.out.println("ID " + id + " hashID " + hashID);
+                    subGraphFilter.put(id,hashID);
+                    subGraphHash.put(hashID++, papersMap.get(id));
                 }
             }
         }
-
-        if (subGraphHash.isEmpty())
-            return null;
-        PGraph pg = new PGraph(subGraphHash.size());
-
-        for (Integer id : subGraphHash.keySet()){
-            for (DirectedEdge edge : papersPGraph.adj(id)){
-                if (subGraphHash.containsKey(edge.to())){
-                    pg.addEdge(new DirectedEdge(edge.from(), edge.to(), edge.weight()));
-                }
-            }
-        }
-
-        PapersGraph subGraph = new PapersGraph(pg, subGraphHash);
-
-        return subGraph;
     }
+
 
 
     public static void main(String[] args) {
@@ -258,8 +306,8 @@ public class PapersGraph<P extends Paper> {
         Paper p4 = new PaperConference();
 
 
-        for(int i= 0; i < 6 ; i++){
-            System.out.println(i);
+        for(int i= 0; i < 8 ; i++){
+            //System.out.println(i);
             if(i % 2 == 0){
                 p1.setDate(new Date(10, 1 + i, 2000));
                 p1.addAuthor(a1);
@@ -278,16 +326,22 @@ public class PapersGraph<P extends Paper> {
         p4.setDate(new Date(6,2, 1904));
         p4.addAuthor(a2);
         PapersGraph pa = new PapersGraph(pg, m);
-        pa.addEdge(p1, p3);
-        pa.addEdge(p1, p4);
 
-
+        PapersGraph newGraph = pa.subGraphArticleFilter("PaperConference");
+        System.out.println(newGraph.papersPGraph);
 
         PGraph pag = new PGraph(8);
         HashMap<Integer, Paper> hm = new HashMap<>();
         PapersGraph pG = new PapersGraph(pag, hm);
+
         //pa.writeGraphToFile("/Users/claudio/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt");
         pG.readGraphFromFile("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt");
+        //System.out.println(pG.papersPGraph);
+        boolean[] marked = new boolean[8];
+
+
+
+       // pG.dfsFilter(0, marked);
 
 
         /* System.out.println(pa.paperMapKeyFinder(p1));
