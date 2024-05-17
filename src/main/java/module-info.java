@@ -18,8 +18,8 @@ module edu.ufp.inf {
     opens edu.ufp.inf.javafx to javafx.graphics;
     exports edu.ufp.inf.javafx.login to javafx.graphics;
 
-    opens edu.ufp.inf.javafx.loginFxml to javafx.graphics, javafx.fxml;
-    exports edu.ufp.inf.javafx.loginFxml to javafx.graphics, javafx.fxml;
+    //opens edu.ufp.inf.javafx.loginFxml to javafx.graphics, javafx.fxml;
+    //exports edu.ufp.inf.javafx.loginFxml to javafx.graphics, javafx.fxml;
 
     opens edu.ufp.inf.javafx.home to javafx.graphics, javafx.fxml;
     exports edu.ufp.inf.javafx.home to javafx.graphics, javafx.fxml;
