@@ -7,6 +7,7 @@ import edu.ufp.inf.paper_author.Paper;
 import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
+import  edu.ufp.inf.paper_author.Paper;
 
 import edu.princeton.cs.algs4.Date;
 import java.util.*;
@@ -107,19 +108,35 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         mapUID.put(author.getIdNumber(),author);
     }
     @Override
-    public void remove(A author) {
+    public void remove(A author, String fn) {
         mapUID.remove(author.getIdNumber(), author);
         mapRemovedA.put(author.getIdNumber(),author.getName());
 
-        removeAuthorPapersMap((ArrayList<P>) author.getPapers());
+        authorsDeletedLog(fn);
+
+        removeAuthorPapersMap((ArrayList<P>) author.getPapers(), author);
     }
 
-    private void removeAuthorPapersMap(ArrayList<P> papers){
-        for (P p : papers){
+
+    private void authorsDeletedLog(String fn){
+        Out out = new Out(fn);
+
+        for (Integer a : mapRemovedA.keySet())
+            out.println(mapRemovedA.get(a));
+
+        out.close();
+    }
+
+    private void removeAuthorPapersMap(ArrayList<P> papers, A a){
+        for(int i = 0; i < papers.size(); i++){
             ArrayList<Author> authorsAL = null;
-            authorsAL = p.getAuthors();
+            authorsAL = papers.get(i).getAuthors();
             // only removes if the paper has only 1 author assigned
-            if (authorsAL.size() == 1) remove(p);
+            if (authorsAL.size() == 1){
+                remove(papers.get(i));
+            }else{
+                papers.get(i).getAuthors().remove(a);
+            }
         }
     }
 
@@ -159,6 +176,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         for(Author a : authorsAL){
             a.removePaper(paper);
         }
+
         mapDOI.remove(paper.getDoi());
     }
 
@@ -257,6 +275,8 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
       return papersFound;
     }
+
+
 
 
 

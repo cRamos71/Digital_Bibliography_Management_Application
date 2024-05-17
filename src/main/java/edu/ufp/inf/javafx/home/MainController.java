@@ -25,7 +25,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private static final String PATH_AUTHORS= "./data/authors.txt";
+    private static final String PATH_AUTHORS= "./data/db.txt";
 
     private DataBase<Author, Paper> db = new DataBase<>();
     private DataBaseLog dbLog = new DataBaseLog(db);
@@ -241,7 +241,7 @@ public class MainController implements Initializable {
     }
 
     private void refreshTableView(){
-        dbLog.fillDBA();
+        dbLog.fillDB("./data/db.txt");
         ObservableList<Author> authorList = FXCollections.observableList(db.listAuthors());
         System.out.println("ola");
         authorsTable.setItems(authorList);
