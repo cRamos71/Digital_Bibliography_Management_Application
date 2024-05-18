@@ -61,6 +61,10 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         this.datePapersTree = datePapersTree;
     }
 
+    public void setuID(Integer uID) {
+        this.uID = uID;
+    }
+
     public HashMap<Integer, A> getMapUID() {
         return mapUID;
     }
@@ -98,8 +102,10 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     public void insert(A author) {
         if (author.getIdNumber() == null)
             author.setIdNumber(this.uID++);
-        if (!mapUID.containsKey(author.getIdNumber()))
+        if (!mapUID.containsKey(author.getIdNumber())){
+            System.out.println("insere db");
             mapUID.put(author.getIdNumber(), author);
+        }
     }
 
     @Override

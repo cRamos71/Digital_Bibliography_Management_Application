@@ -1,5 +1,6 @@
 package edu.ufp.inf.javafx.home;
 
+import edu.princeton.cs.algs4.Date;
 import edu.ufp.inf.database.DataBase;
 import edu.ufp.inf.database.DataBaseLog;
 import edu.ufp.inf.paper_author.Author;
@@ -22,6 +23,7 @@ import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -44,8 +46,23 @@ public class MainController implements Initializable {
     public TableColumn<Author, String> scienceIDCol;
     public TableColumn<Author, String> googleScholarIDCol;
     public TableColumn<Author, String> scopusAuthorIDCol;
+    public TableColumn papersCol;
+
 
     public ComboBox<String> authorComboBox;
+
+    public TextField nameField;
+    public TextField birthDateField;
+    public TextField addressField;
+    public TextField penNameField;
+    public TextField affiliationField;
+    public TextField orcIDField;
+    public TextField scienceIDField;
+    public TextField googleScholarIDField;
+    public TextField scopusAuthorIDField;
+
+
+
 
 
 
@@ -85,6 +102,37 @@ public class MainController implements Initializable {
         scopusAuthorIDCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
+        papersCol.setCellValueFactory(new PropertyValueFactory<>("papers"));
+        papersCol.setCellFactory(col -> {
+            TableCell<Author, ArrayList<String>> cell = new TableCell<>() {
+                private final ComboBox<String> comboBox = new ComboBox<>();
+
+                {
+                    comboBox.setEditable(false);
+                    comboBox.setOnAction(event -> {
+                        String selectedPaper = comboBox.getSelectionModel().getSelectedItem();
+                        if (selectedPaper != null) {
+                            Author author = getTableView().getItems().get(getIndex());
+                            // Handle the selection of the paper
+                            System.out.println("Selected paper: " + selectedPaper + " for author: " + author.getName());
+                        }
+                    });
+                }
+
+                @Override
+                protected void updateItem(ArrayList<String> papers, boolean empty) {
+                    super.updateItem(papers, empty);
+                    if (empty || papers == null || papers.isEmpty()) {
+                        setGraphic(null);
+                    } else {
+                        comboBox.getItems().setAll(papers);
+                        comboBox.setMaxSize(150, 150);
+                        setGraphic(comboBox);
+                    }
+                }
+            };
+            return cell;
+        });
 
 
         penNameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Author, String>, ObservableValue<String>>() {
@@ -229,10 +277,99 @@ public class MainController implements Initializable {
     public void handleEditVehicleAction(TableColumn.CellEditEvent cellEditEvent) {
     }
 
-    public void handleAddVehicleAction(ActionEvent actionEvent) {
+    public void handleAddAuthorAction(ActionEvent actionEvent) {
         System.out.println(actionEvent.toString());
+        String name =  nameField.getText().trim();
+        String[] birthDate = birthDateField.getText().trim().split("-");
+        String address = addressField.getText().trim();
+
+        Author a = getAuthor(birthDate, name, address);
+        if(a != null){
+            db.insert(a);
+            System.out.println(name);
+            System.out.println(a.getIdNumber());
+        }
+
+        System.out.println(db.listAuthors());
+
+
+        //clear fields
+        nameField.setText("");
+        birthDateField.setText("");
+        addressField.setText("");
+        penNameField.setText("");
+        affiliationField.setText("");
+        orcIDField.setText("");
+        scienceIDField.setText("");
+        googleScholarIDField.setText("");
+        scopusAuthorIDField.setText("");
+        dbLog.saveAuthorsTxt("./data/db.txt");
+        refreshTableView();
        // db.insert();
     }
+
+    private Author getAuthor(String[] birthDate, String name, String address) {
+        String penName = penNameField.getText().trim();
+        String affiliation = affiliationField.getText().trim();
+        String orcID = orcIDField.getText().trim();
+        String scienceID = scienceIDField.getText().trim();
+        String googleScholarID = googleScholarIDField.getText().trim();
+        String scopusAuthorID = scopusAuthorIDField.getText().trim();
+
+        try {
+            Date d = new Date(Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0]),Integer.parseInt( birthDate[2]));
+            System.out.println(d);
+            return new Author(d, name, address, penName, affiliation, orcID, scienceID, googleScholarID, scopusAuthorID);
+
+        }catch(Exception e){
+            System.out.println("Date not supported ");
+            return null;
+        }
+    }
+
+    /**
+     * Handler para acção de edição dos dados dos veículos na vehiclesTable.
+     *
+     * @param authorStringCellEditEvent
+     */
+    public void handleEditAuthorAction(TableColumn.CellEditEvent<Author, Object> authorStringCellEditEvent) {
+        int col=authorStringCellEditEvent.getTablePosition().getColumn();
+        switch (col) {
+            case 1:
+                authorStringCellEditEvent.getRowValue().setBirthDate(new Date((String) authorStringCellEditEvent.getNewValue()));
+                break;
+            case 2:
+                authorStringCellEditEvent.getRowValue().setName((String) authorStringCellEditEvent.getNewValue());
+                break;
+            case 3:
+                authorStringCellEditEvent.getRowValue().setAddress((String) authorStringCellEditEvent.getNewValue());
+                break;
+            case 4:
+                authorStringCellEditEvent.getRowValue().setPenName((String) authorStringCellEditEvent.getNewValue());
+                break;
+            case 5:
+                authorStringCellEditEvent.getRowValue().setAffiliation((String) authorStringCellEditEvent.getNewValue());
+                break;
+            case 6:
+                authorStringCellEditEvent.getRowValue().setOrcID((String) authorStringCellEditEvent.getNewValue());
+                break;
+            case 7:
+                authorStringCellEditEvent.getRowValue().setScienceID((String) authorStringCellEditEvent.getNewValue());
+                break;
+            case 8:
+                authorStringCellEditEvent.getRowValue().setGoogleScholarID((String) authorStringCellEditEvent.getNewValue());
+                break;
+            case 9:
+                authorStringCellEditEvent.getRowValue().setScopusAuthorID((String) authorStringCellEditEvent.getNewValue());
+                break;
+        }
+        dbLog.saveAuthorsTxt("./data/db.txt");
+        refreshTableView();
+    }
+
+
+
+
 
     public void handleSelectVehicleAction(ActionEvent actionEvent) {
     }
@@ -243,7 +380,6 @@ public class MainController implements Initializable {
     private void refreshTableView(){
         dbLog.fillDB("./data/db.txt");
         ObservableList<Author> authorList = FXCollections.observableList(db.listAuthors());
-        System.out.println("ola");
         authorsTable.setItems(authorList);
     }
 
