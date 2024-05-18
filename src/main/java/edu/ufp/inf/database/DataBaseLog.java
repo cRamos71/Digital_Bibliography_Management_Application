@@ -28,6 +28,7 @@ public class DataBaseLog {
     public void fillDB(String fn) {
         In fp = new In(fn);
         String s = " ";
+        Integer idMax = -1;
         int numAuthors = Integer.parseInt(fp.readLine().split(":")[1].trim());
 
         for(int i = 0; i < numAuthors; i++){
@@ -45,6 +46,7 @@ public class DataBaseLog {
                     infoMap.put(keyValue[0].trim(), keyValue[1].trim());
                 }
             }
+
             String Author = infoMap.get("Author");
             String birthDate = infoMap.get("birthDate").strip();
             String name = infoMap.get("Name");
@@ -61,7 +63,11 @@ public class DataBaseLog {
             a.setIdNumber(Integer.parseInt(Author));
             db.insert(a);
             fillAuthorPapers(a,fp);
+            if(Integer.parseInt(Author) > idMax){
+                idMax = Integer.parseInt(Author);
+            }
         }
+        db.setuID(idMax + 1);
         fp.close();
     }
 
