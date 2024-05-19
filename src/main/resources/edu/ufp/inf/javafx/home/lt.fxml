@@ -36,7 +36,7 @@
             <tabs>
                 <Tab text="Authors">
                     <content>
-                        <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="100.0" prefHeight="499.0" prefWidth="500.0">
+                        <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="100.0" prefHeight="457.0" prefWidth="1248.0">
                             <children>
                                 <VBox layoutY="6.0" prefHeight="408.0" prefWidth="1119.0">
                                     <children>
@@ -58,7 +58,7 @@
                                         </TableView>
                                     </children>
                                 </VBox>
-                                               <HBox layoutY="414.0" prefHeight="76.0" prefWidth="1251.0" spacing="5.0">
+                                               <HBox layoutY="414.0" prefHeight="54.0" prefWidth="1251.0" spacing="5.0">
                                       <padding>
                                           <Insets left="5.0" top="5.0" />
                                       </padding>
@@ -79,6 +79,11 @@
                                           </Button>
                                       </children>
                                   </HBox>
+                        <Button fx:id="dbTxt" layoutX="1119.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleSaveDBtxtAction" prefHeight="35.0" prefWidth="132.0" text="Save DB in .txt" />
+                        <Button fx:id="dbBin" layoutX="1118.0" layoutY="41.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="133.0" text="Save DB in .bin" />
+                        <ComboBox fx:id="PapersComboBox" layoutX="3.0" layoutY="455.0" onAction="#handleSelectPaperAction" prefHeight="32.0" prefWidth="187.0" promptText="Papers" />
+                        <TextField fx:id="idNumberField" layoutX="200.0" layoutY="460.0" prefHeight="25.0" prefWidth="117.0" promptText="id" />
+                        <Button fx:id="addPaper"  onAction="#handleAddPaperAuthorAction" layoutX="329.0" layoutY="460.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="84.0" text="Add Paper" />
                             </children>
                         </AnchorPane>
                     </content>

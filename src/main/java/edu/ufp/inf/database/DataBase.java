@@ -187,11 +187,16 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
     @Override
-    public void listPapers() {
+    public ArrayList<String> listPapers() {
+        ArrayList<String> pap = new ArrayList<>();
         for(String l : this.mapDOI.keySet()){
-            System.out.println("Key : " + l + " Val: " + this.mapDOI.get(l));
+           // System.out.println("Key : " + l + " Val: " + this.mapDOI.get(l));
+            pap.add(this.mapDOI.get(l).toString());
         }
+        return pap;
     }
+
+
 
 
     @Override

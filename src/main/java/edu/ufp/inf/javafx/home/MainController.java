@@ -27,14 +27,18 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private static final String PATH_AUTHORS= "./data/db.txt";
-
+    private static final String PATH_DB= "./data/db.txt";
+    public Button addPaper;
+    public TextField idNumberField;
     private DataBase<Author, Paper> db = new DataBase<>();
     private DataBaseLog dbLog = new DataBaseLog(db);
 
 // Link attributes to UI components
     @FXML
     private Button btn;
+    public Button dbTxt;
+    public Button dbBin;
+
     public TableView<Author> authorsTable;
     public TableColumn<Author, String> nameCol;
     public TableColumn<Author, Integer> idNumberCol;
@@ -61,9 +65,9 @@ public class MainController implements Initializable {
     public TextField googleScholarIDField;
     public TextField scopusAuthorIDField;
 
+    public ComboBox<String> PapersComboBox;
 
-
-
+    private String selectedPaper;
 
 
 
@@ -106,17 +110,9 @@ public class MainController implements Initializable {
         papersCol.setCellFactory(col -> {
             TableCell<Author, ArrayList<String>> cell = new TableCell<>() {
                 private final ComboBox<String> comboBox = new ComboBox<>();
-
                 {
                     comboBox.setEditable(false);
-                    comboBox.setOnAction(event -> {
-                        String selectedPaper = comboBox.getSelectionModel().getSelectedItem();
-                        if (selectedPaper != null) {
-                            Author author = getTableView().getItems().get(getIndex());
-                            // Handle the selection of the paper
-                            System.out.println("Selected paper: " + selectedPaper + " for author: " + author.getName());
-                        }
-                    });
+
                 }
 
                 @Override
@@ -125,8 +121,9 @@ public class MainController implements Initializable {
                     if (empty || papers == null || papers.isEmpty()) {
                         setGraphic(null);
                     } else {
+                        System.out.println(papers);
                         comboBox.getItems().setAll(papers);
-                        comboBox.setMaxSize(150, 150);
+                        comboBox.setMaxSize(30, 30);
                         setGraphic(comboBox);
                     }
                 }
@@ -303,7 +300,7 @@ public class MainController implements Initializable {
         scienceIDField.setText("");
         googleScholarIDField.setText("");
         scopusAuthorIDField.setText("");
-        dbLog.saveAuthorsTxt("./data/db.txt");
+        dbLog.saveAuthorsTxt(PATH_DB);
         refreshTableView();
        // db.insert();
     }
@@ -315,6 +312,8 @@ public class MainController implements Initializable {
         String scienceID = scienceIDField.getText().trim();
         String googleScholarID = googleScholarIDField.getText().trim();
         String scopusAuthorID = scopusAuthorIDField.getText().trim();
+        String paper = selectedPaper;
+        System.out.println(paper);
 
         try {
             Date d = new Date(Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0]),Integer.parseInt( birthDate[2]));
@@ -363,8 +362,8 @@ public class MainController implements Initializable {
                 authorStringCellEditEvent.getRowValue().setScopusAuthorID((String) authorStringCellEditEvent.getNewValue());
                 break;
         }
-        dbLog.saveAuthorsTxt("./data/db.txt");
-        refreshTableView();
+       // dbLog.saveAuthorsTxt("./data/db.txt");
+      //  refreshTableView();
     }
 
 
@@ -378,10 +377,36 @@ public class MainController implements Initializable {
     }
 
     private void refreshTableView(){
-        dbLog.fillDB("./data/db.txt");
+        dbLog.fillDB(PATH_DB);
         ObservableList<Author> authorList = FXCollections.observableList(db.listAuthors());
         authorsTable.setItems(authorList);
+        System.out.println(db.listPapers());
+        PapersComboBox.getItems().addAll(db.listPapers());
+
     }
 
 
+    public void handleSaveDBtxtAction(ActionEvent actionEvent) {
+        System.out.println(actionEvent);
+        dbLog.saveAuthorsTxt(PATH_DB);
+    }
+
+    public void handleSelectPaperAction(ActionEvent actionEvent) {
+        selectedPaper = PapersComboBox.getSelectionModel().getSelectedItem();
+        System.out.println("Selected paper: " + selectedPaper);
+
+    }
+
+    public void handleAddPaperAuthorAction(ActionEvent actionEvent) {
+        try{
+            Integer id = Integer.parseInt(idNumberField.getText().trim());
+
+        }catch(Exception e){
+            System.out.println("Id not supported");
+
+        }
+
+
+
+    }
 }
