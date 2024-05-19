@@ -4,11 +4,13 @@ import edu.princeton.cs.algs4.BST;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.person_user.Person;
 
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Author extends Person {
+public class Author extends Person implements Serializable {
 
 private String penName;
 

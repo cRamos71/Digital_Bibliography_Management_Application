@@ -1,28 +1,40 @@
 package edu.ufp.inf.database;
 
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 import edu.ufp.inf.paper_author.*;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DataBaseLog {
 
-    private DataBase<Author, Paper> db;
+    private DataBase<Author, Paper> db = new DataBase<>();
     public DataBaseLog(DataBase<Author, Paper> db) {
         this.db = db;
     }
+    public DataBaseLog(String fn, DataBase<Author, Paper> db) {
+        this.db = db;
+        fillDB(fn);
+    }
+
+    public DataBaseLog(String fa, String fp, DataBase<Author, Paper> db) {
+        this.db = db;
+        readDBin(fa, fp);
+    }
+
+
 
     /**
-     * Fills the database with author information from a specified file.
-     * The file should contain information about authors in a specific format.
-     * Each author's information should be on a new line and key-value pairs separated by semicolons
+     * Fills the database with data from a txt file.
+     * The file should contain information  in a specific format.
      * The expected file format:
      * Number of authors: X
      * Author: 1; Name: John Doe; birthDate: 1980-12-15; Address: 123 Main St; Affiliation: University; penName: J.D.; ORCID: 0000-0001-2345-6789; scienceID: 123456; googleScholarID: ABCD1234; ScopusAuthorID: 56789
+     * Paper: reeeeeg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
      * Author: 2; Name: Jane Smith; birthDate: 1975-11-20; Address: 456 Elm St; Affiliation: Institute; penName: J.S.; ORCID: 0000-0002-3456-7890; scienceID: 789012; googleScholarID: EFGH5678; ScopusAuthorID: 12345
      */
     public void fillDB(String fn) {
@@ -129,7 +141,16 @@ public class DataBaseLog {
         }
     }
 
-    public void saveAuthorsTxt(String fn) {
+    /**
+     * Store the database in a txt file.
+     * File format:
+     * nAuthors: X
+     * Author: 1; Name: John Doe; birthDate: 1980-12-15; Address: 123 Main St; Affiliation: University; penName: J.D.; ORCID: 0000-0001-2345-6789; scienceID: 123456; googleScholarID: ABCD1234; ScopusAuthorID: 56789
+     * nPapers : X
+     * Paper: reeeeeg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+     * Author: 2; Name: Jane Smith; birthDate: 1975-11-20; Address: 456 Elm St; Affiliation: Institute; penName: J.S.; ORCID: 0000-0002-3456-7890; scienceID: 789012; googleScholarID: EFGH5678; ScopusAuthorID: 12345
+     */
+    public void saveDBTxt(String fn) {
         Out fp = new Out(fn);
 
         fp.println("nAuthors: " + db.getMapUID().size());
@@ -161,15 +182,137 @@ public class DataBaseLog {
         }
     }
 
+    /**
+     * Saves the database information to binary files.
+     *
+     * @param fa the name of the file to save author information
+     * @param fp the name of the file to save paper information
+     */
+    public void saveDBBin(String fa, String fp) {
+        saveAuthorsBin(fa);
+        savePapersBin(fp);
+    }
+
+    /**
+     * Saves author information to a binary file.
+     *
+     * @param fa the name of the file to save author information
+     */
+    private void saveAuthorsBin(String fa) {
+        try {
+            File f = new File(fa);
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+
+            //Write number of authors
+            oos.write(db.getMapUID().size());
+            for(Object a : db.getMapUID().keySet()){
+                oos.writeObject(db.getMapUID().get(a));
+            }
+            oos.flush();
+            oos.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Saves paper information to a binary file.
+     *
+     * @param fp the name of the file to save paper information
+     */
+    private void savePapersBin(String fp) {
+        try {
+            File f = new File(fp);
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+
+            //Write number of papers
+            oos.write(db.getMapDOI().size());
+            for(Object a : db.getMapDOI().keySet()){
+                oos.writeObject(db.getMapDOI().get(a));
+            }
+            oos.flush();
+            oos.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * Reads the database information from binary files.
+     *
+     * @param fa the name of the file to read author information
+     * @param fp the name of the file to read paper information
+     */
+    public void readDBin(String fa, String fp) {
+        readAuthorsBin(fa);
+        readPapersBin(fp);
+    }
+
+    /**
+     * Reads author information from a binary file.
+     *
+     * @param fa the name of the file to read author information
+     */
+    private void readAuthorsBin(String fa){
+        try {
+            File f = new File(fa);
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            int num_authors = ois.read();
+            System.out.println(num_authors);
+            for (int i = 0; i < num_authors; i++){
+                System.out.println(i);
+                Author a = (Author) ois.readObject();
+                db.insert(a);
+            }
+            ois.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Reads paper information from a binary file.
+     *
+     * @param fp the name of the file to read paper information
+     */
+    private void readPapersBin(String fp){
+        try {
+            File f = new File(fp);
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            int numPapers = ois.read();
+            System.out.println(numPapers);
+            for (int i = 0; i < numPapers; i++){
+                System.out.println(i);
+                Paper p = (Paper) ois.readObject();
+                db.insert(p);
+            }
+            ois.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public static void main(String[] args) {
         DataBase db = new DataBase();
         DataBaseLog dbLog = new DataBaseLog(db);
 
-        dbLog.fillDB("./data/db.txt");
-        db.listPapers();
+       // dbLog.fillDB("./data/db.txt");
+       // dbLog.saveDBBin("./data/authors.bin", "./data/papers.bin");
+        dbLog.readDBin("./data/authors.bin", "./data/papers.bin");
+        System.out.println( db.listPapers());
 
 
-        dbLog.saveAuthorsTxt("./data/db.txt");
+       // dbLog.saveAuthorsTxt("./data/db.txt");
 
     }
 }

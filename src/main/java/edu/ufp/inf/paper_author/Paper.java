@@ -1,13 +1,14 @@
 package edu.ufp.inf.paper_author;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
 
-public class Paper {
+public class Paper implements Serializable {
    private String doi;
    private String title;
    private String keywords;
@@ -194,7 +195,7 @@ public class Paper {
      *
      */
     public void addView(){
-        edu.ufp.inf.Util.Date d =new edu.ufp.inf.Util.Date(); // auto day gen
+        java.util.Date d =new java.util.Date(); // auto day gen
         Date curr = new Date(d.getMonth(), d.getDay(), d.getYear());
         if(!this.numViewsPerDay.containsKey(curr)){
             this.numViewsPerDay.put(curr, (long) 1);
@@ -206,7 +207,7 @@ public class Paper {
     }
 
     public void addLike(){
-        edu.ufp.inf.Util.Date d =new edu.ufp.inf.Util.Date(); // auto day gen
+        java.util.Date d =new java.util.Date(); // auto day gen
         Date curr = new Date(d.getMonth(), d.getDay(), d.getYear());
         if(!this.numLikesPerDay.containsKey(curr)){
             this.numLikesPerDay.put(curr, (long) 1);

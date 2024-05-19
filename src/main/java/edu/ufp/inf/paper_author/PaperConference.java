@@ -1,9 +1,11 @@
 package edu.ufp.inf.paper_author;
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class PaperConference extends Paper{
+public class PaperConference extends Paper implements Serializable {
     private Integer editionNumber;
     private String local;
 

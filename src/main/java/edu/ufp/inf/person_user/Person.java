@@ -1,12 +1,13 @@
 package edu.ufp.inf.person_user;
 
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-public class Person {
+public class Person implements Serializable {
     private Integer idNumber;
 
     private Date birthDate;
