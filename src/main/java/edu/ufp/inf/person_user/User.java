@@ -1,7 +1,7 @@
 package edu.ufp.inf.person_user;
 
 import java.util.Objects;
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
 
 public class User extends Person{
     private String username;

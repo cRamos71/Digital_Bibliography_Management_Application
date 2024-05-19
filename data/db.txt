@@ -9,4 +9,6 @@ Paper: fagaaab1; Title: O L ;Keywords: null ; anAbstract: null ; Date: 10/20/202
 Author: 2 ; birthDate: 10/11/2020; Name: Ola; Address: 4000; penName:  ; Affiliation: ; ORCID: ; scienceID: ; googleScholarID: ; ScopusAuthorID: null
 nPapers: 0
 Author: 3 ; birthDate: 9/10/2021; Name: Kol; Address: 4009; penName: Kol. ; Affiliation: ; ORCID: 12343243; scienceID: 1234243; googleScholarID: 3422525; ScopusAuthorID: 35252523
-nPapers: 0
+nPapers: 2
+Paper: reeeeeg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+Paper: fagaaaa1; Title: O joaozinho ;Keywords: null ; anAbstract: null ; Date: 10/20/2023 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto

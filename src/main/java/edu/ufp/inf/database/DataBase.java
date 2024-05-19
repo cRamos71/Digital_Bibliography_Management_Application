@@ -1,15 +1,11 @@
 package edu.ufp.inf.database;
-
+import edu.ufp.inf.Util.Date;
 import edu.princeton.cs.algs4.*;
-import edu.ufp.inf.ManageGraphs.AuthorsGraph;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
-import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
-import  edu.ufp.inf.paper_author.Paper;
 
-import edu.princeton.cs.algs4.Date;
 import java.util.*;
 
 
@@ -23,11 +19,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
     private HashMap<Integer, String> mapRemovedA = new HashMap<>();
 
-    private AuthorsGraph aGraph = new AuthorsGraph(new UGraph(10), this.mapUID);
-    Digraph PapersDigraph = new Digraph(10);
     private Integer uID = 0;
-
-    private Integer graphID;
 
     public RedBlackBST<Long, A> getAuthorsTree() {
         return authorsTree;
@@ -89,14 +81,6 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         this.mapRemovedA = mapRemovedA;
     }
 
-
-    public Digraph getPapersDigraph() {
-        return PapersDigraph;
-    }
-
-    public void setPapersDigraph(Digraph papersDigraph) {
-        PapersDigraph = papersDigraph;
-    }
 
     @Override
     public void insert(A author) {

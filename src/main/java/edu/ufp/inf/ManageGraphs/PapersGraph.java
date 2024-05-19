@@ -1,6 +1,6 @@
 package edu.ufp.inf.ManageGraphs;
 import edu.princeton.cs.algs4.*;
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
 import edu.princeton.cs.algs4.Stack;
 import edu.ufp.inf.Graph.PGraph;
 import edu.ufp.inf.paper_author.Author;

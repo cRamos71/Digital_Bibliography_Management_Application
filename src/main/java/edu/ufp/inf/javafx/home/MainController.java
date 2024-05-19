@@ -1,6 +1,6 @@
 package edu.ufp.inf.javafx.home;
 
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
 import edu.ufp.inf.database.DataBase;
 import edu.ufp.inf.database.DataBaseLog;
 import edu.ufp.inf.paper_author.Author;
@@ -28,6 +28,10 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     private static final String PATH_DB= "./data/db.txt";
+    private static final String PATH_DB_AUTHORS_BIN= "./data/authors.bin";
+    private static final String PATH_DB_PAPERS_BIN= "./data/papers.bin";
+
+
     public Button addPaper;
     public TextField idNumberField;
     private DataBase<Author, Paper> db = new DataBase<>();
@@ -246,6 +250,7 @@ public class MainController implements Initializable {
                 System.out.println("added "+vehicle);
             });
         });*/
+        dbLog.fillDB(PATH_DB);
 
         refreshTableView();
 
@@ -300,7 +305,7 @@ public class MainController implements Initializable {
         scienceIDField.setText("");
         googleScholarIDField.setText("");
         scopusAuthorIDField.setText("");
-        dbLog.saveAuthorsTxt(PATH_DB);
+        dbLog.saveDBTxt(PATH_DB);
         refreshTableView();
        // db.insert();
     }
@@ -377,18 +382,23 @@ public class MainController implements Initializable {
     }
 
     private void refreshTableView(){
-        dbLog.fillDB(PATH_DB);
         ObservableList<Author> authorList = FXCollections.observableList(db.listAuthors());
         authorsTable.setItems(authorList);
-        System.out.println(db.listPapers());
-        PapersComboBox.getItems().addAll(db.listPapers());
+        //System.out.println(db.listPapers());
+        //PapersComboBox.getItems().clear();
+       // PapersComboBox.getItems().addAll(db.listPapers());
+        for (String s : db.listPapers()){
+            if(!PapersComboBox.getItems().contains(s)){
+                PapersComboBox.getItems().add(s);
+            }
+        }
 
     }
 
 
     public void handleSaveDBtxtAction(ActionEvent actionEvent) {
-        System.out.println(actionEvent);
-        dbLog.saveAuthorsTxt(PATH_DB);
+        //System.out.println(actionEvent);
+        dbLog.saveDBTxt(PATH_DB);
     }
 
     public void handleSelectPaperAction(ActionEvent actionEvent) {
@@ -399,8 +409,13 @@ public class MainController implements Initializable {
 
     public void handleAddPaperAuthorAction(ActionEvent actionEvent) {
         try{
+            System.out.println(idNumberField.getText());
             Integer id = Integer.parseInt(idNumberField.getText().trim());
-
+            //extract DOI with ' '
+            String paperDOI = selectedPaper.split("=")[1].split(",")[0].trim();
+            String paperD = paperDOI.substring(1, paperDOI.length() - 1);
+            db.getMapUID().get(id).addPaper(db.getMapDOI().get(paperD));
+            refreshTableView();
         }catch(Exception e){
             System.out.println("Id not supported");
 
@@ -408,5 +423,10 @@ public class MainController implements Initializable {
 
 
 
+    }
+
+    public void handleSaveDBbinAction(ActionEvent actionEvent) {
+        System.out.println(actionEvent);
+        dbLog.saveDBBin(PATH_DB_AUTHORS_BIN, PATH_DB_PAPERS_BIN);
     }
 }
