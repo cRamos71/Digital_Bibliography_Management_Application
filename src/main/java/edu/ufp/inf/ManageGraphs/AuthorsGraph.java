@@ -1,31 +1,42 @@
 package edu.ufp.inf.ManageGraphs;
-import edu.princeton.cs.algs4.BreadthFirstPaths;
-import edu.princeton.cs.algs4.DirectedEdge;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
 
+import java.io.Serializable;
 import java.util.*;
 
 
-public class AuthorsGraph<A extends Author, P extends Paper> {
+public class AuthorsGraph<A extends Author, P extends Paper> implements Serializable {
    private UGraph authorsUGraph;
    private HashMap<Integer, A> authorsMap = new HashMap<>();
    private Integer ids = 0;
 
 
-  public AuthorsGraph(UGraph authorsUGraph) {
-      this.authorsUGraph = authorsUGraph;
+  public AuthorsGraph(Integer v) {
+      this.authorsUGraph = new UGraph(v);
    }
 
-   public AuthorsGraph(UGraph authorsUGraph, HashMap<Integer, A> hashAuthor) {
-      this.authorsUGraph = authorsUGraph;
+   public AuthorsGraph(Integer v, HashMap<Integer, A> hashAuthor) {
+      this.authorsUGraph = new UGraph(v);
        for (Integer k : hashAuthor.keySet()){
            this.authorsMap.put(this.ids++, hashAuthor.get(k));
        }
    }
+
+    public AuthorsGraph(UGraph ug, HashMap<Integer, A> hashAuthor) {
+        this.authorsUGraph = ug;
+        for (Integer k : hashAuthor.keySet()){
+            this.authorsMap.put(this.ids++, hashAuthor.get(k));
+        }
+    }
+
+    public AuthorsGraph(String fn) {
+       // this.authorsUGraph = new UGraph(fn);
+
+    }
 
 
    private Integer getIDMapGraph(Author a){
@@ -188,7 +199,7 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
        ug.addEdge(0, 2);
 
 
-       AuthorsGraph aG = new AuthorsGraph(ug, aMap);
+      // AuthorsGraph aG = new AuthorsGraph(ug, aMap);
       //System.out.println(aG.numberCoAuthors(a1));
       boolean[] visited = new boolean[2];
       int num[] = new int[1];
@@ -200,14 +211,14 @@ public class AuthorsGraph<A extends Author, P extends Paper> {
       //System.out.println(ug.isConexo());
       //System.out.println(ug.isConexo());
       //AuthorsGraph ag2 = aG.subGraphAuthorsFilter("PT");
-      aG.listVertexAuthorAffilliation("PT");
+      //aG.listVertexAuthorAffilliation("PT");
       // aG.writeGraphToFile("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/tinyG.txt");
 
-       UGraph ug1 = new UGraph(13);
-       HashMap<Integer, Author> aMap1 = new HashMap<>();
-      AuthorsGraph aGTest = new AuthorsGraph(ug1 ,aMap1);
-      aGTest.readGraphFromFile("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/tinyG.txt");
-       System.out.println(aGTest.authorsUGraph);
+       //UGraph ug1 = new UGraph(13);
+       //HashMap<Integer, Author> aMap1 = new HashMap<>();
+      //AuthorsGraph aGTest = new AuthorsGraph(ug1 ,aMap1);
+      //aGTest.readGraphFromFile("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/tinyG.txt");
+       //System.out.println(aGTest.authorsUGraph);
       //System.out.println(ug.adj(0));
       //System.out.println(ag2.edges());
 

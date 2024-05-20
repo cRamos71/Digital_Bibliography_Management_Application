@@ -2,11 +2,12 @@ package edu.ufp.inf.Graph;
 
 import edu.princeton.cs.algs4.*;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UGraph extends Graph {
+public class UGraph extends Graph implements Serializable {
 
     public UGraph(int V) {
         super(V);
