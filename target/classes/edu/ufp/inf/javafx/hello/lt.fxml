@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="484.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ufp.inf.javafx.hello.MainController">
+    <children>
+        <MenuBar layoutX="-1.0" layoutY="6.0" prefHeight="107.0" prefWidth="973.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <Menu mnemonicParsing="false" text="Open">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Open Text File" />
+                                <MenuItem mnemonicParsing="false" text="Open Bin File" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Save">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Save Text File" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleSaveBinFileAction" text="Save Bin File" />
+                            </items>
+                        </Menu>
+                        <MenuItem mnemonicParsing="false" text="Exit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <TabPane layoutX="-1.0" layoutY="29.0" prefHeight="457.0" prefWidth="973.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Authors">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="316.0" prefWidth="615.0">
+                            <children>
+                                <VBox layoutY="6.0" prefHeight="359.0" prefWidth="973.0">
+                                    <children>
+                              <StackPane prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                              <TableView fx:id="vehiclesTable" editable="true" prefHeight="299.0" prefWidth="675.0">
+                                                  <columns>
+                                                      <TableColumn fx:id="registrationCol" onEditCommit="#handleEditVehicleAction" prefWidth="165.0" text="idNumber" />
+                                                      <TableColumn fx:id="brandCol" onEditCommit="#handleEditVehicleAction" prefWidth="130.0" text="birthDate" />
+                                                      <TableColumn fx:id="modelCol" onEditCommit="#handleEditVehicleAction" prefWidth="174.0" text="Name" />
+                                                      <TableColumn fx:id="cylindersCol" onEditCommit="#handleEditVehicleAction" prefWidth="130.0" text="Address" />
+                                          <TableColumn fx:id="registrationCol1" onEditCommit="#handleEditVehicleAction" prefWidth="165.0" text="penName" />
+                                          <TableColumn fx:id="registrationCol2" onEditCommit="#handleEditVehicleAction" prefWidth="165.0" text="affiliation" />
+                                          <TableColumn fx:id="registrationCol3" onEditCommit="#handleEditVehicleAction" prefWidth="165.0" text="orcID" />
+                                                  </columns>
+                                              </TableView>
+                                 </children>
+                              </StackPane>
+                                        <HBox prefHeight="48.0" prefWidth="631.0" spacing="5.0">
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                            <padding>
+                                                <Insets left="5.0" top="5.0" />
+                                            </padding>
+                                            <children>
+                                                <TextField fx:id="registrationField" prefHeight="27.0" prefWidth="122.0" promptText="Registration" />
+                                                <TextField fx:id="brandField" prefHeight="27.0" prefWidth="112.0" promptText="Brand" />
+                                                <TextField fx:id="modelField" prefHeight="27.0" prefWidth="125.0" promptText="Model" />
+                                                <TextField fx:id="cylindersField" prefHeight="27.0" prefWidth="146.0" promptText="Cylinders" />
+                                    <TextField prefHeight="25.0" prefWidth="87.0" />
+                                    <TextField prefHeight="25.0" prefWidth="87.0" />
+                                    <TextField prefHeight="25.0" prefWidth="87.0" />
+                                    <TextField prefHeight="25.0" prefWidth="87.0" />
+                                    <TextField prefHeight="25.0" prefWidth="87.0" />
+                                                <Button mnemonicParsing="false" onAction="#handleAddVehicleAction" text="Add">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                              <ScrollBar />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Papers">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab text="Penalties">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="339.0" prefWidth="600.0">
+                                    <children>
+                                        <HBox prefHeight="40.0" prefWidth="600.0" spacing="10.0">
+                                            <children>
+                                                <ComboBox fx:id="vehicleComboBox" onAction="#handleSelectVehicleAction" prefHeight="27.0" prefWidth="295.0" promptText="Vehicle" />
+                                                <ComboBox fx:id="driversComboBox" onAction="#handleSelectDriverAction" prefHeight="27.0" prefWidth="291.0" promptText="Driver" />
+                                            </children>
+                                            <padding>
+                                                <Insets left="5.0" right="5.0" top="5.0" />
+                                            </padding>
+                                            <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <TableView fx:id="penaltiesTable" prefHeight="315.0" prefWidth="600.0">
+                                            <columns>
+                                                <TableColumn fx:id="driverCol" prefWidth="87.0" text="Driver" />
+                                                <TableColumn fx:id="vehicleCol" prefWidth="136.0" text="Vehicle" />
+                                                <TableColumn fx:id="dateCol" prefWidth="120.0" text="Date" />
+                                                <TableColumn fx:id="localCol" prefWidth="118.0" text="Local" />
+                                                <TableColumn fx:id="motiveCol" prefWidth="138.0" text="Motive" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
