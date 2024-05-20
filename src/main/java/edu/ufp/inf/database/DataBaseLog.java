@@ -228,7 +228,6 @@ public class DataBaseLog {
             FileOutputStream fos = new FileOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-
             //Write number of papers
             oos.write(db.getMapDOI().size());
             for(Object a : db.getMapDOI().keySet()){

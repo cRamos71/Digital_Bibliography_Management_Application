@@ -1,9 +1,6 @@
 package edu.ufp.inf.Util;
 
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
+import edu.ufp.inf.Util.*;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -153,8 +150,8 @@ public class Graph implements Serializable {
 
     public static void main(String[] args) {
         In in = new In(args[0]);
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(in);
-        StdOut.println(G);
+        //Graph G = new edu.princeton.cs.algs4.Graph(in);
+        //StdOut.println(G);
     }
 }
 

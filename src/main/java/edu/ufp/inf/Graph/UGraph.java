@@ -1,13 +1,13 @@
 package edu.ufp.inf.Graph;
 
-import edu.princeton.cs.algs4.*;
-
+import edu.ufp.inf.Util.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class UGraph extends Graph implements Serializable {
+
 
     public UGraph(int V) {
         super(V);
@@ -104,7 +104,7 @@ public class UGraph extends Graph implements Serializable {
         int edgeTo[] = new int[super.V()];
         int distTo[] = new int[super.V()];
 
-        Queue<Integer> q = new Queue<>();
+        Queue<Integer> q = new Queue<Integer>();
         q.enqueue(orig);
         marked[orig] = true;
         distTo[orig] = 0;
@@ -127,7 +127,7 @@ public class UGraph extends Graph implements Serializable {
 
 
     public static void main(String[] args) {
-        Graph g1 = new Graph(new In("/.../.../Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/graphE.txt"));
+        Graph g1 = new Graph(new In("./data/graphE.txt"));
         UGraph ug = new UGraph(g1);
 
         System.out.println(ug.minimumHopsBetween(0, 3));
