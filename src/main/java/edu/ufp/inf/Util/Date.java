@@ -1,133 +1,145 @@
 package edu.ufp.inf.Util;
 
-import java.util.Objects;
+import edu.princeton.cs.algs4.StdOut;
 
-public class Date {
+import java.io.Serializable;
 
-    private short day;
-    private short month;
-    private int year;
+public class Date implements Comparable<Date>, Serializable {
+    private static final int[] DAYS = new int[]{0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private final int month;
+    private final int day;
+    private final int year;
 
-    public short getDay() {
-        return day;
+    public Date(int month, int day, int year) {
+        if (!isValid(month, day, year)) {
+            throw new IllegalArgumentException("Invalid date");
+        } else {
+            this.month = month;
+            this.day = day;
+            this.year = year;
+        }
     }
 
-    public void setDay(short day) {
-        this.day = day;
-    }
-
-    public short getMonth() {
-        return month;
-    }
-
-    public void setMonth(short month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    /**
-     * Default constructor
-     */
-    public Date() {
-    }
-
-    public Date(short day, short month, int year) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-    }
-
-    @Override
-    public String toString() {
-        return "date{" +
-                "day=" + day +
-                ", month=" + month +
-                ", year=" + year +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Date date)) return false;
-        return day == date.day && month == date.month && year == date.year;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(day, month, year);
-    }
-
-    /**
-     * @param d
-     * @return
-     */
-    public int compareTo(Date d) {
-        if(this.year == d.year && this.month == d.month && this.day == d.day) {
-            return 0;
-        } else if(this.year == d.year){
-            if(this.month == d.month){
-                return (this.day - d.day) / Math.abs(this.day - d.day);
-            }else {
-                return (this.month - d.month) / Math.abs(this.month - d.month);
+    public Date(String date) {
+        String[] fields = date.split("/");
+        if (fields.length != 3) {
+            throw new IllegalArgumentException("Invalid date");
+        } else {
+            this.month = Integer.parseInt(fields[0]);
+            this.day = Integer.parseInt(fields[1]);
+            this.year = Integer.parseInt(fields[2]);
+            if (!isValid(this.month, this.day, this.year)) {
+                throw new IllegalArgumentException("Invalid date");
             }
         }
-        return (this.year - d.year) / Math.abs(this.year - d.year);
     }
 
-    /**
-     * @param d
-     * @return true if this date
-     */
-    public boolean afterDate(Date d) {
-        return this.compareTo(d) > 0;
+    public int month() {
+        return this.month;
     }
 
-    /**
-     * @param d
-     * @return
-     */
-    public boolean beforeDate(Date d) {
-        return this.compareTo(d) < 0;
+    public int day() {
+        return this.day;
     }
 
-    /**
-     * @param d
-     * @return
-     */
-    public int diferenceDays(Date d) {
-
-        int thisDayCount = this.year * 365 + this.month * 30 + this.day;
-        int otherDayCount = d.year * 365 + d.month * 30 + d.day;
-
-        return Math.abs(thisDayCount - otherDayCount);
-
+    public int year() {
+        return this.year;
     }
 
-    /**
-     * @param d
-     * @return
-     */
-    public int diferenceMonths(Date d) {
-        int thisMonthCount = this.year * 12 + this.month;
-        int otherMonthCount = d.year * 12 + d.month;
-
-        return Math.abs(thisMonthCount - otherMonthCount);
+    private static boolean isValid(int m, int d, int y) {
+        if (m >= 1 && m <= 12) {
+            if (d >= 1 && d <= DAYS[m]) {
+                return m != 2 || d != 29 || isLeapYear(y);
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * @param d
-     * @return
-     */
-    public int diferenceYears(Date d) {
-        return Math.abs(this.year - d.year);
+    private static boolean isLeapYear(int y) {
+        if (y % 400 == 0) {
+            return true;
+        } else if (y % 100 == 0) {
+            return false;
+        } else {
+            return y % 4 == 0;
+        }
     }
 
+    public edu.princeton.cs.algs4.Date next() {
+        if (isValid(this.month, this.day + 1, this.year)) {
+            return new edu.princeton.cs.algs4.Date(this.month, this.day + 1, this.year);
+        } else {
+            return isValid(this.month + 1, 1, this.year) ? new edu.princeton.cs.algs4.Date(this.month + 1, 1, this.year) : new edu.princeton.cs.algs4.Date(1, 1, this.year + 1);
+        }
+    }
+
+    public boolean isAfter(Date that) {
+        return this.compareTo(that) > 0;
+    }
+
+    public boolean isBefore(Date that) {
+        return this.compareTo(that) < 0;
+    }
+
+    public int compareTo(Date that) {
+        if (this.year < that.year) {
+            return -1;
+        } else if (this.year > that.year) {
+            return 1;
+        } else if (this.month < that.month) {
+            return -1;
+        } else if (this.month > that.month) {
+            return 1;
+        } else if (this.day < that.day) {
+            return -1;
+        } else {
+            return this.day > that.day ? 1 : 0;
+        }
+    }
+
+    public String toString() {
+        return this.month + "/" + this.day + "/" + this.year;
+    }
+
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other == null) {
+            return false;
+        } else if (other.getClass() != this.getClass()) {
+            return false;
+        } else {
+            Date that = (Date)other;
+            return this.month == that.month && this.day == that.day && this.year == that.year;
+        }
+    }
+
+    public int hashCode() {
+        return this.day + 31 * this.month + 372 * this.year;
+    }
+
+    public static void main(String[] args) {
+        edu.princeton.cs.algs4.Date today = new edu.princeton.cs.algs4.Date(2, 25, 2004);
+        StdOut.println(today);
+
+        for(int i = 0; i < 10; ++i) {
+            today = today.next();
+            StdOut.println(today);
+        }
+
+        StdOut.println(today.isAfter(today.next()));
+        StdOut.println(today.isAfter(today));
+        StdOut.println(today.next().isAfter(today));
+        edu.princeton.cs.algs4.Date birthday = new edu.princeton.cs.algs4.Date(10, 16, 1971);
+        StdOut.println(birthday);
+
+        for(int i = 0; i < 10; ++i) {
+            birthday = birthday.next();
+            StdOut.println(birthday);
+        }
+
+    }
 }

@@ -1,27 +1,49 @@
 package edu.ufp.inf.database;
 
-import edu.princeton.cs.algs4.Date;
+import edu.ufp.inf.Util.Date;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 import edu.ufp.inf.paper_author.*;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DataBaseLog {
 
-    private DataBase db;
-    public DataBaseLog(DataBase db) {
+    private DataBase<Author, Paper> db = new DataBase<>();
+    public DataBaseLog(DataBase<Author, Paper> db) {
         this.db = db;
     }
+    public DataBaseLog(String fn, DataBase<Author, Paper> db) {
+        this.db = db;
+        fillDB(fn);
+    }
 
-    public void fillDBA() {
-        In fp = new In("../../Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/authors.txt");
+    public DataBaseLog(String fa, String fp, DataBase<Author, Paper> db) {
+        this.db = db;
+        readDBin(fa, fp);
+    }
+
+
+
+    /**
+     * Fills the database with data from a txt file.
+     * The file should contain information  in a specific format.
+     * The expected file format:
+     * Number of authors: X
+     * Author: 1; Name: John Doe; birthDate: 1980-12-15; Address: 123 Main St; Affiliation: University; penName: J.D.; ORCID: 0000-0001-2345-6789; scienceID: 123456; googleScholarID: ABCD1234; ScopusAuthorID: 56789
+     * Paper: reeeeeg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+     * Author: 2; Name: Jane Smith; birthDate: 1975-11-20; Address: 456 Elm St; Affiliation: Institute; penName: J.S.; ORCID: 0000-0002-3456-7890; scienceID: 789012; googleScholarID: EFGH5678; ScopusAuthorID: 12345
+     */
+    public void fillDB(String fn) {
+        In fp = new In(fn);
         String s = " ";
+        Integer idMax = -1;
         int numAuthors = Integer.parseInt(fp.readLine().split(":")[1].trim());
 
-        for (int i = 0; i < numAuthors; i++) {
+        for(int i = 0; i < numAuthors; i++){
             // Split the input string into key-value pairs
             String[] pairs = fp.readLine().split(";");
 
@@ -36,9 +58,9 @@ public class DataBaseLog {
                     infoMap.put(keyValue[0].trim(), keyValue[1].trim());
                 }
             }
+
             String Author = infoMap.get("Author");
-            String[] birthDate = infoMap.get("birthDate").strip().split("-");
-            System.out.println(birthDate[1] + " " + birthDate[2]);
+            String birthDate = infoMap.get("birthDate").strip();
             String name = infoMap.get("Name");
             String address = infoMap.get("Address");
             String affiliation = infoMap.get("Affiliation");
@@ -47,16 +69,26 @@ public class DataBaseLog {
             String scienceID = infoMap.get("scienceID");
             String googleScholarID = infoMap.get("googleScholarID");
             String ScopusAuthorID = infoMap.get("ScopusAuthorID");
-            edu.ufp.inf.paper_author.Author a = new Author(new Date(Integer.parseInt(birthDate[1]), Integer.parseInt(birthDate[0]), Integer.parseInt(birthDate[2])), name, address, penName, affiliation, ORCID, scienceID, googleScholarID, ScopusAuthorID);
+
+            Date d = new Date(birthDate);
+            Author a = new Author(d, name, address,penName, affiliation, ORCID, scienceID, googleScholarID, ScopusAuthorID);
             a.setIdNumber(Integer.parseInt(Author));
             db.insert(a);
-            fillAuthorPapers(a, fp);
+            fillAuthorPapers(a,fp);
+            if(Integer.parseInt(Author) > idMax){
+                idMax = Integer.parseInt(Author);
+            }
         }
-
-        //db.listAuthors();
+        db.setuID(idMax + 1);
         fp.close();
     }
 
+    /**
+     * Fills the database with papers related to a given author.
+     *
+     * @param a  The author for whom papers are being filled.
+     * @param fp The file input stream to read paper data from.
+     */
     private void fillAuthorPapers(Author a, In fp) {
         int numPapers = Integer.parseInt(fp.readLine().split(":")[1].trim());
         for (int i = 0; i < numPapers; i++) {
@@ -79,7 +111,7 @@ public class DataBaseLog {
             String Title = infoMap.get("Title");
             String Keywords = infoMap.get("Keywords");
             String anAbstract = infoMap.get("anAbstract");
-            String[] Date = infoMap.get("Date").strip().split("-");
+            String Date = infoMap.get("Date").strip();
             String numDownloads = infoMap.get("numDownloads");
             String totalNumLikes = infoMap.get("TotalNumLikes");
             String totalNumViews = infoMap.get("TotalNumViews");
@@ -89,13 +121,13 @@ public class DataBaseLog {
             if (DOI.charAt(DOI.length() - 1) == '1') {
                 String editionNumber = infoMap.get("editionNumber");
                 String local = infoMap.get("Local");
-                p = new PaperConference(DOI, Title, Keywords, anAbstract, new Date(Integer.parseInt(Date[1]), Integer.parseInt(Date[0]), Integer.parseInt(Date[2])), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews), Long.parseLong(numDownloads), Integer.parseInt(editionNumber), local);
+                p = new PaperConference(DOI, Title, Keywords, anAbstract, new Date(Date), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews), Long.parseLong(numDownloads), Integer.parseInt(editionNumber), local);
             } else {
                 String Publisher = infoMap.get("Publisher");
                 String Periodicity = infoMap.get("Periodicity");
                 String jcrIF = infoMap.get("jcrIF");
                 String scopusID = infoMap.get("ScopusID");
-                p = new PaperJournal(DOI, Title, Keywords, anAbstract, new Date(Integer.parseInt(Date[1]), Integer.parseInt(Date[0]), Integer.parseInt(Date[2])), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews), Long.parseLong(numDownloads), Publisher, edu.ufp.inf.paper_author.Periodicity.valueOf(Periodicity), Double.parseDouble(jcrIF), scopusID);
+                p = new PaperJournal(DOI, Title, Keywords, anAbstract, new Date(Date), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews), Long.parseLong(numDownloads), Publisher, edu.ufp.inf.paper_author.Periodicity.valueOf(Periodicity), Double.parseDouble(jcrIF), scopusID);
             }
 
             p.getAuthors().add(a);
@@ -103,16 +135,26 @@ public class DataBaseLog {
 
             if (!db.getMapDOI().containsKey(DOI)) {
                 db.insert(p);
+            }else{
+                db.getMapDOI().get(DOI).addAuthor(a);
             }
         }
     }
 
-    public void saveAuthorsTxt(String fn) {
+    /**
+     * Store the database in a txt file.
+     * File format:
+     * nAuthors: X
+     * Author: 1; Name: John Doe; birthDate: 1980-12-15; Address: 123 Main St; Affiliation: University; penName: J.D.; ORCID: 0000-0001-2345-6789; scienceID: 123456; googleScholarID: ABCD1234; ScopusAuthorID: 56789
+     * nPapers : X
+     * Paper: reeeeeg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+     * Author: 2; Name: Jane Smith; birthDate: 1975-11-20; Address: 456 Elm St; Affiliation: Institute; penName: J.S.; ORCID: 0000-0002-3456-7890; scienceID: 789012; googleScholarID: EFGH5678; ScopusAuthorID: 12345
+     */
+    public void saveDBTxt(String fn) {
         Out fp = new Out(fn);
 
         fp.println("nAuthors: " + db.getMapUID().size());
-        for (Object entry : db.getMapUID().keySet()) {
-            Long id = (Long) entry;
+        for (Integer id : db.getMapUID().keySet()) {
             Author a = (Author) db.getMapUID().get(id);
             fp.println("Author: " + a.getIdNumber() + " ; birthDate: " + a.getBirthDate() +
                     "; Name: " + a.getName() + "; Address: " + a.getAddress() +
@@ -138,18 +180,139 @@ public class DataBaseLog {
                 }
             }
         }
-
     }
+
+    /**
+     * Saves the database information to binary files.
+     *
+     * @param fa the name of the file to save author information
+     * @param fp the name of the file to save paper information
+     */
+    public void saveDBBin(String fa, String fp) {
+        saveAuthorsBin(fa);
+        savePapersBin(fp);
+    }
+
+    /**
+     * Saves author information to a binary file.
+     *
+     * @param fa the name of the file to save author information
+     */
+    private void saveAuthorsBin(String fa) {
+        try {
+            File f = new File(fa);
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+
+            //Write number of authors
+            oos.write(db.getMapUID().size());
+            for(Object a : db.getMapUID().keySet()){
+                oos.writeObject(db.getMapUID().get(a));
+            }
+            oos.flush();
+            oos.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Saves paper information to a binary file.
+     *
+     * @param fp the name of the file to save paper information
+     */
+    private void savePapersBin(String fp) {
+        try {
+            File f = new File(fp);
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+
+            //Write number of papers
+            oos.write(db.getMapDOI().size());
+            for(Object a : db.getMapDOI().keySet()){
+                oos.writeObject(db.getMapDOI().get(a));
+            }
+            oos.flush();
+            oos.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * Reads the database information from binary files.
+     *
+     * @param fa the name of the file to read author information
+     * @param fp the name of the file to read paper information
+     */
+    public void readDBin(String fa, String fp) {
+        readAuthorsBin(fa);
+        readPapersBin(fp);
+    }
+
+    /**
+     * Reads author information from a binary file.
+     *
+     * @param fa the name of the file to read author information
+     */
+    private void readAuthorsBin(String fa){
+        try {
+            File f = new File(fa);
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            int num_authors = ois.read();
+            System.out.println(num_authors);
+            for (int i = 0; i < num_authors; i++){
+                System.out.println(i);
+                Author a = (Author) ois.readObject();
+                db.insert(a);
+            }
+            ois.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Reads paper information from a binary file.
+     *
+     * @param fp the name of the file to read paper information
+     */
+    private void readPapersBin(String fp){
+        try {
+            File f = new File(fp);
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            int numPapers = ois.read();
+            System.out.println(numPapers);
+            for (int i = 0; i < numPapers; i++){
+                System.out.println(i);
+                Paper p = (Paper) ois.readObject();
+                db.insert(p);
+            }
+            ois.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public static void main(String[] args) {
         DataBase db = new DataBase();
         DataBaseLog dbLog = new DataBaseLog(db);
 
-        dbLog.fillDBA();
-        db.listPapers();
+       // dbLog.fillDB("./data/db.txt");
+       // dbLog.saveDBBin("./data/authors.bin", "./data/papers.bin");
+        dbLog.readDBin("./data/authors.bin", "./data/papers.bin");
+        System.out.println( db.listPapers());
 
 
-        dbLog.saveAuthorsTxt("/Users/gabrielferreira/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/teste.txt");
+       // dbLog.saveAuthorsTxt("./data/db.txt");
 
     }
 }

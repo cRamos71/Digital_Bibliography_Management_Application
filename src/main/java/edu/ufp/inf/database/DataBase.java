@@ -1,14 +1,11 @@
 package edu.ufp.inf.database;
-
+import edu.ufp.inf.Util.Date;
 import edu.princeton.cs.algs4.*;
-import edu.ufp.inf.ManageGraphs.AuthorsGraph;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
-import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
 
-import edu.princeton.cs.algs4.Date;
 import java.util.*;
 
 
@@ -22,11 +19,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
     private HashMap<Integer, String> mapRemovedA = new HashMap<>();
 
-    private AuthorsGraph aGraph = new AuthorsGraph(new UGraph(10), this.mapUID);
-    Digraph PapersDigraph = new Digraph(10);
     private Integer uID = 0;
-
-    private Integer graphID;
 
     public RedBlackBST<Long, A> getAuthorsTree() {
         return authorsTree;
@@ -60,6 +53,10 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         this.datePapersTree = datePapersTree;
     }
 
+    public void setuID(Integer uID) {
+        this.uID = uID;
+    }
+
     public HashMap<Integer, A> getMapUID() {
         return mapUID;
     }
@@ -85,20 +82,14 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
 
-    public Digraph getPapersDigraph() {
-        return PapersDigraph;
-    }
-
-    public void setPapersDigraph(Digraph papersDigraph) {
-        PapersDigraph = papersDigraph;
-    }
-
     @Override
     public void insert(A author) {
         if (author.getIdNumber() == null)
             author.setIdNumber(this.uID++);
-        if (!mapUID.containsKey(author.getIdNumber()))
+        if (!mapUID.containsKey(author.getIdNumber())){
+            System.out.println("insere db");
             mapUID.put(author.getIdNumber(), author);
+        }
     }
 
     @Override
@@ -107,27 +98,46 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         mapUID.put(author.getIdNumber(),author);
     }
     @Override
-    public void remove(A author) {
+    public void remove(A author, String fn) {
         mapUID.remove(author.getIdNumber(), author);
         mapRemovedA.put(author.getIdNumber(),author.getName());
 
-        removeAuthorPapersMap((ArrayList<P>) author.getPapers());
+        authorsDeletedLog(fn);
+
+        removeAuthorPapersMap((ArrayList<P>) author.getPapers(), author);
     }
 
-    private void removeAuthorPapersMap(ArrayList<P> papers){
-        for (P p : papers){
+
+    private void authorsDeletedLog(String fn){
+        Out out = new Out(fn);
+
+        for (Integer a : mapRemovedA.keySet())
+            out.println(mapRemovedA.get(a));
+
+        out.close();
+    }
+
+    private void removeAuthorPapersMap(ArrayList<P> papers, A a){
+        for(int i = 0; i < papers.size(); i++){
             ArrayList<Author> authorsAL = null;
-            authorsAL = p.getAuthors();
+            authorsAL = papers.get(i).getAuthors();
             // only removes if the paper has only 1 author assigned
-            if (authorsAL.size() == 1) remove(p);
+            if (authorsAL.size() == 1){
+                remove(papers.get(i));
+            }else{
+                papers.get(i).getAuthors().remove(a);
+            }
         }
     }
 
     @Override
-    public void listAuthors() {
+    public ArrayList<Author> listAuthors() {
+        ArrayList<Author> a = new ArrayList<>();
         for(Integer l : this.mapUID.keySet()){
-            System.out.println("Key : " + l + " Val: " + this.mapUID.get(l));
+            //System.out.println("Key : " + l + " Val: " + this.mapUID.get(l));
+            a.add(this.mapUID.get(l));
         }
+        return a;
     }
 
     @Override
@@ -156,15 +166,21 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         for(Author a : authorsAL){
             a.removePaper(paper);
         }
+
         mapDOI.remove(paper.getDoi());
     }
 
     @Override
-    public void listPapers() {
+    public ArrayList<String> listPapers() {
+        ArrayList<String> pap = new ArrayList<>();
         for(String l : this.mapDOI.keySet()){
-            System.out.println("Key : " + l + " Val: " + this.mapDOI.get(l));
+           // System.out.println("Key : " + l + " Val: " + this.mapDOI.get(l));
+            pap.add(this.mapDOI.get(l).toString());
         }
+        return pap;
     }
+
+
 
 
     @Override
@@ -254,6 +270,8 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
       return papersFound;
     }
+
+
 
 
 

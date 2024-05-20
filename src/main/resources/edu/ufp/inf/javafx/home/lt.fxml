@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="693.0" prefWidth="1253.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ufp.inf.javafx.home.MainController">
+    <children>
+        <MenuBar prefHeight="107.0" prefWidth="1253.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <Menu mnemonicParsing="false" text="Open">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Open Text File" />
+                                <MenuItem mnemonicParsing="false" text="Open Bin File" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Save">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Save Text File" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleSaveBinFileAction" text="Save Bin File" />
+                            </items>
+                        </Menu>
+                        <MenuItem mnemonicParsing="false" text="Exit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <TabPane layoutX="-1.0" layoutY="42.0" prefHeight="519.0" prefWidth="1251.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Authors">
+                    <content>
+                        <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="100.0" prefHeight="457.0" prefWidth="1248.0">
+                            <children>
+                                <VBox layoutY="6.0" prefHeight="408.0" prefWidth="1119.0">
+                                    <children>
+                                        <TableView fx:id="authorsTable" editable="true" prefHeight="408.0" prefWidth="1156.0">
+                                            <columns>
+                                                <TableColumn fx:id="idNumberCol" onEditCommit="#handleEditAuthorAction" prefWidth="70.0" text="idNumber" />
+                                                <TableColumn fx:id="birthDateCol" onEditCommit="#handleEditAuthorAction" prefWidth="130.0" text="birthDate" />
+                                                <TableColumn fx:id="nameCol" onEditCommit="#handleEditAuthorAction" prefWidth="170.0" text="Name" />
+                                                <TableColumn fx:id="addressCol" minWidth="0.0" onEditCommit="#handleEditAuthorAction" prefWidth="104.0" text="Address" />
+                                    <TableColumn fx:id="penNameCol" onEditCommit="#handleEditAuthorAction" prefWidth="100.0" text="penName" />
+                                    <TableColumn fx:id="affiliationCol" onEditCommit="#handleEditAuthorAction" prefWidth="100.0" text="affiliation" />
+                                    <TableColumn fx:id="orcIDCol" onEditCommit="#handleEditAuthorAction" prefWidth="165.0" text="orcID" />
+                                    <TableColumn fx:id="scienceIDCol" onEditCommit="#handleEditAuthorAction" prefWidth="100.0" text="scienceID" />
+                                    <TableColumn fx:id="googleScholarIDCol" onEditCommit="#handleEditAuthorAction" prefWidth="100.0" text="googleScholarID" />
+                                    <TableColumn fx:id="scopusAuthorIDCol" onEditCommit="#handleEditAuthorAction" prefWidth="100.0" text="scopusAuthorID" />
+                                    <TableColumn fx:id="papersCol" prefWidth="75.0" text="Papers">
+                                    </TableColumn>
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                                               <HBox layoutY="414.0" prefHeight="54.0" prefWidth="1251.0" spacing="5.0">
+                                      <padding>
+                                          <Insets left="5.0" top="5.0" />
+                                      </padding>
+                                      <children>
+                                          <TextField fx:id="birthDateField" prefHeight="27.0" prefWidth="87.0" promptText="birthDate" />
+                                          <TextField fx:id="nameField" prefHeight="27.0" prefWidth="119.0" promptText="Name" />
+                                          <TextField fx:id="addressField" prefHeight="27.0" prefWidth="125.0" promptText="Address" />
+                                          <TextField fx:id="penNameField" prefHeight="27.0" prefWidth="124.0" promptText="penName" />
+                              <TextField fx:id="affiliationField" prefHeight="25.0" prefWidth="108.0" promptText="affiliation" />
+                              <TextField fx:id="orcIDField" prefHeight="25.0" prefWidth="123.0" promptText="orcID" />
+                              <TextField fx:id="scienceIDField" prefHeight="25.0" prefWidth="118.0" promptText="scienceID" />
+                              <TextField fx:id="googleScholarIDField" prefHeight="25.0" prefWidth="116.0" promptText="googleScholarID" />
+                              <TextField fx:id="scopusAuthorIDField" layoutX="731.0" layoutY="15.0" prefHeight="25.0" prefWidth="118.0" promptText="scopusAuthorID" />
+                                          <Button mnemonicParsing="false" onAction="#handleAddAuthorAction" prefHeight="25.0" prefWidth="89.0" text="Add Author">
+                                              <HBox.margin>
+                                                  <Insets left="10.0" />
+                                              </HBox.margin>
+                                          </Button>
+                                      </children>
+                                  </HBox>
+                        <Button fx:id="dbTxt" layoutX="1119.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleSaveDBtxtAction" prefHeight="35.0" prefWidth="132.0" text="Save DB in .txt" />
+                        <Button fx:id="dbBin" layoutX="1118.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleSaveDBbinAction" prefHeight="40.0" prefWidth="133.0" text="Save DB in .bin" />
+                        <ComboBox fx:id="PapersComboBox" layoutX="3.0" layoutY="455.0" onAction="#handleSelectPaperAction" prefHeight="32.0" prefWidth="187.0" promptText="Papers" />
+                        <TextField fx:id="idNumberField" layoutX="200.0" layoutY="460.0" prefHeight="25.0" prefWidth="117.0" promptText="id" />
+                        <Button fx:id="addPaper" layoutX="329.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleAddPaperAuthorAction" prefHeight="28.0" prefWidth="84.0" text="Add Paper to Author" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Papers">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab text="Penalties">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="339.0" prefWidth="600.0">
+                                    <children>
+                                        <HBox prefHeight="40.0" prefWidth="600.0" spacing="10.0">
+                                            <children>
+                                                <ComboBox fx:id="vehicleComboBox" onAction="#handleSelectVehicleAction" prefHeight="27.0" prefWidth="295.0" promptText="Vehicle" />
+                                                <ComboBox fx:id="driversComboBox" onAction="#handleSelectDriverAction" prefHeight="27.0" prefWidth="291.0" promptText="Driver" />
+                                            </children>
+                                            <padding>
+                                                <Insets left="5.0" right="5.0" top="5.0" />
+                                            </padding>
+                                            <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <TableView fx:id="penaltiesTable" prefHeight="315.0" prefWidth="600.0">
+                                            <columns>
+                                                <TableColumn fx:id="driverCol" onEditCommit="#handleEditAuthorAction" prefWidth="87.0" text="Driver" />
+                                                <TableColumn fx:id="vehicleCol" onEditCommit="#handleEditAuthorAction" prefWidth="136.0" text="Vehicle" />
+                                                <TableColumn fx:id="dateCol" onEditCommit="#handleEditAuthorAction" prefWidth="120.0" text="Date" />
+                                                <TableColumn fx:id="localCol" onEditCommit="#handleEditAuthorAction" prefWidth="118.0" text="Local" />
+                                                <TableColumn fx:id="motiveCol" onEditCommit="#handleEditAuthorAction" prefWidth="138.0" text="Motive" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
