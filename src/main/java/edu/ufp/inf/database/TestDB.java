@@ -8,6 +8,8 @@ import edu.ufp.inf.paper_author.*;
 
 public class TestDB {
     static DataBase<Author, Paper> db = new DataBase<>();
+    //design pattern singleton getInstance()
+    //main instancia baseded daos e cada funco de teste recebe bd
 
     static  DataBaseLog dbLog = new DataBaseLog("data/db.txt", db);
 

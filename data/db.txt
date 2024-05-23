@@ -1,7 +1,9 @@
 nAuthors: 4
 Author: 0 ; birthDate: 10/21/2020; Name: Paulo; Address: ; penName:  ; Affiliation: ; ORCID: ; scienceID: ; googleScholarID: ; ScopusAuthorID: null
-nPapers: 1
+nPapers: 3
 Paper: reeeeeg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+Paper: fagaaab1; Title: O L ;Keywords: null ; anAbstract: null ; Date: 10/20/2023 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto
+Paper: fagaaaa1; Title: O joaozinho ;Keywords: null ; anAbstract: null ; Date: 10/20/2023 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto
 Author: 1 ; birthDate: 10/20/2023; Name: Lopes; Address: 4500; penName: Carlos, P. ; Affiliation: none; ORCID: 13292323242; scienceID: 3213331; googleScholarID: 3123114; ScopusAuthorID: 81392323
 nPapers: 2
 Paper: fagaaaa1; Title: O joaozinho ;Keywords: null ; anAbstract: null ; Date: 10/20/2023 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto

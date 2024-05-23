@@ -421,6 +421,7 @@ public class MainController implements Initializable {
 
         }
 
+        idNumberField.setText("");
 
 
     }
