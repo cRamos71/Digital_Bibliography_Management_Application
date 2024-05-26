@@ -288,6 +288,46 @@ public class PapersGraph<P extends Paper> {
     }
 
 
+    private ArrayList<Author> authorQuotesPeriod(ArrayList<P> papersList, Date dateStart, Date dateEnd){
+        ArrayList<Author> authors = new ArrayList<>();
+
+        for (P paper : papersList){
+            Integer id = paper.getGraphId();
+            //para cada edge
+            for (DirectedEdge edge : this.papersPGraph.adj(id)){
+
+                for (DirectedEdge edge1 : this.papersPGraph.adj(edge.to())){
+                    //citacao para paper p
+                    if (edge1.to() == edge.from()){
+                        if (paper.getDate().isAfter(dateStart) && paper.getDate().isBefore(dateEnd)){
+                            authors.addAll(papersMap.get(id).getAuthors());
+                        }
+
+                    }
+                }
+            }
+        }
+        return authors;
+    }
+
+
+    private ArrayList<P> journalQuotes(Date dateStart, Date dateEnd){
+        ArrayList<P> papers = new ArrayList<>();
+
+        for (Integer key : papersMap.keySet()){
+            if (papersMap.get(key) instanceof PaperJournal){
+              for (DirectedEdge edge : papersPGraph.adj(key)){
+                  if (papersMap.get(edge.to()).getDate().isAfter(dateStart) && papersMap.get(edge.to()).getDate().isBefore(dateEnd)){
+                      papers.add(papersMap.get(edge.to()));
+                  }
+              }
+            }
+        }
+
+        return papers;
+    }
+
+
 
     public static void main(String[] args) {
         PGraph pg = new PGraph(new In("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt"));
