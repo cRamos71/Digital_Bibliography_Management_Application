@@ -76,14 +76,21 @@ public class PaperJournal extends Paper implements Serializable {
     public int hashCode() {
         return Objects.hash(super.hashCode(), publisher, periodicity, jcrIF, scopusID);
     }
-
     @Override
     public String toString() {
-        return super.toString() +  "PaperJournal{" +
-                "publisher='" + publisher + '\'' +
-                ", periodicity=" + periodicity +
-                ", jcrIF=" + jcrIF +
-                ", scopusID='" + scopusID + '\'' +
+        return "PaperJournal{" +
+                "doi='" + getDoi() + '\'' +
+                ", title='" + getTitle() + '\'' +
+                ", keywords='" + getKeywords() + '\'' +
+                ", anAbstract='" + getAnAbstract() + '\'' +
+                ", date=" + getDate() +
+                ", numDownloads=" + getNumDownloads() +
+                ", totalNumViews=" + getTotalNumViews() +
+                ", totalNumLikes=" + getTotalNumLikes() +
+                ", publisher='" + getPublisher() + '\'' +
+                ", periodicity=" + getPeriodicity() +
+                ", jcrIF=" + getJcrIF() +
+                ", scopusID='" + getScopusID() + '\'' +
                 '}';
     }
 

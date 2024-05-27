@@ -305,13 +305,28 @@ public class DataBaseLog {
         DataBase db = new DataBase();
         DataBaseLog dbLog = new DataBaseLog(db);
 
-       // dbLog.fillDB("./data/db.txt");
-       // dbLog.saveDBBin("./data/authors.bin", "./data/papers.bin");
-        dbLog.readDBin("./data/authors.bin", "./data/papers.bin");
-        System.out.println( db.listPapers());
+       dbLog.fillDB("./data/db.txt");
+       //dbLog.saveDBBin("./data/authors.bin", "./data/papers.bin");
+        // dbLog.readDBin("./data/authors.bin", "./data/papers.bin");
+        System.out.println(db.listPapers());
+        System.out.println(db.listAuthors());
 
+        Date bdate = new Date(12,10,2003);
+        Date bdate1 = new Date(10,10,1290);
+        Paper p2 = new PaperJournal();
+        p2.setDate(bdate1);
+        p2.setTitle("A historia de Joelzinho, o Rapaz!!!");
+        p2.setDate(bdate1);
+
+        dbLog.db.insert(p2);
+        System.out.println(dbLog.db.listPapers());
+        Author a = new Author(null, bdate, "ola", "4500-368", "1", "2", "3", "4", "5", "6" );
+        a.addPaper(p2);
+        dbLog.db.insert(a);
+        System.out.println(dbLog.db.listAuthors());
 
        // dbLog.saveAuthorsTxt("./data/db.txt");
+        dbLog.saveDBTxt("./data/db.txt");
 
     }
 }
