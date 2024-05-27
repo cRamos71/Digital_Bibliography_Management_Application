@@ -121,6 +121,12 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         removeAuthorPapersMap((ArrayList<P>) author.getPapers(), author);
     }
 
+
+    public void authorsDeletedLog(){
+        for (Integer key : mapRemovedA.keySet()){
+        }
+    }
+
     /**
      * Logs the names of all removed authors to a specified text file.
      *
