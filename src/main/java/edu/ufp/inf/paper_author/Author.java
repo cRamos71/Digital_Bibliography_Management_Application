@@ -163,7 +163,7 @@ private ArrayList<Paper> papers = new ArrayList<>();
                     bstDate.put(key, a);
                 }
             }else{
-                ArrayList<String>temp =  new ArrayList<>();
+                ArrayList<String> temp =  new ArrayList<>();
                 temp.add(p.getTitle());
                 bstDate.put(key, temp);
             }

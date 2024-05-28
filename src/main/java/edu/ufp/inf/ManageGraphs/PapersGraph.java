@@ -1,5 +1,6 @@
 package edu.ufp.inf.ManageGraphs;
 import edu.princeton.cs.algs4.*;
+import edu.ufp.inf.Graph.UGraph;
 import edu.ufp.inf.Util.Date;
 import edu.princeton.cs.algs4.Stack;
 import edu.ufp.inf.Graph.PGraph;
@@ -29,6 +30,7 @@ public class PapersGraph<P extends Paper> {
             this.papersMap.put(id, hashPapers.get(k));
         }
     }
+
 
     public void listPapersJournalAndTime(Date start, Date end){
         for (Integer id : papersMap.keySet()){
@@ -159,7 +161,6 @@ public class PapersGraph<P extends Paper> {
         addHash(p2);
         double weight = Math.abs(weightCalc(p1) - weightCalc(p2));
         System.out.println(weight);
-
         this.papersPGraph.addEdge(new DirectedEdge(p1.getGraphId(),p2.getGraphId(),weight));
     }
 
@@ -177,13 +178,33 @@ public class PapersGraph<P extends Paper> {
     }
 
      //grafo vazio , 1 verificar quantos existem conference e depois criar o grafo
-    public void writeGraphToFile(String fn){
+    /*public void writeGraphToFile(String fn){
         Out fp = new Out(fn);
         fp.println(this.papersPGraph.V());
         fp.println(this.papersPGraph.E());
         for(int i = 0; i < this.papersPGraph.V(); i++){
             for (DirectedEdge id : this.papersPGraph.adj(i)){
               fp.println(id.from() +  " " + id.to() + " " + id.weight());
+            }
+        }
+    }*/
+
+    public void savePapersGraphTxt(String fn){
+        Out fp = new Out(fn);
+        writeAuthorsGraphTxt(fp);
+        writePapersHashTxt(fp);
+        fp.close();
+    }
+
+
+    private void writeAuthorsGraphTxt(Out fp){
+
+        fp.println(papersPGraph.V());
+        fp.println(papersPGraph.E());
+
+        for (int i = 0; i < papersPGraph.V(); i++){
+            for (DirectedEdge w : papersPGraph.adj(i)){
+                    fp.println(w.from() + " " + w.to() + " " + w.weight());
             }
         }
     }
@@ -288,14 +309,13 @@ public class PapersGraph<P extends Paper> {
     }
 
 
-    private ArrayList<Author> authorQuotesPeriod(ArrayList<P> papersList, Date dateStart, Date dateEnd){
+    private String authorQuotesPeriod(ArrayList<P> papersList, Date dateStart, Date dateEnd){
         ArrayList<Author> authors = new ArrayList<>();
 
         for (P paper : papersList){
             Integer id = paper.getGraphId();
             //para cada edge
             for (DirectedEdge edge : this.papersPGraph.adj(id)){
-
                 for (DirectedEdge edge1 : this.papersPGraph.adj(edge.to())){
                     //citacao para paper p
                     if (edge1.to() == edge.from()){
@@ -307,11 +327,13 @@ public class PapersGraph<P extends Paper> {
                 }
             }
         }
-        return authors;
+        if (authors.isEmpty())
+            return "There are no quotes in this time stamp";
+        return authors.toString();
     }
 
 
-    private ArrayList<P> journalQuotes(Date dateStart, Date dateEnd){
+    private String journalQuotes(Date dateStart, Date dateEnd){
         ArrayList<P> papers = new ArrayList<>();
 
         for (Integer key : papersMap.keySet()){
@@ -323,8 +345,157 @@ public class PapersGraph<P extends Paper> {
               }
             }
         }
+        if (papers.isEmpty())
+            return "There are no quotes in any Journal";
+        return papers.toString();
+    }
 
-        return papers;
+    private void writePapersHashTxt(Out fp){
+
+        fp.println("nPapers: " + papersMap.size());
+        for (Integer id : papersMap.keySet()) {
+            Paper p = (Paper) papersMap.get(id);
+
+            if (p instanceof PaperConference) {
+                fp.println("Paper: " + p.getDoi() + "; Title: " + p.getTitle() + " ;Keywords: " + p.getKeywords() +
+                        " ; anAbstract: " + p.getAnAbstract() + " ; Date: " + p.getDate() +
+                        " ; TotalNumViews: " + p.getTotalNumViews() + " ; TotalNumLikes: " + p.getTotalNumViews() +
+                        " ; numDownloads: " + p.getNumDownloads() + "; editionNumber: " + ((PaperConference) p).getEditionNumber() +
+                        " ; Local: " + ((PaperConference) p).getLocal());
+            } else if (p instanceof PaperJournal) {
+
+                fp.println("Paper: " + p.getDoi() + "; Title: " + p.getTitle() + " ;Keywords: " + p.getKeywords() +
+                        " ; anAbstract: " + p.getAnAbstract() + " ; Date: " + p.getDate() +
+                        " ; TotalNumViews: " + p.getTotalNumViews() + " ; TotalNumLikes: " + p.getTotalNumLikes() +
+                        " ; numDownloads: " + p.getNumDownloads() + "; Publisher: " + ((PaperJournal) p).getPublisher() +
+                        " ; Periodicity: " + ((PaperJournal) p).getPeriodicity() +  "; jcrIF: " + ((PaperJournal) p).getJcrIF() + "; ScopusID: " + ((PaperJournal) p).getScopusID()  );
+            }
+
+            fp.println("nAuthors: " + p.getAuthors().size());
+            for (Author a : p.getAuthors()) {
+                fp.println("Key: " + id + " ; Author: " + a.getIdNumber() + " ; birthDate: " + a.getBirthDate() +
+                        "; Name: " + a.getName() + "; Address: " + a.getAddress() +
+                        "; penName: " + a.getPenName() + " ; Affiliation: " + a.getAffiliation() +
+                        "; ORCID: " + a.getOrcID() + "; scienceID: " + a.getScienceID() +
+                        "; googleScholarID: " + a.getGoogleScholarID() + "; ScopusAuthorID: " + a.getScopusAuthorID());
+
+            }
+        }
+
+    }
+
+
+    private void readGraphTxt(In fp) {
+        String s = " ";
+        int numVertexes = Integer.parseInt(fp.readLine());
+        int numEdges = Integer.parseInt(fp.readLine());
+
+        this.papersPGraph = new PGraph(numVertexes);
+
+        for (int i = 0; i < numEdges; i++) {
+            // Split the input string into key-value pairs
+            String[] pairs = fp.readLine().split(" ");
+
+            // Create a map to store the extracted information
+            DirectedEdge e = new DirectedEdge(Integer.parseInt(pairs[0]), Integer.parseInt(pairs[1]), Double.parseDouble(pairs[2]));
+            this.papersPGraph.addEdge(e);
+        }
+    }
+
+    private void readPapersHash(In fp){
+        String s = " ";
+        int numPapers = Integer.parseInt(fp.readLine().split(":")[1].trim());
+
+        for(int i = 0; i < numPapers; i++){
+            // Split the input string into key-value pairs
+            String[] pairs = fp.readLine().split(";");
+
+            // Create a map to store the extracted information
+            Map<String, String> infoMap = new HashMap<>();
+
+            for (String pair : pairs) {
+                // Split each pair into key and value
+                String[] keyValue = pair.split(": ", 2);
+
+                if (keyValue.length == 2) {
+                    infoMap.put(keyValue[0].trim(), keyValue[1].trim());
+                }
+            }
+            String Key = infoMap.get("Key");
+            String DOI = infoMap.get("Paper");
+            String Title = infoMap.get("Title");
+            String Keywords = infoMap.get("Keywords");
+            String anAbstract = infoMap.get("anAbstract");
+            String Date = infoMap.get("Date").strip();
+            String numDownloads = infoMap.get("numDownloads");
+            String totalNumLikes = infoMap.get("TotalNumLikes");
+            String totalNumViews = infoMap.get("TotalNumViews");
+
+            //System.out.println(Date);
+
+            Paper p = null;
+
+            if (DOI.charAt(DOI.length() - 1) == '1') {
+                String editionNumber = infoMap.get("editionNumber");
+                String local = infoMap.get("Local");
+                p = new PaperConference(DOI, Title, Keywords, anAbstract, new Date(Date), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews), Long.parseLong(numDownloads), Integer.parseInt(editionNumber), local);
+            } else {
+                String Publisher = infoMap.get("Publisher");
+                String Periodicity = infoMap.get("Periodicity");
+                String jcrIF = infoMap.get("jcrIF");
+                String scopusID = infoMap.get("ScopusID");
+                p = new PaperJournal(DOI, Title, Keywords, anAbstract, new Date(Date), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews), Long.parseLong(numDownloads), Publisher, edu.ufp.inf.paper_author.Periodicity.valueOf(Periodicity), Double.parseDouble(jcrIF), scopusID);
+            }
+
+            this.papersMap.put(Integer.parseInt(Key) , (P) p);
+            fillPaperAuthors(p, fp);
+        }
+        this.ids = numPapers;
+    }
+
+    /**
+     * Fills the Paper with authors related to a given paper.
+     *
+     * @param p  The paper for whom authors are being filled.
+     * @param fp The file input stream to read paper data from.
+     */
+    private void fillPaperAuthors(Paper p, In fp) {
+        int numAuthors = Integer.parseInt(fp.readLine().split(":")[1].trim());
+
+        for (int i = 0; i < numAuthors; i++) {
+            // Split the input string into key-value pairs
+            String[] pairs = fp.readLine().split(";");
+
+            // Create a map to store the extracted information
+            Map<String, String> infoMap = new HashMap<>();
+
+            for (String pair : pairs) {
+                // Split each pair into key and value
+                String[] keyValue = pair.split(": ", 2);
+
+                if (keyValue.length == 2) {
+                    infoMap.put(keyValue[0].trim(), keyValue[1].trim());
+                }
+            }
+
+            String Key = infoMap.get("Key");
+            String Author = infoMap.get("Author");
+            String birthDate = infoMap.get("birthDate").strip();
+            String name = infoMap.get("Name");
+            String address = infoMap.get("Address");
+            String affiliation = infoMap.get("Affiliation");
+            String penName = infoMap.get("penName");
+            String ORCID = infoMap.get("ORCID");
+            String scienceID = infoMap.get("scienceID");
+            String googleScholarID = infoMap.get("googleScholarID");
+            String ScopusAuthorID = infoMap.get("ScopusAuthorID");
+            Date d = new Date(birthDate);
+            Author a = new Author(d, name, address,penName, affiliation, ORCID, scienceID, googleScholarID, ScopusAuthorID);
+            a.setIdNumber(Integer.parseInt(Author));
+
+            a.addPaper(p);
+            p.getAuthors().add(a);
+        }
     }
 
 
@@ -374,8 +545,11 @@ public class PapersGraph<P extends Paper> {
         HashMap<Integer, Paper> hm = new HashMap<>();
         PapersGraph pG = new PapersGraph(pag, hm);
 
-        //pa.writeGraphToFile("/Users/claudio/Downloads/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt");
-        pG.readGraphFromFile("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt");
+        pa.savePapersGraphTxt("data/test1.txt");
+       // pG.readGraphFromFile("data/test1.txt");
+        Date dateb = new Date(10,2, 1100);
+        Date datee = new Date(10,2, 1900);
+        //pG.listPapersJournalAndTime(dateb,datee);
         //System.out.println(pG.papersPGraph);
         boolean[] marked = new boolean[8];
 

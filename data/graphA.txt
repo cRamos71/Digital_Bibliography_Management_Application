@@ -4,8 +4,12 @@
 0 1
 nAuthors: 3
 Key: 0 ; Author: 0 ; birthDate: 01/01/2001; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-nPapers: 0
+nPapers: 1
+Paper: fagaaaa1; Title: O joaozinho ;Keywords: null ; anAbstract: null ; Date: 10/20/2023 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto
 Key: 1 ; Author: 1 ; birthDate: 08/21/2020; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
 nPapers: 0
 Key: 2 ; Author: 2 ; birthDate: 11/12/2003; Name: null; Address: null; penName: olasolas ; Affiliation: nigeria; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-nPapers: 0
+nPapers: 2
+Paper: c179336c-f8c9-4e22-864f-b1dcc95fc3000; Title: A historia de Joelzinho, o Rapaz!!! ;Keywords: null ; anAbstract: null ; Date: 10/10/1290 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
+Paper: c179336c-f8c9-4e22-864f-b1dcc95fc3003; Title: A historia de Claudio, o Rapaz!!! ;Keywords: null ; anAbstract: null ; Date: 10/10/1290 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
+

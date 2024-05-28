@@ -244,7 +244,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
      */
     public ArrayList<String> paperAuthorByIdPeriodIn(Integer idAuthor, Date startDate, Date endDate) {
         // get bst with curr paper title and year
-        RedBlackBST<Integer, ArrayList<String>> bstDate =null;
+        RedBlackBST<Integer, ArrayList<String>> bstDate = null;
         Author author = this.mapUID.get(idAuthor);
 
         if(author  == null)return null;

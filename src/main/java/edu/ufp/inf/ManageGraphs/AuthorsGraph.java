@@ -19,10 +19,33 @@ public class AuthorsGraph<A extends Author, P extends Paper> implements Serializ
 
 
   public AuthorsGraph(){
-
   }
 
-  public AuthorsGraph(Integer v) {
+    public UGraph getAuthorsUGraph() {
+        return authorsUGraph;
+    }
+
+    public void setAuthorsUGraph(UGraph authorsUGraph) {
+        this.authorsUGraph = authorsUGraph;
+    }
+
+    public HashMap<Integer, A> getAuthorsMap() {
+        return authorsMap;
+    }
+
+    public void setAuthorsMap(HashMap<Integer, A> authorsMap) {
+        this.authorsMap = authorsMap;
+    }
+
+    public Integer getIds() {
+        return ids;
+    }
+
+    public void setIds(Integer ids) {
+        this.ids = ids;
+    }
+
+    public AuthorsGraph(Integer v) {
       this.authorsUGraph = new UGraph(v);
    }
 
@@ -357,7 +380,6 @@ public class AuthorsGraph<A extends Author, P extends Paper> implements Serializ
                     infoMap.put(keyValue[0].trim(), keyValue[1].trim());
                 }
             }
-            System.out.println("cona");
             String DOI = infoMap.get("Paper");
             String Title = infoMap.get("Title");
             String Keywords = infoMap.get("Keywords");
@@ -367,7 +389,7 @@ public class AuthorsGraph<A extends Author, P extends Paper> implements Serializ
             String totalNumLikes = infoMap.get("TotalNumLikes");
             String totalNumViews = infoMap.get("TotalNumViews");
 
-            System.out.println(Date);
+            //System.out.println(Date);
 
             Paper p = null;
 

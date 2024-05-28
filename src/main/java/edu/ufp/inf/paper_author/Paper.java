@@ -207,8 +207,8 @@ public class Paper implements Serializable {
     }
 
     public void addLike(){
-        java.util.Date d =new java.util.Date(); // auto day gen
-        Date curr = new Date(d.getMonth(), d.getDay(), d.getYear());
+        LocalDate l = LocalDate.now();
+        Date curr = new Date(l.getMonthValue(), l.getDayOfMonth(), l.getYear());
         if(!this.numLikesPerDay.containsKey(curr)){
             this.numLikesPerDay.put(curr, (long) 1);
             this.totalNumLikes++;
@@ -235,7 +235,7 @@ public class Paper implements Serializable {
 
     public long getNumViewsYear(int year){
         long totalViews = 0;
-        for ( Date d1 : numViewsPerDay.keySet()) {
+        for (Date d1 : numViewsPerDay.keySet()) {
             long views = numViewsPerDay.get(d1);
 
             int year2 = d1.year();
@@ -255,7 +255,6 @@ public class Paper implements Serializable {
 
             int year2 = d1.year();
             int m = d1.month();
-
             if (year2 == year && m == month) {
                 totalViews += views;
             }
@@ -280,12 +279,11 @@ public class Paper implements Serializable {
 
     public long getNumLikesMonth(int month, int year){
         long totalLikes = 0;
-
-        for ( Date d1 : numLikesPerDay.keySet()) {
-            long views = numLikesPerDay.get(d1);
+        for (Date d1 : numLikesPerDay.keySet()) {
+            long likes = numLikesPerDay.get(d1);
 
             if (d1.year() == year && d1.month() == month) {
-                totalLikes += views;
+                totalLikes += likes;
             }
         }
         return totalLikes;
