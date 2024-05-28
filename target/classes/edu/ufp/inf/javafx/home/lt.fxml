@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="693.0" prefWidth="1253.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ufp.inf.javafx.home.MainController">
+<AnchorPane prefHeight="742.0" prefWidth="1316.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ufp.inf.javafx.home.MainController">
     <children>
-        <MenuBar prefHeight="107.0" prefWidth="1253.0">
+        <MenuBar layoutX="-4.0" prefHeight="107.0" prefWidth="1257.0">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -83,7 +84,7 @@
                         <Button fx:id="dbBin" layoutX="1118.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleSaveDBbinAction" prefHeight="40.0" prefWidth="133.0" text="Save DB in .bin" />
                         <ComboBox fx:id="PapersComboBox" layoutX="3.0" layoutY="455.0" onAction="#handleSelectPaperAction" prefHeight="32.0" prefWidth="187.0" promptText="Papers" />
                         <TextField fx:id="idNumberField" layoutX="200.0" layoutY="460.0" prefHeight="25.0" prefWidth="117.0" promptText="id" />
-                        <Button fx:id="addPaper" layoutX="329.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleAddPaperAuthorAction" prefHeight="28.0" prefWidth="84.0" text="Add Paper to Author" />
+                        <Button fx:id="addPaper" layoutX="329.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleAddPaperAuthorAction" prefHeight="28.0" prefWidth="168.0" text="Add Paper to Author" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -125,12 +126,35 @@
                             </children></AnchorPane>
                     </content>
                 </Tab>
-            <Tab text="Untitled Tab">
+            <Tab text="Queries">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="517.0" prefWidth="1307.0">
+                     <children>
+                        <VBox layoutX="-1.0" layoutY="327.0" prefHeight="162.0" prefWidth="1251.0" />
+                        <HBox layoutX="-2.0" layoutY="34.0" prefHeight="265.0" prefWidth="1253.0">
+                           <children>
+                              <TextField fx:id="aID" promptText="AuthorID" />
+                              <DatePicker fx:id="sDate" promptText="Start Date" />
+                              <DatePicker fx:id="eDate" promptText="End Date" />
+                              <Button fx:id="q1Authors" mnemonicParsing="false" onAction="#handlePapersWrittenAuthor" prefHeight="26.0" prefWidth="341.0" text="All articles written by an author within a given period" />
+                           </children>
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#HandleAllPapersNoViewNoDownload" prefHeight="22.0" prefWidth="304.0" text="All Papers without view nor download" />
+                            </children>
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#handleTop3PapersQuery" prefHeight="22.0" prefWidth="304.0" text="Top 3 Papers given period" />
+                            </children>
+                        </HBox>
+                        <TextArea fx:id="promptText" layoutY="161.0" prefHeight="328.0" prefWidth="993.0" />
+                     </children>
+                </AnchorPane>
               </content>
             </Tab>
             </tabs>
         </TabPane>
     </children>
+    <!-- Load the styles from css file -->
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
 </AnchorPane>

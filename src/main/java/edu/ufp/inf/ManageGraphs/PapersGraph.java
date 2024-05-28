@@ -330,7 +330,7 @@ public class PapersGraph<P extends Paper> {
 
 
     public static void main(String[] args) {
-        PGraph pg = new PGraph(new In("/Users/claudio/Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324/data/test1.txt"));
+        PGraph pg = new PGraph(new In("./data/test1.txt"));
         HashMap<Integer, Paper> m = new HashMap<>();
         Author a1 = new Author();
         a1.setPenName("olaoao");

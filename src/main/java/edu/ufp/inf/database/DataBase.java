@@ -409,16 +409,16 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
      * to `Paper` objects. It checks each paper to see if it has zero downloads and zero views.
      * If both conditions are met, the paper is added to the returned list.
      *</p>
-     * @return an {@code ArrayList} of {@code Paper} objects that have not been downloaded or viewed
+     * @return an {@code ArrayList} of {@code String} title of the Papers that have not been downloaded or viewed
      */
-    public ArrayList<Paper> papersNotDownloadedNotViewed() {
-        ArrayList<Paper> papersFound = new ArrayList<>();
+    public ArrayList<String> papersNotDownloadedNotViewed() {
+        ArrayList<String> papersFound = new ArrayList<>();
 
         //traverse HashMap Key: DOI -> Val : Paper and check if they don't have any view or download add to ArrayList
         for (String curr : mapDOI.keySet()){
             Paper p = mapDOI.get(curr);
-            if (p.getNumDownloads() == 0 && p.getTotalNumViews() == 0){
-                papersFound.add(p);
+            if (p.getNumDownloads() == 0 || p.getTotalNumViews() == 0){
+                papersFound.add(p.getTitle());
             }
         }
 

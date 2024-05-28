@@ -11,7 +11,7 @@ public class    Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("lt.fxml"));
-        primaryStage.setTitle("Main Window");
+        primaryStage.setTitle("Digital Bibliography Management App");
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
     }
