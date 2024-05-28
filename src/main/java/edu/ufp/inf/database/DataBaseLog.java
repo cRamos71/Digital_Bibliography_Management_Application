@@ -6,13 +6,14 @@ import edu.princeton.cs.algs4.Out;
 import edu.ufp.inf.paper_author.*;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DataBaseLog {
-
-    private DataBase<Author, Paper> db = new DataBase<>();
+    /**
+     * db to generate the log
+     */
+    private DataBase<Author, Paper> db;
     public DataBaseLog(DataBase<Author, Paper> db) {
         this.db = db;
     }
@@ -264,9 +265,9 @@ public class DataBaseLog {
             FileInputStream fis = new FileInputStream(f);
             ObjectInputStream ois = new ObjectInputStream(fis);
             int num_authors = ois.read();
-            System.out.println(num_authors);
+            //System.out.println(num_authors);
             for (int i = 0; i < num_authors; i++){
-                System.out.println(i);
+                //System.out.println(i);
                 Author a = (Author) ois.readObject();
                 db.insert(a);
             }
@@ -287,9 +288,9 @@ public class DataBaseLog {
             FileInputStream fis = new FileInputStream(f);
             ObjectInputStream ois = new ObjectInputStream(fis);
             int numPapers = ois.read();
-            System.out.println(numPapers);
+            //System.out.println(numPapers);
             for (int i = 0; i < numPapers; i++){
-                System.out.println(i);
+                //System.out.println(i);
                 Paper p = (Paper) ois.readObject();
                 db.insert(p);
             }
@@ -297,6 +298,29 @@ public class DataBaseLog {
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void generateArticleUsageReport( int year, int month, int day){
+        System.out.println("\ngenerateArticleUsageReport:");
+        Date date1 = new Date(5,29,2024);
+        for (String k : db.getMapDOI().keySet()){
+            System.out.println("------------------");
+            db.getMapDOI().get(k).addView();
+            db.getMapDOI().get(k).addLike();
+            System.out.println("numLikesYear: " + db.getMapDOI().get(k).getNumLikesYear(year));
+            System.out.println("numLikesMonth: " + db.getMapDOI().get(k).getNumLikesMonth(month, year));
+            System.out.println("numLikesDay: " + db.getMapDOI().get(k).getNumLikesDay(date1));
+
+            System.out.println("numViewsYear: " + db.getMapDOI().get(k).getNumViewsYear(year));
+            System.out.println("numViewsMonth: " + db.getMapDOI().get(k).getNumViewsMonth((short) month, year));
+            System.out.println("numViewsDay: " + db.getMapDOI().get(k).getNumViewsDay(date1));
+        }
+    }
+
+    public void generateAuthorsAndPapersReport(){
+        System.out.println("\nlistAuthorsAndPapers:");
+        System.out.println(db.listAuthors());
+        System.out.println(db.listPapers());
     }
 
 

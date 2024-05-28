@@ -37,6 +37,16 @@ public class testApp {
         System.out.println(db.getMapUID().get(0));
     }
 
+
+    public static void testWriteReadDBBIN(DataBaseLog dbLog){
+        String fa = "data/authors.bin";
+        String fp = "data/papers.bin";
+        dbLog.saveDBBin(fa, fp);      //write DB
+        dbLog.readDBin(fa, fp);         //read DB
+        System.out.println(db.listPapers());
+        System.out.println(db.getMapUID().get(0));
+    }
+
     public static void testSearchPapersByAuthorPeriod(DataBase<Author, Paper> db){
         System.out.println("\ntestSearchPapersByAuthorPeriod:");
         Date dStart = new Date("11/05/2020");
@@ -51,27 +61,12 @@ public class testApp {
         System.out.println(Arrays.toString(db.top3PapersMostDownloads()));
     }
 
-    public static void generateAuthorsAndPapersReport(DataBase<Author, Paper> db){
-        System.out.println("\nlistAuthorsAndPapers:");
-        System.out.println(db.listAuthors());
-        System.out.println(db.listPapers());
+    public static void testGenerateAuthorsAndPapersReport(){
+        dbLog.generateAuthorsAndPapersReport();
     }
 
-    public static void generateArticleUsageReport(DataBase<Author, Paper> db, int year, int month, int day){
-        System.out.println("\ngenerateArticleUsageReport:");
-        Date date1 = new Date(5,29,2024);
-        for (String k : db.getMapDOI().keySet()){
-            System.out.println("------------------");
-            db.getMapDOI().get(k).addView();
-            db.getMapDOI().get(k).addLike();
-            System.out.println("numLikesYear: " + db.getMapDOI().get(k).getNumLikesYear(year));
-            System.out.println("numLikesMonth: " + db.getMapDOI().get(k).getNumLikesMonth(month, year));
-            System.out.println("numLikesDay: " + db.getMapDOI().get(k).getNumLikesDay(date1));
-
-            System.out.println("numViewsYear: " + db.getMapDOI().get(k).getNumViewsYear(year));
-            System.out.println("numViewsMonth: " + db.getMapDOI().get(k).getNumViewsMonth((short) month, year));
-            System.out.println("numViewsDay: " + db.getMapDOI().get(k).getNumViewsDay(date1));
-        }
+    public static void testGenerateArticleUsageReport(int year, int month, int day){
+       dbLog.generateArticleUsageReport(year, month, day);
     }
 
 
@@ -79,20 +74,21 @@ public class testApp {
     public static void main(String[] args) {
 
         /*Database*/
-/*
+
             //testRemoveAuthor(db);
-            testWriteReadDBTxt(dbLog);
-            testSearchPapersByAuthorPeriod(db);
+           // testWriteReadDBTxt(dbLog);
+            //testSearchPapersByAuthorPeriod(db);
             //db.listPapers();
-            top3ArtigosMaisUsados(db);
-            generateAuthorsAndPapersReport(db);
-            generateArticleUsageReport(db,2024 ,5 ,28);
-*/
+            //top3ArtigosMaisUsados(db);
+           // testGenerateAuthorsAndPapersReport();
+           // testGenerateArticleUsageReport(2024 ,5 ,28);
+            testWriteReadDBBIN(dbLog);
+
 
         /*AuthorsGraph*/
 
-            aGraph.readAuthorsGraphTxt("data/graphA.txt");
-            System.out.println(aGraph.getAuthorsMap());
+            //aGraph.readAuthorsGraphTxt("data/graphA.txt");
+            //System.out.println(aGraph.getAuthorsMap());
 
         /*PapersGraph*/
 

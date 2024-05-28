@@ -17,27 +17,27 @@
 6 0 0.58
 6 2 0.4
 nPapers: 8
-Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/7/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; editionNumber: null ; Local: null
+Key: 0; Paper: reeeeeg1; Title: A horta ; Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
 nAuthors: 1
-Key: 0 ; Author: 0 ; birthDate: null; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: null; jcrIF: 0.0; ScopusID: null
+Author: 1 ; birthDate: 10/20/2023; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Key: 1; Paper: null; Title: null ; Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
 nAuthors: 1
-Key: 1 ; Author: 0 ; birthDate: null; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/7/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; editionNumber: null ; Local: null
+Author: 0 ; birthDate: 10/20/2023; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Key: 2; Paper: reeeeeggg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
 nAuthors: 1
-Key: 2 ; Author: 0 ; birthDate: null; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: null; jcrIF: 0.0; ScopusID: null
+Author: 1 ; birthDate: 10/20/2023; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Key: 3; Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
 nAuthors: 1
-Key: 3 ; Author: 0 ; birthDate: null; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/7/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; editionNumber: null ; Local: null
+Author: 0 ; birthDate: 10/20/2023; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Key: 4; Paper: reeeeeggrgg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
 nAuthors: 1
-Key: 4 ; Author: 0 ; birthDate: null; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: null; jcrIF: 0.0; ScopusID: null
+Author: 1 ; birthDate: 10/20/2023; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Key: 5; Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
 nAuthors: 1
-Key: 5 ; Author: 0 ; birthDate: null; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/7/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; editionNumber: null ; Local: null
+Author: 0 ; birthDate: 10/20/2023; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Key: 6; Paper: reeeegreggg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
 nAuthors: 1
-Key: 6 ; Author: 0 ; birthDate: null; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: null; jcrIF: 0.0; ScopusID: null
+Author: 1 ; birthDate: 10/20/2023; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Key: 7; Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
 nAuthors: 1
-Key: 7 ; Author: 0 ; birthDate: null; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Author: 0 ; birthDate: 10/20/2023; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null

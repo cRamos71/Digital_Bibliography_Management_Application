@@ -10,10 +10,22 @@ import java.util.*;
 
 
 public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper> implements ManageAuthorsI<A>, ManagePapersI<P> {
+    /**
+     * Map to store Authors Key = AuthorId Val = Author
+     **/
     private HashMap<Integer, A> mapUID = new HashMap<>();
+    /**
+     * Map to store Papers Key = DOI Val = Paper
+     **/
     private HashMap<String, P> mapDOI = new HashMap<>();
+    /**
+     * Map to store removed authors Key = authorId Val = Author name
+     **/
     private HashMap<Integer, String> mapRemovedA = new HashMap<>();
 
+    /**
+     * Variable to assign id to a new author , by incrementing
+     **/
     private Integer uID = 0;
 
 
@@ -101,7 +113,11 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         removeAuthorPapersMap((ArrayList<P>) author.getPapers(), author);
     }
 
-
+    /**
+     * Logs and prints a list of all deleted authors.
+     * <p>
+     * Iterates through the map of removed authors and prints each author's ID and name.
+     */
     public void listAuthorsDeletedLog(){
         for (Integer key : mapRemovedA.keySet()){
             System.out.println("id: " + key + " Name: " + mapRemovedA.get(key));

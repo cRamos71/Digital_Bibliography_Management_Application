@@ -190,37 +190,7 @@ public class PapersGraph<P extends Paper> {
         }
     }*/
 
-    public void savePapersGraphTxt(String fn){
-        Out fp = new Out(fn);
-        writeAuthorsGraphTxt(fp);
-        writePapersHashTxt(fp);
-        fp.close();
-    }
 
-
-    private void writeAuthorsGraphTxt(Out fp){
-
-        fp.println(papersPGraph.V());
-        fp.println(papersPGraph.E());
-
-        for (int i = 0; i < papersPGraph.V(); i++){
-            for (DirectedEdge w : papersPGraph.adj(i)){
-                    fp.println(w.from() + " " + w.to() + " " + w.weight());
-            }
-        }
-    }
-
-
-    public void readGraphFromFile(String fn){
-        In fp = new In(fn);
-        int vertex = fp.readInt();
-        int edges = fp.readInt();
-
-        for (int i = 0; i < edges; i++){
-            this.papersPGraph.addEdge(new DirectedEdge(fp.readInt(), fp.readInt(), fp.readDouble()));
-        }
-        //System.out.println(papersPGraph);
-    }
 
 
     /**
@@ -351,6 +321,25 @@ public class PapersGraph<P extends Paper> {
         return papers.toString();
     }
 
+
+    public void savePapersGraphTxt(String fn){
+        Out fp = new Out(fn);
+        writeAuthorsGraphTxt(fp);
+        writePapersHashTxt(fp);
+        fp.close();
+    }
+
+
+    private void writeAuthorsGraphTxt(Out fp){
+        fp.println(papersPGraph.V());
+        fp.println(papersPGraph.E());
+
+        for (int i = 0; i < papersPGraph.V(); i++){
+            for (DirectedEdge w : papersPGraph.adj(i)){
+                fp.println(w.from() + " " + w.to() + " " + w.weight());
+            }
+        }
+    }
     private void writePapersHashTxt(Out fp){
 
         fp.println("nPapers: " + papersMap.size());
@@ -358,14 +347,14 @@ public class PapersGraph<P extends Paper> {
             Paper p = (Paper) papersMap.get(id);
 
             if (p instanceof PaperConference) {
-                fp.println("Paper: " + p.getDoi() + "; Title: " + p.getTitle() + " ;Keywords: " + p.getKeywords() +
+                fp.println("Key: " + id + "; Paper: " + p.getDoi() + "; Title: " + p.getTitle() + " ;Keywords: " + p.getKeywords() +
                         " ; anAbstract: " + p.getAnAbstract() + " ; Date: " + p.getDate() +
                         " ; TotalNumViews: " + p.getTotalNumViews() + " ; TotalNumLikes: " + p.getTotalNumViews() +
                         " ; numDownloads: " + p.getNumDownloads() + "; editionNumber: " + ((PaperConference) p).getEditionNumber() +
                         " ; Local: " + ((PaperConference) p).getLocal());
             } else if (p instanceof PaperJournal) {
 
-                fp.println("Paper: " + p.getDoi() + "; Title: " + p.getTitle() + " ;Keywords: " + p.getKeywords() +
+                fp.println("Key: " + id + "; Paper: " + p.getDoi() + "; Title: " + p.getTitle() + " ;Keywords: " + p.getKeywords() +
                         " ; anAbstract: " + p.getAnAbstract() + " ; Date: " + p.getDate() +
                         " ; TotalNumViews: " + p.getTotalNumViews() + " ; TotalNumLikes: " + p.getTotalNumLikes() +
                         " ; numDownloads: " + p.getNumDownloads() + "; Publisher: " + ((PaperJournal) p).getPublisher() +
@@ -374,7 +363,7 @@ public class PapersGraph<P extends Paper> {
 
             fp.println("nAuthors: " + p.getAuthors().size());
             for (Author a : p.getAuthors()) {
-                fp.println("Key: " + id + " ; Author: " + a.getIdNumber() + " ; birthDate: " + a.getBirthDate() +
+                fp.println("Author: " + a.getIdNumber() + " ; birthDate: " + a.getBirthDate() +
                         "; Name: " + a.getName() + "; Address: " + a.getAddress() +
                         "; penName: " + a.getPenName() + " ; Affiliation: " + a.getAffiliation() +
                         "; ORCID: " + a.getOrcID() + "; scienceID: " + a.getScienceID() +
@@ -385,6 +374,17 @@ public class PapersGraph<P extends Paper> {
 
     }
 
+    public void readPapersGraphTxt(String fn){
+        try {
+            In fp = new In(fn);
+            readGraphTxt(fp);
+            readPapersHash(fp);
+            fp.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     private void readGraphTxt(In fp) {
         String s = " ";
@@ -417,7 +417,6 @@ public class PapersGraph<P extends Paper> {
             for (String pair : pairs) {
                 // Split each pair into key and value
                 String[] keyValue = pair.split(": ", 2);
-
                 if (keyValue.length == 2) {
                     infoMap.put(keyValue[0].trim(), keyValue[1].trim());
                 }
@@ -479,7 +478,6 @@ public class PapersGraph<P extends Paper> {
                 }
             }
 
-            String Key = infoMap.get("Key");
             String Author = infoMap.get("Author");
             String birthDate = infoMap.get("birthDate").strip();
             String name = infoMap.get("Name");
@@ -522,7 +520,7 @@ public class PapersGraph<P extends Paper> {
             //System.out.println(i);
             if(i % 2 == 0){
                 p1.setDate(new Date(10, 1 + i, 2000));
-                p1.addAuthor(a1);
+                p1.addAuthor(a2);
                 m.put(i, p1);
             }else{
                 p2.addAuthor(a1);
@@ -546,8 +544,11 @@ public class PapersGraph<P extends Paper> {
         HashMap<Integer, Paper> hm = new HashMap<>();
         PapersGraph pG = new PapersGraph(pag, hm);
 
-        pa.savePapersGraphTxt("data/test1.txt");
-       // pG.readGraphFromFile("data/test1.txt");
+        //pa.savePapersGraphTxt("data/test1.txt");
+
+        pG.readPapersGraphTxt("data/test1.txt");
+          System.out.println(pG.papersPGraph);
+          System.out.println(pG.papersMap);
         Date dateb = new Date(10,2, 1100);
         Date datee = new Date(10,2, 1900);
         //pG.listPapersJournalAndTime(dateb,datee);

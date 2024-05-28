@@ -181,15 +181,6 @@ public class AuthorsGraph<A extends Author, P extends Paper> implements Serializ
     }
 
 
-    public void readGraphFromFile(String fn){
-       In fp = new In(fn);
-       int vertexes = fp.readInt();
-       int edges = fp.readInt();
-
-       for (int i = 0; i < vertexes; i++){
-           this.authorsUGraph.addEdge(fp.readInt(), fp.readInt());
-       }
-    }
 
 
 
