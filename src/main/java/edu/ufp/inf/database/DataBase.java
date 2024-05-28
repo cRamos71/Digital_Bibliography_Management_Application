@@ -80,7 +80,14 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         this.mapRemovedA = mapRemovedA;
     }
 
-
+    /**
+     * Inserts an author into the database.
+     * <p>
+     * If the author's ID number is null, a unique ID is assigned to the author.
+     * If the author does not already exist in the database, the author is added.
+     *
+     * @param author the author to be inserted
+     */
     @Override
     public void insert(A author) {
         if (author.getIdNumber() == null)
@@ -91,6 +98,14 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         }
     }
 
+    /**
+     * Updates an existing author in the database.
+     * <p>
+     * If the author exists in the database, the author's information is updated.
+     * If the author does not exist, no action is taken.
+     *
+     * @param author the author to be updated
+     */
     @Override
     public void update(A author) {
         if (!mapUID.containsKey(author.getIdNumber())) return;
@@ -163,6 +178,13 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
 
+    /**
+     * Lists all authors in the database.
+     * <p>
+     * Iterates through the map of authors and collects them into an ArrayList.
+     *
+     * @return a list of all authors
+     */
     @Override
     public ArrayList<Author> listAuthors() {
         ArrayList<Author> a = new ArrayList<>();
@@ -173,6 +195,17 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         return a;
     }
 
+
+    /**
+     * Inserts a paper into the database.
+     * <p>
+     * If the paper's DOI is null, a new DOI is generated and assigned to the paper.
+     * If the paper is a conference paper, "1" is appended to the DOI.
+     * If the paper is a journal paper, "0" is appended to the DOI.
+     * The paper is then added to the map of DOIs.
+     *
+     * @param paper the paper to be inserted
+     */
     @Override
     public void insert(P paper) {
         if (paper.getDoi() == null) {
@@ -186,11 +219,29 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
         mapDOI.put(paper.getDoi() ,paper);
     }
+
+    /**
+     * Updates an existing paper in the database.
+     * <p>
+     * If the paper exists in the database, the paper's information is updated.
+     * If the paper does not exist, no action is taken.
+     *
+     * @param paper the paper to be updated
+     */
     @Override
     public void update(P paper) {
         if(!mapDOI.containsKey(paper.getDoi())) return;
         mapDOI.put(paper.getDoi(), paper);
     }
+
+    /**
+     * Removes a paper from the database.
+     * <p>
+     * The paper is removed from all authors who have written it.
+     * The paper is then removed from the map of DOIs.
+     *
+     * @param paper the paper to be removed
+     */
     @Override
     public void remove(P paper) {
         ArrayList<Author> authorsAL = null;
@@ -203,6 +254,13 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         mapDOI.remove(paper.getDoi());
     }
 
+    /**
+     * Lists all papers in the database.
+     * <p>
+     * Iterates through the map of DOIs and collects the string representation of each paper into an ArrayList.
+     *
+     * @return a list of string representations of all papers
+     */
     @Override
     public ArrayList<String> listPapers() {
         ArrayList<String> pap = new ArrayList<>();
@@ -214,7 +272,13 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
 
-
+    /**
+     * Generates a unique DOI for a paper.
+     * <p>
+     * Combines a timestamp with a random component to ensure uniqueness.
+     *
+     * @return a newly generated unique DOI
+     */
     @Override
     public String generateDoi() {
         //Combined timestamp with random component
