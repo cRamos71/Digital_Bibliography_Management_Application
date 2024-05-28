@@ -3,7 +3,7 @@ root {
 }
 
 .root {
-    -fx-background-image: url("../home/background.jpg");
+    -fx-background-image: url("background.jpg");
 }
 
 .label {

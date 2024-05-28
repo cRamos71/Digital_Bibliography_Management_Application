@@ -23,6 +23,7 @@ import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -34,6 +35,7 @@ public class MainController implements Initializable {
 
     public Button addPaper;
     public TextField idNumberField;
+    public Button q1Authors;
     private DataBase<Author, Paper> db = new DataBase<>();
     private DataBaseLog dbLog = new DataBaseLog(db);
 
@@ -42,7 +44,8 @@ public class MainController implements Initializable {
     private Button btn;
     public Button dbTxt;
     public Button dbBin;
-
+    public  SplitMenuButton querySplit;
+    public TextArea promptText;
     public TableView<Author> authorsTable;
     public TableColumn<Author, String> nameCol;
     public TableColumn<Author, Integer> idNumberCol;
@@ -68,6 +71,12 @@ public class MainController implements Initializable {
     public TextField scienceIDField;
     public TextField googleScholarIDField;
     public TextField scopusAuthorIDField;
+
+
+    //Queries
+    public TextField aID;
+    public DatePicker sDate;
+    public DatePicker eDate;
 
     public ComboBox<String> PapersComboBox;
 
@@ -252,6 +261,13 @@ public class MainController implements Initializable {
         });*/
         dbLog.fillDB(PATH_DB);
 
+        promptText.setEditable(false);
+        promptText.setWrapText(true);
+
+        //db.paperAuthorByIdPeriodIn()
+        //querySplit.getItems().add(authorsQueryItem);
+
+
         refreshTableView();
 
     }
@@ -332,12 +348,13 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Handler para acção de edição dos dados dos veículos na vehiclesTable.
+     * Handler para acção de edição dos dados dos autores
      *
      * @param authorStringCellEditEvent
      */
     public void handleEditAuthorAction(TableColumn.CellEditEvent<Author, Object> authorStringCellEditEvent) {
         int col=authorStringCellEditEvent.getTablePosition().getColumn();
+
         switch (col) {
             case 1:
                 authorStringCellEditEvent.getRowValue().setBirthDate(new Date((String) authorStringCellEditEvent.getNewValue()));
@@ -367,7 +384,8 @@ public class MainController implements Initializable {
                 authorStringCellEditEvent.getRowValue().setScopusAuthorID((String) authorStringCellEditEvent.getNewValue());
                 break;
         }
-       // dbLog.saveAuthorsTxt("./data/db.txt");
+        Author a = authorStringCellEditEvent.getRowValue();
+        db.update(a);
       //  refreshTableView();
     }
 
@@ -429,5 +447,76 @@ public class MainController implements Initializable {
     public void handleSaveDBbinAction(ActionEvent actionEvent) {
         System.out.println(actionEvent);
         dbLog.saveDBBin(PATH_DB_AUTHORS_BIN, PATH_DB_PAPERS_BIN);
+    }
+
+    public void handleQueryAction(ActionEvent actionEvent) {
+    }
+
+    public void handleAllPapersWrittenQuery(ActionEvent actionEvent) {
+        System.out.println(promptText.getText());
+    }
+
+    public void handlePapersWrittenAuthor(ActionEvent actionEvent) {
+       // System.out.println(actionEvent.toString());
+        LocalDate s1 = this.sDate.getValue();
+        LocalDate s2 = this.eDate.getValue();
+
+        try {
+            int id  = Integer.parseInt(aID.getText().trim());
+            Date sDate = new Date(s1.getMonthValue(), s1.getDayOfMonth(), s1.getYear());
+            Date eDate = new Date(s2.getMonthValue(), s2.getDayOfMonth(), s2.getYear());
+
+          ArrayList<String> result = db.paperAuthorByIdPeriodIn(id, sDate,eDate);
+            if(result == null){
+                promptText.setText("None");
+                return;
+            }
+            String w = " ";
+          for(String r : result) {
+              w += r + "\n";
+          }
+
+            promptText.setText(w);
+
+        }catch ( Exception e){
+            System.out.println("Invalid query format");
+        }
+
+        //clear fields
+        aID.setText("");
+    }
+
+    public void HandleAllPapersNoViewNoDownload(ActionEvent actionEvent) {
+        // System.out.println(actionEvent.toString());
+
+        ArrayList<String> result = db.papersNotDownloadedNotViewed();
+        if(result.isEmpty()){
+            promptText.setText("None");
+            return;
+        }
+
+        String w = " ";
+        for(String r : result) {
+            w += r + "\n";
+        }
+
+        promptText.setText(w);
+    }
+
+
+
+    public void handleTop3PapersQuery(ActionEvent actionEvent) {
+        Paper[] result = db.top3PapersMostDownloads();
+        /*if(result.isEmpty()){
+            promptText.setText("None");
+            return;
+        }*/
+
+        String w = " ";
+        for(Paper r : result) {
+            w += r + "\n";
+        }
+
+        promptText.setText(w);
     }
 }
