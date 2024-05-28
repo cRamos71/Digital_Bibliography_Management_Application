@@ -195,8 +195,8 @@ public class Paper implements Serializable {
      *
      */
     public void addView(){
-        java.util.Date d =new java.util.Date(); // auto day gen
-        Date curr = new Date(d.getMonth(), d.getDay(), d.getYear());
+        LocalDate l = LocalDate.now();
+        Date curr = new Date(l.getMonthValue(), l.getDayOfMonth(), l.getYear());
         if(!this.numViewsPerDay.containsKey(curr)){
             this.numViewsPerDay.put(curr, (long) 1);
             this.totalNumViews++;

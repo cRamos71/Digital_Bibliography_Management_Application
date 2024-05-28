@@ -17,7 +17,8 @@ public class PapersGraph<P extends Paper> {
     private HashMap<Integer, P> papersMap = new HashMap<>();
     private Integer ids = 0;
 
-
+    public PapersGraph() {
+    }
     public PapersGraph(PGraph papersPGraph) {
         this.papersPGraph = papersPGraph;
     }

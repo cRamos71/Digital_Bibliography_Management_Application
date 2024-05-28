@@ -10,47 +10,12 @@ import java.util.*;
 
 
 public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper> implements ManageAuthorsI<A>, ManagePapersI<P> {
-    private RedBlackBST<Long, A> authorsTree = new RedBlackBST<>();
-    private RedBlackBST<Date, A> dateAuthorsTree = new RedBlackBST<>();
-    private RedBlackBST<Long, P> papersTree = new RedBlackBST<>();
-    private RedBlackBST<Date, P> datePapersTree = new RedBlackBST<>();
     private HashMap<Integer, A> mapUID = new HashMap<>();
     private HashMap<String, P> mapDOI = new HashMap<>();
     private HashMap<Integer, String> mapRemovedA = new HashMap<>();
 
     private Integer uID = 0;
 
-    public RedBlackBST<Long, A> getAuthorsTree() {
-        return authorsTree;
-    }
-
-    public void setAuthorsTree(RedBlackBST<Long, A> authorsTree) {
-        this.authorsTree = authorsTree;
-    }
-
-    public RedBlackBST<Date, A> getDateAuthorsTree() {
-        return dateAuthorsTree;
-    }
-
-    public void setDateAuthorsTree(RedBlackBST<Date, A> dateAuthorsTree) {
-        this.dateAuthorsTree = dateAuthorsTree;
-    }
-
-    public RedBlackBST<Long, P> getPapersTree() {
-        return papersTree;
-    }
-
-    public void setPapersTree(RedBlackBST<Long, P> papersTree) {
-        this.papersTree = papersTree;
-    }
-
-    public RedBlackBST<Date, P> getDatePapersTree() {
-        return datePapersTree;
-    }
-
-    public void setDatePapersTree(RedBlackBST<Date, P> datePapersTree) {
-        this.datePapersTree = datePapersTree;
-    }
 
     public void setuID(Integer uID) {
         this.uID = uID;
@@ -137,8 +102,9 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
 
-    public void authorsDeletedLog(){
+    public void listAuthorsDeletedLog(){
         for (Integer key : mapRemovedA.keySet()){
+            System.out.println("id: " + key + " Name: " + mapRemovedA.get(key));
         }
     }
 
@@ -313,7 +279,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
 
         if(author  == null)return null;
         //O(PlogP)
-        // get bst with curr paper title and year
+        // get bst key : year Val : title
         bstDate = author.bstPapersPeriod();
 
         ArrayList<String> papers = new ArrayList<>();

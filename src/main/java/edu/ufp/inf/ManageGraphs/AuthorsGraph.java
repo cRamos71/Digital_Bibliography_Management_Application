@@ -404,7 +404,7 @@ public class AuthorsGraph<A extends Author, P extends Paper> implements Serializ
                 String scopusID = infoMap.get("ScopusID");
                 p = new PaperJournal(DOI, Title, Keywords, anAbstract, new Date(Date), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews), Long.parseLong(numDownloads), Publisher, edu.ufp.inf.paper_author.Periodicity.valueOf(Periodicity), Double.parseDouble(jcrIF), scopusID);
             }
-
+            a.addPaper(p);
             p.getAuthors().add(a);
         }
     }

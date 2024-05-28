@@ -34,6 +34,7 @@ public class testApp {
         dbLog.saveDBTxt(path);      //write DB
         dbLog.fillDB(path);         //read DB
         System.out.println(db.listPapers());
+        System.out.println(db.getMapUID().get(0));
     }
 
     public static void testSearchPapersByAuthorPeriod(DataBase<Author, Paper> db){
