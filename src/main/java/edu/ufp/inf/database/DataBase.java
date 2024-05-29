@@ -72,7 +72,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         if (author.getIdNumber() == null)
             author.setIdNumber(this.uID++);
         if (!mapUID.containsKey(author.getIdNumber())){
-            System.out.println("insere db");
+            //System.out.println("insere db");
             mapUID.put(author.getIdNumber(), author);
         }
     }
