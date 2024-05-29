@@ -8,6 +8,7 @@ import edu.ufp.inf.database.DataBaseLog;
 import edu.ufp.inf.paper_author.Author;
 import edu.ufp.inf.paper_author.Paper;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
@@ -60,8 +61,11 @@ public class testApp {
 
     public static void testPapersNotDownloadedNotViewed(DataBase<Author, Paper> db){
         System.out.println("\ntestPapersNotDownloadedNotViewed;");
-        System.out.println(db.papersNotDownloadedNotViewed());
-        db.papersNotDownloadedNotViewed(outputFile);
+        LocalDate l = LocalDate.now();
+        Date df = new Date(l.getMonthValue(), l.getDayOfMonth(), l.getYear());
+        Date di = new Date(1, 1, 1900);
+        System.out.println(db.papersNotDownloadedNotViewed(di,df));
+        db.papersNotDownloadedNotViewed(outputFile, di, df);
     }
 
     public static void top3ArtigosMaisUsados(DataBase<Author, Paper> db){

@@ -467,13 +467,13 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
      *</p>
      * @return an {@code ArrayList} of {@code String} title of the Papers that have not been downloaded or viewed
      */
-    public ArrayList<String> papersNotDownloadedNotViewed() {
+    public ArrayList<String> papersNotDownloadedNotViewed(Date di, Date df) {
         ArrayList<String> papersFound = new ArrayList<>();
 
         //traverse HashMap Key: DOI -> Val : Paper and check if they don't have any view or download add to ArrayList
         for (String curr : mapDOI.keySet()){
             Paper p = mapDOI.get(curr);
-            if (p.getNumDownloads() == 0 || p.getTotalNumViews() == 0){
+            if (p.getNumDownloads() == 0 || p.getTotalNumViews() == 0 && p.getDate().isAfter(di) && p.getDate().isBefore(df)){
                 papersFound.add(p.getTitle());
             }
         }
@@ -491,8 +491,8 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
      * If both conditions are met, the paper is added to the returned list.
      *</p>
      */
-    public void papersNotDownloadedNotViewed(String fn){
-       ArrayList<String> result = papersNotDownloadedNotViewed();
+    public void papersNotDownloadedNotViewed(String fn, Date di, Date df){
+       ArrayList<String> result = papersNotDownloadedNotViewed(di, df);
        writeResultTotxt(result, fn);
     }
 

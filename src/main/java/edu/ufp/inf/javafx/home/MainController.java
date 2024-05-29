@@ -487,9 +487,10 @@ public class MainController implements Initializable {
     }
 
     public void HandleAllPapersNoViewNoDownload(ActionEvent actionEvent) {
-        // System.out.println(actionEvent.toString());
-
-        ArrayList<String> result = db.papersNotDownloadedNotViewed();
+        LocalDate l = LocalDate.now();
+        Date df = new Date(l.getMonthValue(), l.getDayOfMonth(), l.getYear());
+        Date di = new Date(1, 1, 1900);
+        ArrayList<String> result = db.papersNotDownloadedNotViewed(di, df);
         if(result.isEmpty()){
             promptText.setText("None");
             return;
