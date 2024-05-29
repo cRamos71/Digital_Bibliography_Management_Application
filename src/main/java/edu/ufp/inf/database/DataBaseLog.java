@@ -300,7 +300,7 @@ public class DataBaseLog {
         }
     }
 
-    public void generateArticleUsageReport( int year, int month, int day){
+    public void generateArticleUsageReport( int year, int month,int day){
         System.out.println("\ngenerateArticleUsageReport:");
         Date date1 = new Date(5,29,2024);
         for (String k : db.getMapDOI().keySet()){

@@ -501,6 +501,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
 
+
     /**
      * Write results from queries to a txt file
      */
@@ -518,7 +519,6 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
             e.printStackTrace();
         }
     }
-
 
 
 
