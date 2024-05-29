@@ -94,17 +94,13 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
-                <Tab text="Penalties">
+                <Tab text="Graph">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
                                 <VBox prefHeight="339.0" prefWidth="600.0">
                                     <children>
                                         <HBox prefHeight="40.0" prefWidth="600.0" spacing="10.0">
-                                            <children>
-                                                <ComboBox fx:id="vehicleComboBox" onAction="#handleSelectVehicleAction" prefHeight="27.0" prefWidth="295.0" promptText="Vehicle" />
-                                                <ComboBox fx:id="driversComboBox" onAction="#handleSelectDriverAction" prefHeight="27.0" prefWidth="291.0" promptText="Driver" />
-                                            </children>
                                             <padding>
                                                 <Insets left="5.0" right="5.0" top="5.0" />
                                             </padding>
@@ -114,11 +110,6 @@
                                         </HBox>
                                         <TableView fx:id="penaltiesTable" prefHeight="315.0" prefWidth="600.0">
                                             <columns>
-                                                <TableColumn fx:id="driverCol" onEditCommit="#handleEditAuthorAction" prefWidth="87.0" text="Driver" />
-                                                <TableColumn fx:id="vehicleCol" onEditCommit="#handleEditAuthorAction" prefWidth="136.0" text="Vehicle" />
-                                                <TableColumn fx:id="dateCol" onEditCommit="#handleEditAuthorAction" prefWidth="120.0" text="Date" />
-                                                <TableColumn fx:id="localCol" onEditCommit="#handleEditAuthorAction" prefWidth="118.0" text="Local" />
-                                                <TableColumn fx:id="motiveCol" onEditCommit="#handleEditAuthorAction" prefWidth="138.0" text="Motive" />
                                             </columns>
                                         </TableView>
                                     </children>
