@@ -1,5 +1,6 @@
 8
-16
+17
+0 1 0.26
 0 2 0.26
 0 4 0.38
 0 7 0.16
@@ -17,27 +18,31 @@
 6 0 0.58
 6 2 0.4
 nPapers: 8
-Key: 0; Paper: reeeeeg1; Title: A horta ; Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+Key: 0; Paper: reeeeeg1; Title: A horta ; Keywords: gardening, agriculture ; anAbstract: Study on urban gardening ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+nAuthors: 2
+Author: 0 ; birthDate: 01/01/1985; Name: João Silva; Address: Rua das Flores, Porto; penName: olaoao ; Affiliation: University of Porto; ORCID: 0000-0000-0000-0001; scienceID: 10001; googleScholarID: GS12345; ScopusAuthorID: SA12345
+Author: 1 ; birthDate: 02/15/1970; Name: Maria Pereira; Address: Avenida da Liberdade, Lisbon; penName: mundodd ; Affiliation: University of Lisbon; ORCID: 0000-0000-0000-0002; scienceID: 10002; googleScholarID: GS12346; ScopusAuthorID: SA12346
+Key: 1; Paper: papera; Title: Ciência em Portugal ; Keywords: science, research ; anAbstract: Overview of scientific progress in Portugal ; Date: 10/08/2000 ; TotalNumViews: 10000 ; TotalNumLikes: 8000 ; numDownloads: 5000; Publisher: Science Press ; Periodicity: DAILY; jcrIF: 1.5; ScopusID: SC123
+nAuthors: 2
+Author: 0 ; birthDate: 01/01/1985; Name: João Silva; Address: Rua das Flores, Porto; penName: olaoao ; Affiliation: University of Porto; ORCID: 0000-0000-0000-0001; scienceID: 10001; googleScholarID: GS12345; ScopusAuthorID: SA12345
+Author: 1 ; birthDate: 02/15/1970; Name: Maria Pereira; Address: Avenida da Liberdade, Lisbon; penName: mundodd ; Affiliation: University of Lisbon; ORCID: 0000-0000-0000-0002; scienceID: 10002; googleScholarID: GS12346; ScopusAuthorID: SA12346
+Key: 2; Paper: reeeeeggg1; Title: A horta ; Keywords: gardening, agriculture ; anAbstract: Study on urban gardening ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
 nAuthors: 1
-Author: 1 ; birthDate: 10/20/2023; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Key: 1; Paper: null; Title: null ; Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
+Author: 2 ; birthDate: 03/10/1990; Name: Ana Costa; Address: Rua de Santa Catarina, Porto; penName: florzinha ; Affiliation: University of Coimbra; ORCID: 0000-0000-0000-0003; scienceID: 10003; googleScholarID: GS12347; ScopusAuthorID: SA12347
+Key: 3; Paper: paperaaa; Title: Engenharia em Portugal ; Keywords: engineering, innovation ; anAbstract: Review of engineering projects in Portugal ; Date: 05/20/2015 ; TotalNumViews: 20000 ; TotalNumLikes: 15000 ; numDownloads: 10000; Publisher: Engineering Today ; Periodicity: DAILY; jcrIF: 1.8; ScopusID: SC124
 nAuthors: 1
-Author: 0 ; birthDate: 10/20/2023; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Key: 2; Paper: reeeeeggg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+Author: 3 ; birthDate: 05/22/1980; Name: Pedro Santos; Address: Rua dos Aliados, Porto; penName: engenheiro ; Affiliation: University of Minho; ORCID: 0000-0000-0000-0004; scienceID: 10004; googleScholarID: GS12348; ScopusAuthorID: SA12348
+Key: 4; Paper: reeeeeggrgg1; Title: A horta ; Keywords: gardening, agriculture ; anAbstract: Study on urban gardening ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
 nAuthors: 1
-Author: 1 ; birthDate: 10/20/2023; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Key: 3; Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
+Author: 4 ; birthDate: 06/05/1995; Name: Sofia Almeida; Address: Rua da Boavista, Porto; penName: jardinista ; Affiliation: University of Aveiro; ORCID: 0000-0000-0000-0005; scienceID: 10005; googleScholarID: GS12349; ScopusAuthorID: SA12349
+Key: 5; Paper: paperara; Title: Medicina em Portugal ; Keywords: medicine, healthcare ; anAbstract: Advances in medical research in Portugal ; Date: 07/30/2012 ; TotalNumViews: 30000 ; TotalNumLikes: 25000 ; numDownloads: 15000; Publisher: Medical Journal ; Periodicity: DAILY; jcrIF: 2.0; ScopusID: SC125
 nAuthors: 1
-Author: 0 ; birthDate: 10/20/2023; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Key: 4; Paper: reeeeeggrgg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+Author: 5 ; birthDate: 09/12/1975; Name: Carlos Mendes; Address: Rua de São Bento, Lisbon; penName: medic ; Affiliation: University of Lisbon; ORCID: 0000-0000-0000-0006; scienceID: 10006; googleScholarID: GS12350; ScopusAuthorID: SA12350
+Key: 6; Paper: reeeegreggg1; Title: A horta ; Keywords: gardening, agriculture ; anAbstract: Study on urban gardening ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
 nAuthors: 1
-Author: 1 ; birthDate: 10/20/2023; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Key: 5; Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
-nAuthors: 1
-Author: 0 ; birthDate: 10/20/2023; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Key: 6; Paper: reeeegreggg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
-nAuthors: 1
-Author: 1 ; birthDate: 10/20/2023; Name: null; Address: null; penName: mundodd ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
-Key: 7; Paper: null; Title: null ;Keywords: null ; anAbstract: null ; Date: 10/8/2000 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
-nAuthors: 1
-Author: 0 ; birthDate: 10/20/2023; Name: null; Address: null; penName: olaoao ; Affiliation: PT; ORCID: null; scienceID: null; googleScholarID: null; ScopusAuthorID: null
+Author: 6 ; birthDate: 07/07/1983; Name: Helena Martins; Address: Rua de Cedofeita, Porto; penName: horticula ; Affiliation: University of Porto; ORCID: 0000-0000-0000-0007; scienceID: 10007; googleScholarID: GS12351; ScopusAuthorID: SA12351
+Key: 7; Paper: paperaraa; Title: Tecnologia em Portugal ; Keywords: technology, innovation ; anAbstract: Exploration of technological advancements in Portugal ; Date: 12/12/2018 ; TotalNumViews: 40000 ; TotalNumLikes: 35000 ; numDownloads: 20000; Publisher: Tech Times ; Periodicity: DAILY; jcrIF: 2.5; ScopusID: SC126
+nAuthors: 3
+Author: 7 ; birthDate: 04/08/1992; Name: Ricardo Ferreira; Address: Rua da Constituição, Porto; penName: techguy ; Affiliation: University of Porto; ORCID: 0000-0000-0000-0008; scienceID: 10008; googleScholarID: GS12352; ScopusAuthorID: SA12352
+Author: 0 ; birthDate: 01/01/1985; Name: João Silva; Address: Rua das Flores, Porto; penName: olaoao ; Affiliation: University of Porto; ORCID: 0000-0000-0000-0001; scienceID: 10001; googleScholarID: GS12345; ScopusAuthorID: SA12345
+Author: 1 ; birthDate: 02/15/1970; Name: Maria Pereira; Address: Avenida da Liberdade, Lisbon; penName: mundodd ; Affiliation: University of Lisbon; ORCID: 0000-0000-0000-0002; scienceID: 10002; googleScholarID: GS12346; ScopusAuthorID: SA12346

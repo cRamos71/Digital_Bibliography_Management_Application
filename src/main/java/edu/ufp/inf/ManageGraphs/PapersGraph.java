@@ -1,6 +1,8 @@
 package edu.ufp.inf.ManageGraphs;
 import edu.princeton.cs.algs4.*;
-import edu.ufp.inf.Graph.UGraph;
+import edu.ufp.inf.Util.DirectedEdge;
+import edu.ufp.inf.Util.In;
+import edu.ufp.inf.Util.EdgeWeightedDigraph;
 import edu.ufp.inf.Util.Date;
 import edu.princeton.cs.algs4.Stack;
 import edu.ufp.inf.Graph.PGraph;
@@ -9,12 +11,26 @@ import edu.ufp.inf.paper_author.Paper;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
 
+import java.io.*;
 import java.util.*;
 
-public class PapersGraph<P extends Paper> {
-
+/**
+ * A graph representation for papers using an edge-weighted directed graph.
+ *
+ * @param <P> The type of Paper objects stored in the graph.
+ */
+public class PapersGraph<P extends Paper> implements Serializable{
+    /**
+     * Edge Weighted Digraph
+     */
     private EdgeWeightedDigraph papersPGraph;
+    /**
+     * Map  vertex id to a Paper
+     */
     private HashMap<Integer, P> papersMap = new HashMap<>();
+    /**
+     * Var to increment and assign to each paper added to the graph
+     */
     private Integer ids = 0;
 
     public PapersGraph() {
@@ -23,7 +39,7 @@ public class PapersGraph<P extends Paper> {
         this.papersPGraph = papersPGraph;
     }
 
-    public PapersGraph(PGraph papersPGraph, HashMap<Integer, P> hashPapers) {
+    public PapersGraph(EdgeWeightedDigraph papersPGraph, HashMap<Integer, P> hashPapers) {
         this.papersPGraph = papersPGraph;
         for (Integer k : hashPapers.keySet()){
             int id = this.ids++;
@@ -32,43 +48,209 @@ public class PapersGraph<P extends Paper> {
         }
     }
 
+    public PapersGraph(String fn){
+        readPapersGraphTxt(fn);
+    }
 
-    public void listPapersJournalAndTime(Date start, Date end){
+    public void setPapersPGraph(EdgeWeightedDigraph papersPGraph) {
+        this.papersPGraph = papersPGraph;
+    }
+
+    public void setPapersMap(HashMap<Integer, P> papersMap) {
+        this.papersMap = papersMap;
+    }
+
+    public EdgeWeightedDigraph getPapersPGraph() {
+        return papersPGraph;
+    }
+
+    public HashMap<Integer, P> getPapersMap() {
+        return papersMap;
+    }
+
+    public Integer getIds() {
+        return ids;
+    }
+
+    /**
+     * Lists the titles of papers that are instances of PaperJournal and whose dates fall within the specified time range.
+     * Time Complexity: O(n), where n is the number of entries in papersMap.
+     * Iterates over each entry in the papersMap to check if it is an instance of PaperJournal and if its date add to result
+     * Space Complexity: O(k), where k is the number of papers that are instances of PaperJournal and are within the specified date range.
+     * @param start The start date of the time range.
+     * @param end   The end date of the time range.
+     * @return An ArrayList containing the titles of the papers that are of type PaperJournal and fall within the specified time range.
+     */
+    public ArrayList<String> listPapersJournalAndTime(Date start, Date end){
+        ArrayList<String> result = new ArrayList<>();
         for (Integer id : papersMap.keySet()){
-            if(papersMap.get(id) instanceof PaperJournal ) {
+            if(papersMap.get(id) instanceof PaperJournal) {
                 if (papersMap.get(id).getDate().isBefore(end) && papersMap.get(id).getDate().isAfter(start)) {
-                    System.out.println(id);
+                    //System.out.println(papersMap.get(id));
+                    result.add(papersMap.get(id) + "");
                 }
             }
         }
+        return result;
     }
 
-    public void listPapersConferenceTime(Date start, Date end){
+    /**
+     * Lists the titles of papers that are instances of PaperJournal and whose dates fall within the specified time range and output to txt.
+     * Time Complexity: O(n), where n is the number of entries in papersMap.
+     * Iterates over each entry in the papersMap to check if it is an instance of PaperJournal and if its date add to result
+     * Space Complexity: O(k), where k is the number of papers that are instances of PaperJournal and are within the specified date range.
+     * @param start The start date of the time range.
+     * @param end   The end date of the time range.
+     * @param fn    file name
+     */
+    public void listPapersJournalAndTime(Date start, Date end, String fn){
+       ArrayList<String> a = listPapersJournalAndTime(start, end);
+       writeTotxt(a, fn);
+    }
 
+    /**
+     * Write result ArrList<String> to txt
+     * @param arr ArrayList of Strings to write
+     * @param fn filename
+     */
+    private void writeTotxt(ArrayList<String> arr, String fn){
+        try{
+            File fp = new File(fn);
+            FileWriter fw = new FileWriter(fp);
+
+            for (String s : arr){
+                fw.write(s + "\n");
+            }
+            fw.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Lists the titles of papers that are instances of Conference and whose dates fall within the specified time range.
+     * Time Complexity: O(n), where n is the number of entries in papersMap.
+     * Iterates over each entry in the papersMap to check if it is an instance of Conference and if its date add to result
+     * Space Complexity: O(k), where k is the number of papers that are instances of Conference and are within the specified date range.
+     * @param start The start date of the time range.
+     * @param end   The end date of the time range.
+     * @return An ArrayList containing the titles of the papers that are of type Conference and fall within the specified time range.
+     */
+    public ArrayList<String> listPapersConferenceTime(Date start, Date end){
+        ArrayList<String> r = new ArrayList<>();
         for (Integer id : papersMap.keySet()){
                 if( papersMap.get(id) instanceof PaperConference) {
-                    System.out.println("olaolaoa");
                     if (papersMap.get(id).getDate().isBefore(end) && papersMap.get(id).getDate().isAfter(start)) {
-                        System.out.println(id);
+                        //System.out.println(papersMap.get(id));
+                        r.add(papersMap.get(id) + " ");
                     }
                 }
         }
+        return  r;
     }
 
+    /**
+     * Lists the titles of papers that are instances of Conference and whose dates fall within the specified time range and output to txt.
+     * Time Complexity: O(n), where n is the number of entries in papersMap.
+     * Iterates over each entry in the papersMap to check if it is an instance of Conference and if its date add to result
+     * Space Complexity: O(k), where k is the number of papers that are instances of Conference and are within the specified date range.
+     * @param start The start date of the time range.
+     * @param end   The end date of the time range.
+     * @param fn    file name
+     */
+    public void listPapersConferenceTime(Date start, Date end, String fn){
+        ArrayList<String> a = listPapersConferenceTime(start, end);
+        writeTotxt(a, fn);
+    }
+
+    /**
+     * Write result to txt
+     * @param i integer to write
+     * @param fn filename
+     */
+    private void writeTotxt(int i, String fn){
+        try{
+            File fp = new File(fn);
+            FileWriter fw = new FileWriter(fp);
+            fw.write(i + "\n");
+            fw.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Calculates the first-order quotes (indegree) for a given paper.
+     * The first-order quotes represent the number of papers that cite this paper.
+     * Time complexity: O(1) adjacency list
+     * ExtraSpace: O(1)
+     * @param paper The paper for which the first-order quotes are to be calculated.
+     * @return The number of first-order quotes (indegree) of the given paper. If the paper is not part of the graph (indicated by a graphId of -1), it returns 0.
+     */
     public int calculateFirstOrderQuotes(P paper){
         if (paper.getGraphId() == -1) return 0;
         return papersPGraph.indegree(paper.getGraphId());
     }
 
+    /**
+     * Calculates the first-order quotes (indegree) for a given paper and output to a txt file.
+     * The first-order quotes represent the number of papers that cite this paper.
+     * Time complexity: O(1) adjacency list
+     * ExtraSpace: O(1)
+     * @param paper The paper for which the first-order quotes are to be calculated.
+     * @param fn   file name
+     */
+    public void calculateFirstOrderQuotes(P paper, String fn){
+       int i = calculateFirstOrderQuotes(paper);
+       writeTotxt(i, fn);
+    }
+
+    /**
+     * Calculates the second-order quotes for a given paper.
+     * The second-order quotes represent the number of papers that directly cite this paper (first-order quotes)
+     * plus the number of papers that cite those citing papers (second-order vertexes).
+     * Time Complexity: O(V + E)
+     * Extra Space: O(1)
+     * @param paper The paper for which the second-order quotes are to be calculated.
+     * @return The number of second-order quotes of the given paper. If the paper is not part of the graph (indicated by a graphId of -1), it returns 0.
+     */
     public int calculateSecondOrderQuotes(P paper){
         if (paper.getGraphId() == -1) return 0;
         return calculateFirstOrderQuotes(paper) + caculateSecondOrderVertexes(paper.getGraphId());
     }
 
-    public int caculateSecondOrderVertexes(Integer root){
+    /**
+     * Calculates the second-order quotes for a given paper and output to a txt file.
+     * The second-order quotes represent the number of papers that directly cite this paper (first-order quotes)
+     * plus the number of papers that cite those citing papers (second-order vertexes).
+     * Time Complexity: O(V + E)
+     * Extra Space: O(1)
+     * @param paper The paper for which the second-order quotes are to be calculated.
+     * @param fn file name
+     */
+    public void calculateSecondOrderQuotes(P paper, String fn){
+       int i = calculateSecondOrderQuotes(paper);
+       writeTotxt(i, fn);
+    }
+
+    /**
+     * Calculate the number of second-order vertexes for a given root paper ID.
+     * The second-order vertexes are those papers that cite the papers which directly cite the root paper.
+     * This method iterates over all vertices in the papersMap (O(V)) and for each vertex, it iterates over its adjacent vertices (O(E)).
+     * For each adjacent vertex, it checks if it points to the root and then calls calculateFirstOrderQuotes, which is O(1).
+     * Time complexity: O(V + E).
+     * Space Complexity: O(1)
+     * @param root The graph ID of the root paper.
+     * @return The number of second-order vertexes for the root paper.
+     */
+    private int caculateSecondOrderVertexes(Integer root){
         int returnCount = 0;
+        // for each vertex
         for (Integer keyMap : this.papersMap.keySet()){
+            // for each edge
             for (DirectedEdge w : this.papersPGraph.adj(keyMap)){
+                // if we are in a vertex that points
                 if (w.to() == root){
                     returnCount += calculateFirstOrderQuotes(this.papersMap.get(keyMap));
                 }
@@ -77,12 +259,21 @@ public class PapersGraph<P extends Paper> {
         return returnCount;
     }
 
+    /**
+     * Calculates the number of self-quotes for a given paper.
+     * A self-quote occurs when the citing paper has the same authors as the cited paper.
+     * O(E) E = adjacent edges
+     * @param paper The paper for which the self-quotes are to be calculated.
+     * @return The number of self-quotes for the given paper. If the paper is not part of the graph (indicated by a graphId of -1), it returns 0.
+     */
     public int selfQuotes(P paper){
         int key =paper.getGraphId();
         if (key == -1) return 0;
         int selfQuoteCounter = 0;
 
+        //iterate over all adjacent edges
         for (DirectedEdge edge : this.papersPGraph.adj(key)){
+            //check if the authors are the same
             if (papersMap.get(edge.to()).getAuthors().equals(paper.getAuthors())){
                 selfQuoteCounter++;
             }
@@ -90,18 +281,44 @@ public class PapersGraph<P extends Paper> {
         return selfQuoteCounter;
     }
 
-
-    private int paperMapKeyFinder(P paper){
-        for (Integer key : this.papersMap.keySet()){
-            if (this.papersMap.get(key).equals(paper)){
-                return key;
-            }
-        }
-        return -1;
+    /**
+     * Calculates the number of self-quotes for a given paper.
+     * A self-quote occurs when the citing paper has the same authors as the cited paper.
+     * O(E) E = adjacent edges
+     * @param paper The paper for which the self-quotes are to be calculated.
+     * @param fn filename
+     */
+    public void selfQuotes(P paper, String fn){
+        int i = selfQuotes(paper);
+        writeTotxt(i, fn);
     }
 
 
-    // Peso, diferença entre artigos
+    /**
+     * Write Iterable result to txt
+     * @param s Iterable to write
+     * @param fn filename
+     */
+    private void writeTotxt(Iterable<Integer> s, String fn){
+        try{
+            File fp = new File(fn);
+            FileWriter fw = new FileWriter(fp);
+            fw.write(s + "\n");
+            fw.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Finds the shortest path between two papers using Dijkstra's algorithm.
+     * Time Complexity: O((V + E) log V) E = number of edges V = number of vertices
+     * Extra Space: O(V)
+     * @param paperStart The starting paper for the shortest path calculation.
+     * @param paperEnd The ending paper for the shortest path calculation.
+     * @return An iterable of paper IDs representing the shortest path from paperStart to paperEnd.
+     *         If there is no path, it returns null.
+     */
     public Iterable<Integer> dijkstraShortestPath(P paperStart, P paperEnd) {
         Integer keyPaperS = paperStart.getGraphId();
         Integer keyPaperE = paperEnd.getGraphId();
@@ -156,6 +373,19 @@ public class PapersGraph<P extends Paper> {
         return path;
     }
 
+    /**
+     * Finds the shortest path between two papers using Dijkstra's algorithm and output to txt.
+     * Time Complexity: O((V + E) log V) E = number of edges V = number of vertices
+     * Extra Space: O(V)
+     * @param paperStart The starting paper for the shortest path calculation.
+     * @param paperEnd The ending paper for the shortest path calculation.
+     * @param fn filename
+     */
+    public void dijkstraShortestPath(P paperStart, P paperEnd, String fn){
+        Iterable<Integer> s = dijkstraShortestPath(paperStart, paperEnd);
+        writeTotxt(s, fn);
+    }
+
 
     public void addEdge(P p1, P p2){
         addHash(p1);
@@ -174,6 +404,12 @@ public class PapersGraph<P extends Paper> {
         }
     }
 
+    /**
+     * Calculate weight given a paper
+     * weight = sum of the date
+     * @param paper
+     * @return weight
+     */
     private double weightCalc(P paper){
         return (double) ((paper.getDate().day() + paper.getDate().month() + paper.getDate().year()));
     }
@@ -195,6 +431,8 @@ public class PapersGraph<P extends Paper> {
 
     /**
      * Filters the papers in the graph based on the provided type.
+     * Time Complexity = ( V + E)
+     * Extra space =  ( V + E)  V vertices and E edges the subgraph
      * <p>
      * This method creates a subgraph containing papers of a specific type (e.g., PaperConference or PaperJournal)
      * and returns a {@link PapersGraph} representing this subgraph.
@@ -217,7 +455,7 @@ public class PapersGraph<P extends Paper> {
         boolean filter = type.equals("PaperConference");
 
         subHashFilter(filter, subGraphHash, subGraphFilter);
-
+        //System.out.println(subGraphHash);
        // return null if the subHash is empty
         if (subGraphHash.isEmpty())
             return null;
@@ -244,7 +482,28 @@ public class PapersGraph<P extends Paper> {
     }
 
     /**
+     * Filters the papers in the graph based on the provided type.
+     * Time Complexity = ( V + E)
+     * Extra space =  ( V + E)  V vertices and E edges the subgraph
+     * <p>
+     * This method creates a subgraph containing papers of a specific type (e.g., PaperConference or PaperJournal)
+     * and returns a {@link PapersGraph} representing this subgraph.
+     * </p>
+     * <p>
+     * The type parameter specifies the type of papers to filter. Valid values are "PaperConference" and "PaperJournal".
+     * </p>
+     *
+     * @param type the type of papers to filter
+     * @param fn  filename
+     */
+    public void subGraphArticleFilter(String type, String fn){
+        PapersGraph<P> p = subGraphArticleFilter(type);
+        p.savePapersGraphTxt(fn);
+    }
+
+    /**
      * Filters the papers in the provided map based on the specified criteria and populates the provided subgraph hash and filter maps.
+     * Time complexity: O(V) V = number of vertices
      * <p>
      * This method iterates over the keys of the papersMap and filters the papers based on the value of the filter parameter.
      * If the filter parameter is false, it adds papers of type PaperJournal to the subGraphHash and subGraphFilter maps.
@@ -279,8 +538,17 @@ public class PapersGraph<P extends Paper> {
         }
     }
 
+    /**
+     * Finds the authors of papers that have been quoted within a specific time period.
+     * Time Complexity O(N x E^2)  N = number of papers in list  E = all edges in the graph
+     * @param papersList List of papers to check for quotes.
+     * @param dateStart  Start date of the period.
+     * @param dateEnd    End date of the period.
+     * @return A string representation of the authors who have been quoted within the specified period,
+     *         or a message indicating no quotes were found.
+     */
 
-    private String authorQuotesPeriod(ArrayList<P> papersList, Date dateStart, Date dateEnd){
+    public String authorQuotesPeriod(ArrayList<P> papersList, Date dateStart, Date dateEnd){
         ArrayList<Author> authors = new ArrayList<>();
 
         for (P paper : papersList){
@@ -293,7 +561,6 @@ public class PapersGraph<P extends Paper> {
                         if (paper.getDate().isAfter(dateStart) && paper.getDate().isBefore(dateEnd)){
                             authors.addAll(papersMap.get(id).getAuthors());
                         }
-
                     }
                 }
             }
@@ -303,12 +570,48 @@ public class PapersGraph<P extends Paper> {
         return authors.toString();
     }
 
+    /**
+     * Finds the authors of papers that have been quoted within a specific time period.
+     * Time Complexity O(N x E^2)  N = number of papers in list  E = all edges in the graph
+     * @param papersList List of papers to check for quotes.
+     * @param dateStart  Start date of the period.
+     * @param dateEnd    End date of the period.
+     * @param fn   filename
+     */
+    public void authorQuotesPeriod(ArrayList<P> papersList, Date dateStart, Date dateEnd, String fn){
+        String s = authorQuotesPeriod(papersList, dateStart, dateEnd);
+        writeTotxt(s, fn);
+    }
 
-    private String journalQuotes(Date dateStart, Date dateEnd){
+    /**
+     * Write string to txt
+     */
+    private void writeTotxt(String s, String fn){
+        try{
+            File fp = new File(fn);
+            FileWriter fw = new FileWriter(fp);
+            fw.write(s + "\n");
+            fw.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Finds and returns papers that are journal articles and have been quoted within a specific time period.
+     * Time Complexity O( N x E)  N = number of papers E = edges
+     * Extra Space O (N) ArrayList of papers
+     * @param dateStart Start date of the period.
+     * @param dateEnd   End date of the period.
+     * @return A string representation of the journal papers that have been quoted within the specified period,
+     *         or a message indicating no journal quotes were found.
+     */
+    public String journalQuotes(Date dateStart, Date dateEnd){
         ArrayList<P> papers = new ArrayList<>();
 
         for (Integer key : papersMap.keySet()){
             if (papersMap.get(key) instanceof PaperJournal){
+                //for each journal iterate over adj
               for (DirectedEdge edge : papersPGraph.adj(key)){
                   if (papersMap.get(edge.to()).getDate().isAfter(dateStart) && papersMap.get(edge.to()).getDate().isBefore(dateEnd)){
                       papers.add(papersMap.get(edge.to()));
@@ -321,7 +624,49 @@ public class PapersGraph<P extends Paper> {
         return papers.toString();
     }
 
+    /**
+     * Finds and returns papers that are journal articles and have been quoted within a specific time period.
+     * Time Complexity O( N x E)  N = number of papers E = edges
+     * Extra Space O (N) ArrayList of papers
+     * @param dateStart Start date of the period.
+     * @param dateEnd   End date of the period.
+     * @return A string representation of the journal papers that have been quoted within the specified period,
+     *         or a message indicating no journal quotes were found.
+     */
+    public void journalQuotes(Date dateStart, Date dateEnd, String fn){
+        String s = journalQuotes(dateStart, dateEnd);
+        writeTotxt(s, fn);
+    }
 
+
+    /**
+     * Save graph to txt file in following format:
+     * 8
+     * 17
+     * 0 1 0.26
+     * 0 2 0.26
+     * 0 4 0.38
+     * 0 7 0.16
+     * 1 3 0.29
+     * 1 2 0.36
+     * 1 7 0.19
+     * 1 5 0.32
+     * 2 7 0.34
+     * 2 3 0.17
+     * 3 6 0.52
+     * 4 7 0.37
+     * 4 5 0.35
+     * 5 7 0.28
+     * 6 4 0.93
+     * 6 0 0.58
+     * 6 2 0.4
+     * nPapers: 8
+     * Key: 0; Paper: reeeeeg1; Title: A horta ; Keywords: gardening, agriculture ; anAbstract: Study on urban gardening ; Date: 11/15/2020 ; TotalNumViews: 50000 ; TotalNumLikes: 50000 ; numDownloads: 9873100; editionNumber: 2 ; Local: Porto
+     * nAuthors: 2
+     * Author: 0 ; birthDate: 01/01/1985; Name: João Silva; Address: Rua das Flores, Porto; penName: olaoao ; Affiliation: University of Porto; ORCID: 0000-0000-0000-0001; scienceID: 10001; googleScholarID: GS12345; ScopusAuthorID: SA12345
+     * Author: 1 ; birthDate: 02/15/1970; Name: Maria Pereira; Address: Avenida da Liberdade, Lisbon; penName: mundodd ; Affiliation: University of Lisbon; ORCID: 0000-0000-0000-0002; scienceID: 10002; googleScholarID: GS12346; ScopusAuthorID: SA12346
+     * @param fn  filename
+     */
     public void savePapersGraphTxt(String fn){
         Out fp = new Out(fn);
         writeAuthorsGraphTxt(fp);
@@ -329,7 +674,10 @@ public class PapersGraph<P extends Paper> {
         fp.close();
     }
 
-
+    /**
+     * Write graph to txt file
+     * @param fp  Out object
+     */
     private void writeAuthorsGraphTxt(Out fp){
         fp.println(papersPGraph.V());
         fp.println(papersPGraph.E());
@@ -340,6 +688,11 @@ public class PapersGraph<P extends Paper> {
             }
         }
     }
+
+    /**
+     * Write hash to txt file
+     * @param fp  Out object
+     */
     private void writePapersHashTxt(Out fp){
 
         fp.println("nPapers: " + papersMap.size());
@@ -374,6 +727,11 @@ public class PapersGraph<P extends Paper> {
 
     }
 
+
+    /**
+     * read Graph fom txt file
+     * @param fn  filename
+     */
     public void readPapersGraphTxt(String fn){
         try {
             In fp = new In(fn);
@@ -386,6 +744,11 @@ public class PapersGraph<P extends Paper> {
         }
     }
 
+
+    /**
+     * Read graph fom txt file
+     * @param fp In
+     */
     private void readGraphTxt(In fp) {
         String s = " ";
         int numVertexes = Integer.parseInt(fp.readLine());
@@ -403,6 +766,9 @@ public class PapersGraph<P extends Paper> {
         }
     }
 
+    /**
+    * Read Hash from txt file
+     */
     private void readPapersHash(In fp){
         String s = " ";
         int numPapers = Integer.parseInt(fp.readLine().split(":")[1].trim());
@@ -446,7 +812,7 @@ public class PapersGraph<P extends Paper> {
                 String scopusID = infoMap.get("ScopusID");
                 p = new PaperJournal(DOI, Title, Keywords, anAbstract, new Date(Date), Long.parseLong(totalNumLikes), Long.parseLong(totalNumViews), Long.parseLong(numDownloads), Publisher, edu.ufp.inf.paper_author.Periodicity.valueOf(Periodicity), Double.parseDouble(jcrIF), scopusID);
             }
-
+            p.setGraphId(Integer.parseInt(Key));
             this.papersMap.put(Integer.parseInt(Key) , (P) p);
             fillPaperAuthors(p, fp);
         }
@@ -497,10 +863,56 @@ public class PapersGraph<P extends Paper> {
         }
     }
 
+    /**
+     * Save graph in bin file
+     * @param fn  filename
+     */
+    public void saveGraphBin(String fn){
+        try {
+            File fp =new File(fn);
+            FileOutputStream fos = new FileOutputStream(fp);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            writeGraphBin(oos);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Write graph to bin file
+     * @param oos ObjectOutputStream
+     */
+    private void writeGraphBin(ObjectOutputStream oos){
+        try {
+            oos.writeObject(papersPGraph);
+            oos.writeObject(papersMap);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Read Graph from bin file
+     * @param fa  filename
+     */
+    public void readGraphBin(String fa){
+        try {
+            File f = new File(fa);
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            this.papersPGraph = (PGraph) ois.readObject();
+            this.papersMap = (HashMap<Integer, P>) ois.readObject();
+
+            ois.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static void main(String[] args) {
-        PGraph pg = new PGraph(new In("./data/test1.txt"));
+        EdgeWeightedDigraph pg = new PGraph(new In("./data/test1.txt"));
         HashMap<Integer, Paper> m = new HashMap<>();
         Author a1 = new Author();
         a1.setPenName("olaoao");
@@ -542,15 +954,18 @@ public class PapersGraph<P extends Paper> {
 
         PGraph pag = new PGraph(8);
         HashMap<Integer, Paper> hm = new HashMap<>();
-        PapersGraph pG = new PapersGraph(pag, hm);
-
+        //PapersGraph pG = new PapersGraph(pag, hm);
+        PapersGraph pG = new PapersGraph();
+        pG.readGraphBin("data/test1.bin");
         //pa.savePapersGraphTxt("data/test1.txt");
-
+        System.out.println(pG.papersPGraph);
+        System.out.println(pG.papersMap);
         pG.readPapersGraphTxt("data/test1.txt");
           System.out.println(pG.papersPGraph);
           System.out.println(pG.papersMap);
         Date dateb = new Date(10,2, 1100);
         Date datee = new Date(10,2, 1900);
+        pG.saveGraphBin("data/test1.bin");
         //pG.listPapersJournalAndTime(dateb,datee);
         //System.out.println(pG.papersPGraph);
         boolean[] marked = new boolean[8];

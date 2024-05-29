@@ -16,4 +16,4 @@ Paper: reeeeeg1; Title: A horta ;Keywords: null ; anAbstract: null ; Date: 11/15
 Paper: fagaaaa1; Title: O joaozinho ;Keywords: null ; anAbstract: null ; Date: 10/20/2023 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto
 Author: 4 ; birthDate: 12/10/2003; Name: ola; Address: 4500-368; penName: 1 ; Affiliation: 2; ORCID: 3; scienceID: 4; googleScholarID: 5; ScopusAuthorID: 6
 nPapers: 1
-Paper: 89fcf125-806b-4555-bad1-7979bbcf710d0; Title: A historia de Joelzinho, o Rapaz!!! ;Keywords: null ; anAbstract: null ; Date: 10/10/1290 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: null; jcrIF: 0.0; ScopusID: null
+Paper: 89fcf125-806b-4555-bad1-7979bbcf710d0; Title: A historia de Joelzinho, o Rapaz!!! ;Keywords: null ; anAbstract: null ; Date: 10/10/1290 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: null ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null

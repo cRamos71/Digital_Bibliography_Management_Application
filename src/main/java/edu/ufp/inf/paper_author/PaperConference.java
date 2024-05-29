@@ -5,8 +5,17 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Represents a conference paper with specific attributes such as edition number and location.
+ */
 public class PaperConference extends Paper implements Serializable {
+    /**
+     * edition Number
+     */
     private Integer editionNumber;
+    /**
+     * Local of the Conference
+     */
     private String local;
 
 

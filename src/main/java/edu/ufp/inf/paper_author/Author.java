@@ -1,6 +1,5 @@
 package edu.ufp.inf.paper_author;
 
-import edu.princeton.cs.algs4.BST;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.person_user.Person;
 
@@ -9,23 +8,39 @@ import edu.ufp.inf.Util.Date;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
+/**
+ * Represents an author of academic papers, extending the Person class.
+ */
 public class Author extends Person implements Serializable {
-
+/**
+ * Pen Name ex = Paulo, J.
+ */
 private String penName;
-
+/**
+ * Affiliation ex = UFP
+ */
 private String affiliation;
-
+/**
+ * ORCID
+ */
 private String orcID;
-
+/**
+ * scienceID
+ */
 private String scienceID;
-
+/**
+ * googleScholar ID
+ */
 private String googleScholarID;
-
+/**
+ * scopusAuthor ID
+ */
 private String scopusAuthorID;
-
+/**
+ * List holding papers of Author
+ */
 private ArrayList<Paper> papers = new ArrayList<>();
-    public Author() {
+public Author() {
     }
 
     public Author(Integer idNumber, Date birthDate, String name, String address, String penName, String affiliation, String orcID, String scienceID, String googleScholarID, String scopusAuthorID) {
@@ -106,6 +121,11 @@ private ArrayList<Paper> papers = new ArrayList<>();
         this.papers = papers;
     }
 
+    /**
+     * Adds a paper to the author's list of papers if it does not already exist in the list.
+     *
+     * @param p the paper to add
+     */
     public void addPaper(Paper p){
         for (Paper paper : papers) {
             if (paper.getTitle().equals(p.getTitle()) && paper.getDate().equals(p.getDate())) {
@@ -115,6 +135,13 @@ private ArrayList<Paper> papers = new ArrayList<>();
         papers.add(p);
     }
 
+    /**
+     * Removes a paper by title and year from the author's list of papers.
+     *
+     * @param t the title of the paper to remove
+     * @param y the year of the paper to remove
+     * @return the removed paper if it was found and removed, null otherwise
+     */
     public Paper removePaperTitleYear(String t, Long y){
         Paper pap = searchPaperYear(t, y);
         if (pap != null){
@@ -128,6 +155,14 @@ private ArrayList<Paper> papers = new ArrayList<>();
         return null;
     }
 
+    /**
+     * Searches for a paper by title and year in the author's list of papers.
+     *Time complexity: O(P) P = num papers in ArrayList
+     * Extra Space: O(1)
+     * @param t the title of the paper to search for
+     * @param y the year of the paper to search for
+     * @return the paper if found, null otherwise
+     */
     public Paper searchPaperYear(String t, long y){
         for (Paper paper : papers){
             Date date = new Date(paper.getDate().month(),paper.getDate().day(), paper.getDate().year());
@@ -138,6 +173,13 @@ private ArrayList<Paper> papers = new ArrayList<>();
         return null;
     }
 
+    /**
+     * Searches for a paper by title in the author's list of papers.
+     * Time complexity: O(P) P = num papers in ArrayList
+     * Extra Space: O(1)
+     * @param t the title of the paper to search for
+     * @return the paper if found, null otherwise
+     */
     public Paper searchPaperTitle(String t){
         for(Paper paper : papers){
             if (paper.getTitle().equals(t)){
@@ -147,22 +189,36 @@ private ArrayList<Paper> papers = new ArrayList<>();
         return null;
     }
 
+    /**
+     * Returns the list of papers authored by the author.
+     *
+     * @return the list of papers
+     */
     public ArrayList<Paper> listPapers(){
         return this.papers;
     }
 
+    /**
+     * Creates a RedBlackBST with the years as keys and lists of paper titles as values.
+     * Time complexity : O(NlogN)
+     * Extra Space : O (N) N =  number of keys in bst
+     * @return the RedBlackBST containing the years and paper titles
+     */
     public RedBlackBST<Integer, ArrayList<String>> bstPapersPeriod(){
         RedBlackBST<Integer, ArrayList<String>> bstDate = new RedBlackBST<>();
 
+        //build bst with key = year and val = Arraylist of papers published in that year
         for (Paper p: listPapers()){
             Integer key = p.getDate().year();
             if(bstDate.contains(key)){
                 ArrayList<String> a = bstDate.get(key);
+                //if not already added add to the arrayList
                 if(!a.contains(p.getTitle())){
                     a.add(p.getTitle());
                     bstDate.put(key, a);
                 }
             }else{
+                //Add arrayList of papers to key
                 ArrayList<String> temp =  new ArrayList<>();
                 temp.add(p.getTitle());
                 bstDate.put(key, temp);
@@ -171,13 +227,23 @@ private ArrayList<Paper> papers = new ArrayList<>();
         return bstDate;
     }
 
-
+    /**
+     * Removes a paper from the author's list of papers.
+     *
+     * @param p the paper to remove
+     * @return true if the paper was removed, false otherwise
+     */
     public boolean removePaper(Paper p){
         return this.papers.remove(p);
     }
 
 
-
+    /**
+     * Searches for a paper by DOI in the author's list of papers.
+     *
+     * @param doi the DOI of the paper to search for
+     * @return the paper if found, null otherwise
+     */
     private Paper getPaperDoi(String doi){
         for(Paper a : papers){
             if(a.getDoi().compareTo(doi) == 0){

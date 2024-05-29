@@ -3,14 +3,33 @@ package edu.ufp.inf.person_user;
 import java.util.Objects;
 import edu.ufp.inf.Util.Date;
 
+/**
+ * Represents a user entity with extended attributes such as username, password, email, etc.
+ */
 public class User extends Person{
+    /**
+    * username
+     */
     private String username;
+    /**
+     * password
+     */
     private String password;
-
+    /**
+     * email
+     */
     private String email;
+    /**
+     * zip
+     */
     private String zip;
+    /**
+     * phoneNumber
+     */
     private Integer phoneNumber;
-
+    /**
+     * countryCode ex: US
+     */
     private String countryCode;
     public User() {
     }
@@ -97,13 +116,5 @@ public class User extends Person{
                 ", countryCode='" + countryCode + '\'' +
                 '}';
     }
-
-    public boolean register(String name,String username, String email,String password, String address, String zip, String phoneNumber, String countryCode){
-        return true;
-    }
-    public boolean login(String username, String email,String password){
-        return false;
-    }
-
 
 }

@@ -4,10 +4,25 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Represents a journal paper with specific attributes such as publisher, periodicity, JCR impact factor, and Scopus ID.
+ */
 public class PaperJournal extends Paper implements Serializable {
+    /**
+     * publisher
+     */
     private String publisher;
+    /**
+     * Periodicity
+     */
     private Periodicity periodicity;
+    /**
+     * Journal's JCR impact factor
+     */
     private double jcrIF;
+    /**
+     * ScopusID
+     */
     private String scopusID;
 
 

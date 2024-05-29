@@ -8,22 +8,60 @@ import java.util.Objects;
 
 import edu.ufp.inf.Util.Date;
 
-public class Paper implements Serializable {
-   private String doi;
-   private String title;
-   private String keywords;
-   private String anAbstract;
-   private Date date;
-   private Integer graphId = -1;
-   private Long numDownloads = 0L;
-   private Long totalNumViews = 0L;
-   private Long totalNumLikes = 0L;
-   private Map<Date, Long> numViewsPerDay = new HashMap<>();
-   private Map<Date, Long> numLikesPerDay = new HashMap<>();
 
+/**
+ * Represents a research paper with various attributes such as DOI, title, keywords, abstract, date, and metrics.
+ */
+public class Paper implements Serializable {
+    /**
+     * Direct object identifier
+     */
+   private String doi;
+    /**
+     * Title
+     */
+   private String title;
+    /**
+     * Keywords
+     */
+   private String keywords;
+    /**
+     * Abstract
+     */
+   private String anAbstract;
+    /**
+     * Date of publication
+     */
+   private Date date;
+    /**
+     * Id to use in the graph implementation
+     */
+   private Integer graphId = -1;
+    /**
+     * Total number of downloads
+     */
+   private Long numDownloads = 0L;
+    /**
+     * Total number of views
+     */
+   private Long totalNumViews = 0L;
+    /**
+     * Total number of Likes
+     */
+   private Long totalNumLikes = 0L;
+    /**
+     * Map Date -> num View
+     */
+   private Map<Date, Long> numViewsPerDay = new HashMap<>();
+    /**
+     * Map Date -> num Day
+     */
+   private Map<Date, Long> numLikesPerDay = new HashMap<>();
+    /**
+     * List to store the authors associated with a Paper
+     */
    private ArrayList<Author> authors = new ArrayList<>();
 
-   private ArrayList<Paper> quotes = new ArrayList<>();
 
     public Paper() {
     }
@@ -101,13 +139,6 @@ public class Paper implements Serializable {
         this.authors = authors;
     }
 
-    public ArrayList<Paper> getQuotes() {
-        return quotes;
-    }
-
-    public void setQuotes(ArrayList<Paper> quotes) {
-        this.quotes = quotes;
-    }
 
     public ArrayList<Author> getAuthors() {
         return authors;
@@ -157,12 +188,12 @@ public class Paper implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Paper paper)) return false;
-        return Objects.equals(doi, paper.doi) && Objects.equals(title, paper.title) && Objects.equals(keywords, paper.keywords) && Objects.equals(anAbstract, paper.anAbstract) && Objects.equals(date, paper.date) && Objects.equals(graphId, paper.graphId) && Objects.equals(numDownloads, paper.numDownloads) && Objects.equals(totalNumViews, paper.totalNumViews) && Objects.equals(totalNumLikes, paper.totalNumLikes) && Objects.equals(numViewsPerDay, paper.numViewsPerDay) && Objects.equals(numLikesPerDay, paper.numLikesPerDay) && Objects.equals(authors, paper.authors) && Objects.equals(quotes, paper.quotes);
+        return Objects.equals(doi, paper.doi) && Objects.equals(title, paper.title) && Objects.equals(keywords, paper.keywords) && Objects.equals(anAbstract, paper.anAbstract) && Objects.equals(date, paper.date) && Objects.equals(graphId, paper.graphId) && Objects.equals(numDownloads, paper.numDownloads) && Objects.equals(totalNumViews, paper.totalNumViews) && Objects.equals(totalNumLikes, paper.totalNumLikes) && Objects.equals(numViewsPerDay, paper.numViewsPerDay) && Objects.equals(numLikesPerDay, paper.numLikesPerDay) && Objects.equals(authors, paper.authors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(doi, title, keywords, anAbstract, date, graphId, numDownloads, totalNumViews, totalNumLikes, numViewsPerDay, numLikesPerDay, authors, quotes);
+        return Objects.hash(doi, title, keywords, anAbstract, date, graphId, numDownloads, totalNumViews, totalNumLikes, numViewsPerDay, numLikesPerDay, authors);
     }
 
     @Override
@@ -180,19 +211,22 @@ public class Paper implements Serializable {
                 ", numViewsPerDay=" + numViewsPerDay +
                 ", numLikesPerDay=" + numLikesPerDay +
                 ", authors=" + authors +
-                ", quotes=" + quotes +
                 '}';
     }
 
     /**
-     * @
+     * Adds an author to the paper.
+     *
+     * @param a the author to add
      */
     public void addAuthor(Author a){
         if(!this.authors.contains(a)) this.authors.add(a);
     }
 
     /**
-     *
+     * Adds a view to the paper.
+     * <p>
+     * Increments the total number of views and updates the views per day.
      */
     public void addView(){
         LocalDate l = LocalDate.now();
@@ -206,6 +240,11 @@ public class Paper implements Serializable {
         }
     }
 
+    /**
+     * Adds a like to the paper.
+     * <p>
+     * Increments the total number of likes and updates the likes per day.
+     */
     public void addLike(){
         LocalDate l = LocalDate.now();
         Date curr = new Date(l.getMonthValue(), l.getDayOfMonth(), l.getYear());
@@ -219,20 +258,43 @@ public class Paper implements Serializable {
 
     }
 
+    /**
+     * Adds a download to the paper.
+     * <p>
+     * Increments the total number of downloads.
+     */
     public void addNumDownload(){
        this.numDownloads++;
     }
 
+    /**
+     * Returns the number of views on a specific day.
+     *
+     * @param d the date for which the number of views is to be retrieved
+     * @return the number of views on the specified date; returns 0 if the date is not found
+     */
     public long getNumViewsDay(Date d){
         if(!this.numViewsPerDay.containsKey(d)) return 0;
         return this.numViewsPerDay.get(d);
     }
 
+    /**
+     * Returns the number of likes on a specific day.
+     *
+     * @param d the date for which the number of likes is to be retrieved
+     * @return the number of likes on the specified date; returns 0 if the date is not found
+     */
     public long getNumLikesDay(Date d){
         if(!this.numLikesPerDay.containsKey(d)) return 0;
         return this.numLikesPerDay.get(d);
     }
 
+    /**
+     * Returns the total number of views in a specific year.
+     *
+     * @param year the year for which the total number of views is to be retrieved
+     * @return the total number of views in the specified year
+     */
     public long getNumViewsYear(int year){
         long totalViews = 0;
         for (Date d1 : numViewsPerDay.keySet()) {
@@ -248,6 +310,13 @@ public class Paper implements Serializable {
         return totalViews;
     }
 
+    /**
+     * Returns the total number of views in a specific month and year.
+     *
+     * @param month the month for which the total number of views is to be retrieved
+     * @param year  the year for which the total number of views is to be retrieved
+     * @return the total number of views in the specified month and year
+     */
     public long getNumViewsMonth(short month,int year){
         long totalViews = 0;
         for (Date d1 : numViewsPerDay.keySet()) {
@@ -262,6 +331,12 @@ public class Paper implements Serializable {
         return totalViews;
     }
 
+    /**
+     * Returns the total number of likes in a specific year.
+     *
+     * @param year the year for which the total number of likes is to be retrieved
+     * @return the total number of likes in the specified year
+     */
     public long getNumLikesYear(int year){
         long totalLikes = 0;
 
@@ -277,6 +352,13 @@ public class Paper implements Serializable {
         return totalLikes;
     }
 
+    /**
+     * Returns the total number of likes in a specific month and year.
+     *
+     * @param month the month for which the total number of likes is to be retrieved
+     * @param year  the year for which the total number of likes is to be retrieved
+     * @return the total number of likes in the specified month and year
+     */
     public long getNumLikesMonth(int month, int year){
         long totalLikes = 0;
         for (Date d1 : numLikesPerDay.keySet()) {

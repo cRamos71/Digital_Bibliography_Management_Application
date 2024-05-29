@@ -6,6 +6,9 @@ import edu.ufp.inf.paper_author.Paper;
 import edu.ufp.inf.paper_author.PaperConference;
 import edu.ufp.inf.paper_author.PaperJournal;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -277,7 +280,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     /**
      * Time complexity: O(PlogP + M)
      * Retrieves a list of paper titles for a specific author within a specified date range.
-     *
+     * Extra Space: O(N + Q) N =  Number of authors with specified id Q = number of unique paper titles across all authors
      * <p>This method constructs a Red-Black Binary Search Tree (BST) of the author's papers,
      * indexed by the year of publication. It then collects and returns the titles of the papers
      * published within the given date range.
@@ -305,9 +308,32 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         }
         return papers;
     }
+
+    /**
+     * Time complexity: O(PlogP + M)
+     * Retrieves a list of paper titles for a specific author within a specified date range and output to a txt file the result.
+     *
+     * <p>This method constructs a Red-Black Binary Search Tree (BST) of the author's papers,
+     * indexed by the year of publication. It then collects and returns the titles of the papers
+     * published within the given date range.
+     *
+     * @param idAuthor the unique identifier of the author
+     * @param startDate the start date of the period (inclusive)
+     * @param endDate the end date of the period (inclusive)
+     * @param fn      the txt file name
+     */
+    public void paperAuthorByIdPeriodIn(Integer idAuthor, Date startDate, Date endDate, String fn) {
+        ArrayList<String> result = paperAuthorByIdPeriodIn(idAuthor, startDate, endDate);
+        writeResultTotxt(result, fn);
+    }
+
+
+
+
     /**
      * Retrieves the titles of papers authored by authors with a given name within a specified time period.
      * Time complexity: O(N + M * P + Q)
+     * Extra Space: O(N + Q) N =  Number of authors with specified name Q = number of unique paper titles across all authors
      *<p>
      * This method searches for all authors with the specified name and retrieves the papers authored by
      * each of these authors within the specified time period. It then returns a list of unique paper titles
@@ -355,17 +381,38 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
     }
 
     /**
-     * Retrieves the top 3 papers with the most downloads.
-     *
-     * Time complexity: O(NlogN) N = number of papers
+     * Retrieves the titles of papers authored by authors with a given name within a specified time period and output to a txt file.
+     * Time complexity: O(N + M * P + Q)
      *<p>
-     * This method retrieves all papers from the database and sorts them based on the number
-     * of downloads in descending order. It then selects the top 3 papers with the highest number
-     * of downloads and returns them in an array.
+     * This method searches for all authors with the specified name and retrieves the papers authored by
+     * each of these authors within the specified time period. It then returns a list of unique paper titles
+     * authored by authors with the given name during the specified time period.
      *</p>
-     * @return an array of {@code Paper} objects containing the top 3 papers with the most downloads,
-     *         or an array with fewer than 3 elements if there are fewer than 3 papers in the database
+     * @param nameAuthor the name of the author
+     * @param startDate  the start date of the time period
+     * @param endDate    the end date of the time period
+     * @param fn         the txt file name to output result
+     * @return an {@code ArrayList} of unique paper titles authored by authors with the given name during
+     *         the specified time period, or a list containing a message if there are no papers in the defined timestamp
      */
+    public void paperAuthorByNamePeriod(String nameAuthor, Date startDate, Date endDate, String fn) {
+        ArrayList<String> result = paperAuthorByNamePeriod(nameAuthor, startDate, endDate);
+        writeResultTotxt(result, fn);
+    }
+
+
+        /**
+         * Retrieves the top 3 papers with the most downloads.
+         * Time complexity: O(NlogN) N = number of papers
+         * Extra Space: O(N) N = number of papers in DB
+         *<p>
+         * This method retrieves all papers from the database and sorts them based on the number
+         * of downloads in descending order. It then selects the top 3 papers with the highest number
+         * of downloads and returns them in an array.
+         *</p>
+         * @return an array of {@code Paper} objects containing the top 3 papers with the most downloads,
+         *         or an array with fewer than 3 elements if there are fewer than 3 papers in the databas
+         */
     public Paper[] top3PapersMostDownloads() {
         //store in papers ArrayList all papers stored in the db
         ArrayList<Paper> papers = new ArrayList<>(mapDOI.values());
@@ -387,11 +434,32 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         return p;
     }
 
+    /**
+     * Retrieves the top 3 papers with the most downloads and output the result to a txt file.
+     * @param fn  the txt file name to output result
+     * Time complexity: O(NlogN) N = number of papers
+     *<p>
+     * This method retrieves all papers from the database and sorts them based on the number
+     * of downloads in descending order. It then selects the top 3 papers with the highest number
+     * of downloads and returns them in an array.
+     *</p>
+     */
+    public void top3PapersMostDownloads(String fn) {
+        ArrayList<String> result = new ArrayList<>();
+        Paper[] arr = top3PapersMostDownloads();
+
+        for (Paper p : arr){
+            result.add( "Title: " + p.getTitle() + " Val: " + p.getNumDownloads());
+        }
+
+        writeResultTotxt(result, fn);
+    }
+
 
     /**
      * Retrieves a list of papers that have not been downloaded or viewed.
-     *
      * Time complexity: O(N) N = number of papers inside HashMap
+     * Extra Space: O(N) N = number of papers in MapDOI
      *<p>
      * This method traverses the `mapDOI` HashMap, which maps DOI (Digital Object Identifier) strings
      * to `Paper` objects. It checks each paper to see if it has zero downloads and zero views.
@@ -411,6 +479,40 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         }
 
       return papersFound;
+    }
+
+    /**
+     * Retrieves a list of papers that have not been downloaded or viewed and write the result to a txt file
+     * @param fn file name
+     * Time complexity: O(N) N = number of papers inside HashMap
+     *<p>
+     * This method traverses the `mapDOI` HashMap, which maps DOI (Digital Object Identifier) strings
+     * to `Paper` objects. It checks each paper to see if it has zero downloads and zero views.
+     * If both conditions are met, the paper is added to the returned list.
+     *</p>
+     */
+    public void papersNotDownloadedNotViewed(String fn){
+       ArrayList<String> result = papersNotDownloadedNotViewed();
+       writeResultTotxt(result, fn);
+    }
+
+
+    /**
+     * Write results from queries to a txt file
+     */
+    private void writeResultTotxt(ArrayList<String> arr, String fn){
+        try {
+            File fp =new File(fn);
+            FileWriter fw = new FileWriter(fp);
+
+            for (String s : arr){
+                fw.write(s + "\n");
+            }
+
+            fw.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 

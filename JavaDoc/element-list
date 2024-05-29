@@ -1,0 +1,11 @@
+module:edu.ufp.inf
+edu.ufp.inf.database
+edu.ufp.inf.Graph
+edu.ufp.inf.javafx.Controllers
+edu.ufp.inf.javafx.home
+edu.ufp.inf.javafx.loginFxml
+edu.ufp.inf.ManageGraphs
+edu.ufp.inf.paper_author
+edu.ufp.inf.person_user
+edu.ufp.inf.test
+edu.ufp.inf.Util

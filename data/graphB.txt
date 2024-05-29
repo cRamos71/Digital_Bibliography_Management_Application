@@ -1,0 +1,24 @@
+5
+4
+0 2
+0 1
+2 3
+3 4
+nAuthors: 5
+Key: 0 ; Author: 0 ; birthDate: 01/01/2001; Name: John Doe; Address: 123 Main St; penName: olaoao ; Affiliation: PT; ORCID: 0000-0000-0000-0001; scienceID: 10001; googleScholarID: GS12345; ScopusAuthorID: SA12345
+nPapers: 1
+Paper: fagaaaa1; Title: O joaozinho ;Keywords: science, research ; anAbstract: Study on joaozinho ; Date: 10/20/2023 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto
+Key: 1 ; Author: 1 ; birthDate: 08/21/2020; Name: Jane Smith; Address: 456 Elm St; penName: mundodd ; Affiliation: PT; ORCID: 0000-0000-0000-0002; scienceID: 10002; googleScholarID: GS12346; ScopusAuthorID: SA12346
+nPapers: 1
+Paper: fagaaaa1; Title: O joaozinho ;Keywords: science, research ; anAbstract: Study on joaozinho ; Date: 10/20/2023 ; TotalNumViews: 54656 ; TotalNumLikes: 54656 ; numDownloads: 9873425; editionNumber: 1 ; Local: Porto
+Key: 2 ; Author: 2 ; birthDate: 11/12/2003; Name: Alice Johnson; Address: 789 Oak St; penName: olasolas ; Affiliation: Nigeria; ORCID: 0000-0000-0000-0003; scienceID: 10003; googleScholarID: GS12347; ScopusAuthorID: SA12347
+nPapers: 2
+Paper: c179336c-f8c9-4e22-864f-b1dcc95fc3000; Title: A historia de Joelzinho, o Rapaz!!! ;Keywords: history, biography ; anAbstract: Biography of Joelzinho ; Date: 10/10/1290 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: Academic Press ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
+Paper: c179336c-f8c9-4e22-864f-b1dcc95fc3003; Title: A historia de Claudio, o Rapaz!!! ;Keywords: history, biography ; anAbstract: Biography of Claudio ; Date: 10/10/1290 ; TotalNumViews: 0 ; TotalNumLikes: 0 ; numDownloads: 0; Publisher: Academic Press ; Periodicity: DAILY; jcrIF: 0.0; ScopusID: null
+Key: 3 ; Author: 3 ; birthDate: 02/03/1980; Name: Bob Brown; Address: 321 Pine St; penName: bbrown ; Affiliation: USA; ORCID: 0000-0000-0000-0004; scienceID: 10004; googleScholarID: GS12348; ScopusAuthorID: SA12348
+nPapers: 1
+Paper: 123abc1; Title: The Adventures of Bob ;Keywords: adventure, fiction ; anAbstract: Fictional adventures ; Date: 05/15/2010 ; TotalNumViews: 12345 ; TotalNumLikes: 2345 ; numDownloads: 6789; editionNumber: 2 ; Local: New York
+Key: 4 ; Author: 4 ; birthDate: 07/22/1992; Name: Carol White; Address: 654 Maple St; penName: cwhite ; Affiliation: UK; ORCID: 0000-0000-0000-0005; scienceID: 10005; googleScholarID: GS12349; ScopusAuthorID: SA12349
+nPapers: 2
+Paper: abc123; Title: The Life of Carol ;Keywords: biography, life ; anAbstract: Life story of Carol ; Date: 08/18/2015 ; TotalNumViews: 67890 ; TotalNumLikes: 7890 ; numDownloads: 8901; Publisher: Biography Press ; Periodicity: MONTHLY; jcrIF: 1.5; ScopusID: SC123
+Paper: xyz789; Title: Carol's Journey ;Keywords: travel, memoir ; anAbstract: Travel memoir ; Date: 09/25/2018 ; TotalNumViews: 34567 ; TotalNumLikes: 4567 ; numDownloads: 5678; Publisher: Travel Press ; Periodicity: WEEKLY; jcrIF: 2.0; ScopusID: SC456

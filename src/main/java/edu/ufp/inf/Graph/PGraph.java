@@ -1,10 +1,13 @@
 package edu.ufp.inf.Graph;
 
 import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.EdgeWeightedDigraph;
-import edu.princeton.cs.algs4.In;
+import edu.ufp.inf.Util.EdgeWeightedDigraph;
+import edu.ufp.inf.Util.In;
 
-public class PGraph extends EdgeWeightedDigraph {
+
+import java.io.Serializable;
+
+public class PGraph extends EdgeWeightedDigraph implements Serializable {
 
     public PGraph(int V){
         super(V);

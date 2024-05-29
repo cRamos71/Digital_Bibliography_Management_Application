@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents an undirected graph.
+ */
 public class UGraph extends Graph implements Serializable {
 
 
@@ -21,7 +24,15 @@ public class UGraph extends Graph implements Serializable {
         super(G);
     }
 
-
+    /**
+     * Checks if there is an edge between two vertices.
+     *Time Complexity: O(V), where V is the number of vertices in the graph.
+     * It iterates over the adjacent vertices of one vertex to check if there is an edge to another vertex.
+     * Extra Space: O(1). The additional space used is constant, as it only stores references to adjacent vertices temporarily.
+     * @param id1 The ID of the first vertex.
+     * @param id2 The ID of the second vertex.
+     * @return True if there is an edge between the vertices, false otherwise.
+     */
     public boolean hasEdge(Integer id1, Integer id2){
         Iterable<Integer> adjacentVertices =  super.adj(id1);
 
@@ -33,6 +44,15 @@ public class UGraph extends Graph implements Serializable {
         return false;
     }
 
+
+    /**
+     * Performs a depth-first search (DFS) on the graph.
+     * Time Complexity: O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+     * It performs a depth-first search traversal of the graph.
+     * Extra Space: O(V). The additional space is used to store the visited array, which tracks visited vertices during the DFS traversal.
+     * @param v       The vertex to start the search from.
+     * @param visited An array to keep track of visited vertices.
+     */
     public void dfs(int v, boolean[] visited) {
         visited[v] = true;
         for (int w : super.adj(v)) {
@@ -43,7 +63,11 @@ public class UGraph extends Graph implements Serializable {
     }
 
     /**
-     * Check if all vertices are connected in a graph
+     * Checks if the graph is connected.
+     * Time Complexity: O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+     * It calls the dfs method to perform a depth-first search traversal.
+     * Extra Space: O(V). Similar to dfs, it uses extra space for the visited array.
+     * @return True if the graph is connected, false otherwise.
      */
     public boolean isConnected() {
         int V = super.V();
@@ -59,6 +83,13 @@ public class UGraph extends Graph implements Serializable {
         return true;
     }
 
+    /**
+     * Checks if there is a connection between all vertex of the graph
+     * Time Complexity: O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+     * It performs a depth-first search traversal.
+     * Extra Space: O(V). It uses extra space for the visited array.
+     * @return True if it has, false otherwise.
+     */
     public boolean isConexo() {
         int V = super.V();
         boolean[] visited = new boolean[V];
@@ -75,7 +106,10 @@ public class UGraph extends Graph implements Serializable {
     }
 
 
-
+    /**
+     * Method to get a set of vertices in the graph
+     * @return Set of integers (vertices)
+     */
     private Set<Integer> vertexSet(){
         Set<Integer> set = new HashSet<>();
         for(int i = 0 ; i < super.V(); i++){
@@ -84,6 +118,13 @@ public class UGraph extends Graph implements Serializable {
         return set;
     }
 
+    /**
+     * Checks if there is a connection between all vertex of the graph
+     * Time Complexity: O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+     * It performs a depth-first search traversal.
+     * Extra Space: O(V). It uses extra space for the visited array.
+     * @return True if it has, false otherwise.
+     */
     public boolean isConexov2() {
         boolean[] visited = new boolean[super.V()];
         Arrays.fill(visited, false);
@@ -99,6 +140,15 @@ public class UGraph extends Graph implements Serializable {
         return true;
     }
 
+    /**
+     * Finds the minimum number of hops (edges) between two vertices in the graph.
+     * Time Complexity: O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+     * It performs a breadth-first search traversal to find the minimum number of hops between two vertices.
+     * Extra Space: O(V). It uses additional space for the boolean array marked[], the edgeTo[] array, and the distTo[] array.
+     * @param orig The ID of the origin vertex.
+     * @param dest The ID of the destination vertex.
+     * @return The minimum number of hops between the vertices, or -1 if there is no path between them.
+     */
     public Integer minimumHopsBetween(int orig, int dest){
         boolean marked[] = new boolean[super.V()];
         int edgeTo[] = new int[super.V()];
@@ -117,6 +167,7 @@ public class UGraph extends Graph implements Serializable {
                     edgeTo[w] = v;
                     distTo[w] = distTo[v] + 1;
                 }
+                //if it got to dest
                 if(w == dest){
                     return distTo[w];
                 }

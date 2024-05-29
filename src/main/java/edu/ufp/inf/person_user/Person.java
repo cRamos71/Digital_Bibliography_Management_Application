@@ -1,19 +1,30 @@
 package edu.ufp.inf.person_user;
 
 import edu.ufp.inf.Util.Date;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
+/**
+ * Represents a Person with basic information such as name, birthdate, and address.
+ */
 public class Person implements Serializable {
+    /**
+     * Person ID
+     */
     private Integer idNumber;
-
+    /**
+     * birthdate
+     */
     private Date birthDate;
-
+    /**
+     * Name
+     */
     private String name;
-
+    /**
+     * address
+     */
     private String address;
 
     public Person() {
