@@ -1,0 +1,273 @@
+<mxfile host="app.diagrams.net" modified="2024-05-29T03:24:56.684Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="UKA5c1TOzIckrkl2RC8Q" version="24.2.5" type="google">
+  <diagram name="Página-1" id="EvUsAx8gLrIsxuA0jB78">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rJBRQVCrozy0cixBzUwv-1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Author&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- penName: String&lt;br&gt;- scienceID: String&lt;br&gt;- scopusAuthorID: String&lt;br&gt;- googleScholarID: String&lt;br&gt;- papers: ArrayList&amp;lt;Paper&amp;gt;&lt;br&gt;- orcID: String&lt;br&gt;- affiliation: String&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ searchPaperYear(String, long): Paper&lt;br&gt;+ addPaper(Paper): void&lt;br&gt;- getPaperDoi(String): Paper?&lt;br&gt;+ toString(): String&lt;br&gt;+ listPapers(): ArrayList&amp;lt;Paper&amp;gt;&lt;br&gt;+ bstPapersPeriod(): RedBlackBST&amp;lt;Integer, ArrayList&amp;lt;String&amp;gt;&amp;gt;&lt;br&gt;+ searchPaperTitle(String): Paper&lt;br&gt;+ removePaperTitleYear(String, Long): Paper&lt;br&gt;+ main(String[]): void&lt;br&gt;+ removePaper(Paper): boolean&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-57" y="1362" width="425" height="448" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-2" target="rJBRQVCrozy0cixBzUwv-37">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="498" y="2070" />
+              <mxPoint x="1444" y="2070" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;AuthorsGraph&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- authorsUGraph: UGraph&lt;br&gt;- authorsMap: HashMap&amp;lt;Integer, A&amp;gt;&lt;br&gt;- ids: Integer&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- writeTotxt(int, String): void&lt;br&gt;- readGraphTxt(In): void&lt;br&gt;- addHash(A): void&lt;br&gt;+ listVertexAuthorAffilliation(String): ArrayList&amp;lt;String&amp;gt;&lt;br&gt;+ writeGraphToFile(String): void&lt;br&gt;- writeGraphBin(ObjectOutputStream): void&lt;br&gt;- writeTotxt(ArrayList&amp;lt;String&amp;gt;, String): void&lt;br&gt;- vertex(): int&lt;br&gt;- edges(): int&lt;br&gt;+ minimumHopsBetweenAuthors(A, A, String): void&lt;br&gt;+ subGraphAuthorsFilter(String, String): void&lt;br&gt;- getIDMapGraph(Author): Integer&lt;br&gt;+ minimumHopsBetweenAuthors(A, A): Integer&lt;br&gt;+ saveAuthorsGraphTxt(String): void&lt;br&gt;+ numPapersBetweenAuthors(Author, Author, String): void&lt;br&gt;- writeAuthorsGraphTxt(Out): void&lt;br&gt;+ readAuthorsGraphTxt(String): void&lt;br&gt;- readAuthorsHash(In): void&lt;br&gt;+ saveGraphBin(String): void&lt;br&gt;+ readGraphBin(String): void&lt;br&gt;+ subGraphAuthorsFilter(String): AuthorsGraph&amp;lt;A, Paper&amp;gt;&lt;br&gt;+ numberCoAuthors(Author): int&lt;br&gt;+ addEdge(A, A): void&lt;br&gt;+ numberCoAuthors(Author, String): void&lt;br&gt;- writeAuthorsHashTxt(Out): void&lt;br&gt;- fillAuthorPapers(Author, In): void&lt;br&gt;+ main(String[]): void&lt;br&gt;+ numPapersBetweenAuthors(Author, Author): int&lt;br&gt;+ listVertexAuthorAffilliation(String, String): void&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="301" y="2155" width="394" height="775" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-4" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;DataBase&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- mapRemovedA: HashMap&amp;lt;Integer, String&amp;gt;&lt;br&gt;- mapUID: HashMap&amp;lt;Integer, A&amp;gt;&lt;br&gt;- uID: Integer&lt;br&gt;- mapDOI: HashMap&amp;lt;String, P&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ update(P): void&lt;br&gt;+ generateDoi(): String&lt;br&gt;+ listPapers(): ArrayList&amp;lt;String&amp;gt;&lt;br&gt;- removeAuthorPapersMap(ArrayList&amp;lt;P&amp;gt;, A): void&lt;br&gt;+ listAuthorsDeletedLog(): void&lt;br&gt;- authorsDeletedLog(String): void&lt;br&gt;+ paperAuthorByNamePeriod(String, Date, Date, String): void&lt;br&gt;+ paperAuthorByIdPeriodIn(Integer, Date, Date, String): void&lt;br&gt;- writeResultTotxt(ArrayList&amp;lt;String&amp;gt;, String): void&lt;br&gt;+ update(A): void&lt;br&gt;+ paperAuthorByIdPeriodIn(Integer, Date, Date): ArrayList&amp;lt;String&amp;gt;&lt;br&gt;+ remove(A, String): void&lt;br&gt;+ paperAuthorByNamePeriod(String, Date, Date): ArrayList&amp;lt;String&amp;gt;&lt;br&gt;+ remove(P): void&lt;br&gt;+ papersNotDownloadedNotViewed(String): void&lt;br&gt;+ top3PapersMostDownloads(): Paper[]&lt;br&gt;+ insert(A): void&lt;br&gt;+ top3PapersMostDownloads(String): void&lt;br&gt;+ listAuthors(): ArrayList&amp;lt;Author&amp;gt;&lt;br&gt;+ main(String[]): void&lt;br&gt;+ papersNotDownloadedNotViewed(): ArrayList&amp;lt;String&amp;gt;&lt;br&gt;+ insert(P): void&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="247" y="3192" width="448" height="648" as="geometry" />
+        </mxCell>
+        <object label="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;DataBaseLog&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ saveDBTxt(String): void&lt;br/&gt;+ saveDBBin(String, String): void&lt;br/&gt;- readAuthorsBin(String): void&lt;br/&gt;+ readDBin(String, String): void&lt;br/&gt;+ main(String[]): void&lt;br/&gt;- savePapersBin(String): void&lt;br/&gt;+ generateAuthorsAndPapersReport(): void&lt;br/&gt;- fillAuthorPapers(Author, In): void&lt;br/&gt;+ fillDB(String): void&lt;br/&gt;+ generateArticleUsageReport(int, int, int): void&lt;br/&gt;- readPapersBin(String): void&lt;br/&gt;- saveAuthorsBin(String): void&lt;/p&gt;" db="" id="rJBRQVCrozy0cixBzUwv-5">
+          <mxCell style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+            <mxGeometry x="826.5" y="3250" width="325" height="327" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-6" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Date&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ next(): Date&lt;br/&gt;+ year(): int&lt;br/&gt;+ day(): int&lt;br/&gt;+ isBefore(Date): boolean&lt;br/&gt;+ toString(): String&lt;br/&gt;+ main(String[]): void&lt;br/&gt;+ month(): int&lt;br/&gt;- isLeapYear(int): boolean&lt;br/&gt;+ compareTo(Date): int&lt;br/&gt;+ equals(Object): boolean&lt;br/&gt;+ isAfter(Date): boolean&lt;br/&gt;- isValid(int, int, int): boolean&lt;br/&gt;+ hashCode(): int&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="660" width="213" height="351" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-9" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Graph&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ toString(): String&lt;br/&gt;+ V(): int&lt;br/&gt;+ degree(int): int&lt;br/&gt;+ main(String[]): void&lt;br/&gt;+ E(): int&lt;br/&gt;- validateVertex(int): void&lt;br/&gt;+ adj(int): Iterable&amp;lt;Integer&amp;gt;&lt;br/&gt;+ addEdge(int, int): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1709" y="517" width="205" height="231" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-14" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LoginFXML&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ main(String[]): void&lt;br/&gt;+ start(Stage): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1976" y="815" width="166" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-15" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LoginFXMLController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ handleSubmitButtonAction(ActionEvent): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="2433" y="1210" width="328" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-16" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LoginFXMLController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ handleSubmitButtonAction(ActionEvent): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="2110" y="1535" width="328" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-17" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Main&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ main(String[]): void&lt;br/&gt;+ start(Stage): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="2458" y="1025" width="166" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-18" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;MainController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ handleEditVehicleAction(CellEditEvent): void&lt;br/&gt;+ handleSaveDBbinAction(ActionEvent): void&lt;br/&gt;+ handleAllPapersWrittenQuery(ActionEvent): void&lt;br/&gt;+ HandleAllPapersNoViewNoDownload(ActionEvent): void&lt;br/&gt;+ handlePapersWrittenAuthor(ActionEvent): void&lt;br/&gt;+ handleSaveBinFileAction(ActionEvent): void&lt;br/&gt;- getAuthor(String[], String, String): Author?&lt;br/&gt;+ handleEditAuthorAction(CellEditEvent&amp;lt;Author, Object&amp;gt;): void&lt;br/&gt;+ handleSelectDriverAction(ActionEvent): void&lt;br/&gt;+ handleSaveDBtxtAction(ActionEvent): void&lt;br/&gt;+ handleTop3PapersQuery(ActionEvent): void&lt;br/&gt;+ handleSelectPaperAction(ActionEvent): void&lt;br/&gt;+ handleQueryAction(ActionEvent): void&lt;br/&gt;+ handleSelectVehicleAction(ActionEvent): void&lt;br/&gt;- refreshTableView(): void&lt;br/&gt;+ initialize(URL, ResourceBundle): void&lt;br/&gt;- openWindow(): void&lt;br/&gt;+ handleAddPaperAuthorAction(ActionEvent): void&lt;br/&gt;+ handleAddAuthorAction(ActionEvent): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1972" y="1006" width="424" height="495" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-19" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;ManageAuthorsI&lt;A&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ insert(A): void&lt;br/&gt;+ update(A): void&lt;br/&gt;+ remove(A, String): void&lt;br/&gt;+ listAuthors(): ArrayList&amp;lt;Author&amp;gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-15" y="2282" width="243" height="169" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-20" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;ManagePapersI&lt;P&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ listPapers(): ArrayList&amp;lt;String&amp;gt;&lt;br/&gt;+ remove(P): void&lt;br/&gt;+ generateDoi(): String&lt;br/&gt;+ insert(P): void&lt;br/&gt;+ update(P): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="479" y="1863" width="232" height="177" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-25" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Paper&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- anAbstract: String&lt;br&gt;- date: Date&lt;br&gt;- numDownloads: Long&lt;br&gt;- keywords: String&lt;br&gt;- numLikesPerDay: Map&amp;lt;Date, Long&amp;gt;&lt;br&gt;- graphId: Integer&lt;br&gt;- numViewsPerDay: Map&amp;lt;Date, Long&amp;gt;&lt;br&gt;- title: String&lt;br&gt;- totalNumLikes: Long&lt;br&gt;- authors: ArrayList&amp;lt;Author&amp;gt;&lt;br&gt;- doi: String&lt;br&gt;- totalNumViews: Long&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ toString(): String&lt;br&gt;+ equals(Object): boolean&lt;br&gt;+ addView(): void&lt;br&gt;+ getNumViewsDay(Date): long&lt;br&gt;+ addLike(): void&lt;br&gt;+ addAuthor(Author): void&lt;br&gt;+ hashCode(): int&lt;br&gt;+ getNumViewsYear(int): long&lt;br&gt;+ addNumDownload(): void&lt;br&gt;+ getNumLikesDay(Date): long&lt;br&gt;+ main(String[]): void&lt;br&gt;+ getNumLikesMonth(int, int): long&lt;br&gt;+ getNumLikesYear(int): long&lt;br&gt;+ getNumViewsMonth(short, int): long&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="836" y="1090" width="271" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-26" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;PaperConference&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- editionNumber: Integer&lt;br&gt;- local: String&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ hashCode(): int&lt;br&gt;+ equals(Object): boolean&lt;br&gt;+ main(String[]): void&lt;br&gt;+ toString(): String&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1291" y="2947" width="194" height="193" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-27" target="04KKT0l5AmS4IfEu6Tn--23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1530" y="2336" />
+              <mxPoint x="1530" y="2336" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-27" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;PaperJournal&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- periodicity: Periodicity&lt;br&gt;- publisher: String&lt;br&gt;- jcrIF: double&lt;br&gt;- scopusID: String&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ equals(Object): boolean&lt;br&gt;+ main(String[]): void&lt;br&gt;+ toString(): String&lt;br&gt;+ hashCode(): int&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1282" y="2281" width="194" height="239" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-28" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;PapersGraph&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- ids: Integer&lt;br&gt;- papersPGraph: EdgeWeightedDigraph&lt;br&gt;- papersMap: HashMap&amp;lt;Integer, P&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ subGraphArticleFilter(String): PapersGraph&lt;br&gt;+ calculateSecondOrderQuotes(P): int&lt;br&gt;+ dijkstraShortestPath(P, P): Iterable&amp;lt;Integer&amp;gt;&lt;br&gt;+ listPapersConferenceTime(Date, Date): ArrayList&amp;lt;String&amp;gt;&lt;br&gt;- subHashFilter(boolean, HashMap&amp;lt;Integer, P&amp;gt;, HashMap&amp;lt;Integer, Integer&amp;gt;): void&lt;br&gt;- readPapersHash(In): void&lt;br&gt;+ dijkstraShortestPath(P, P, String): void&lt;br&gt;+ addHash(P): void&lt;br&gt;- caculateSecondOrderVertexes(Integer): int&lt;br&gt;+ journalQuotes(Date, Date): String&lt;br&gt;+ listPapersConferenceTime(Date, Date, String): void&lt;br&gt;- writeTotxt(String, String): void&lt;br&gt;+ readPapersGraphTxt(String): void&lt;br&gt;- fillPaperAuthors(Paper, In): void&lt;br&gt;+ journalQuotes(Date, Date, String): void&lt;br&gt;- writeGraphBin(ObjectOutputStream): void&lt;br&gt;+ authorQuotesPeriod(ArrayList&amp;lt;P&amp;gt;, Date, Date, String): void&lt;br&gt;+ authorQuotesPeriod(ArrayList&amp;lt;P&amp;gt;, Date, Date): String&lt;br&gt;+ saveGraphBin(String): void&lt;br&gt;+ savePapersGraphTxt(String): void&lt;br&gt;- writePapersHashTxt(Out): void&lt;br&gt;+ readGraphBin(String): void&lt;br&gt;- weightCalc(P): double&lt;br&gt;- readGraphTxt(In): void&lt;br&gt;+ subGraphArticleFilter(String, String): void&lt;br&gt;+ main(String[]): void&lt;br&gt;+ calculateSecondOrderQuotes(P, String): void&lt;br&gt;+ addEdge(P, P): void&lt;br&gt;+ listPapersJournalAndTime(Date, Date): ArrayList&amp;lt;String&amp;gt;&lt;br&gt;- writeTotxt(int, String): void&lt;br&gt;+ listPapersJournalAndTime(Date, Date, String): void&lt;br&gt;- writeTotxt(ArrayList&amp;lt;String&amp;gt;, String): void&lt;br&gt;- writeTotxt(Iterable&amp;lt;Integer&amp;gt;, String): void&lt;br&gt;- writeAuthorsGraphTxt(Out): void&lt;br&gt;+ calculateFirstOrderQuotes(P): int&lt;br&gt;+ calculateFirstOrderQuotes(P, String): void&lt;br&gt;+ selfQuotes(P): int&lt;br&gt;+ selfQuotes(P, String): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="756" y="2107" width="466" height="993" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-30" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Person&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- name: String&lt;br&gt;- birthDate: Date&lt;br&gt;- address: String&lt;br&gt;- idNumber: Integer&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ hashCode(): int&lt;br&gt;+ toString(): String&lt;br&gt;+ main(String[]): void&lt;br&gt;+ equals(Object): boolean&lt;br&gt;+ age(): int&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="192" y="667" width="194" height="253" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-36" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;TestDB&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ testWriteReadDBTxt(): void&lt;br/&gt;+ testRemoveAuthor(): void&lt;br/&gt;+ main(String[]): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1667" y="849" width="215" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-37" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;UGraph&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ hasEdge(Integer, Integer): boolean&lt;br/&gt;- vertexSet(): Set&amp;lt;Integer&amp;gt;&lt;br/&gt;+ minimumHopsBetween(int, int): Integer&lt;br/&gt;+ main(String[]): void&lt;br/&gt;+ dfs(int, boolean[]): void&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; conexo: boolean&lt;br/&gt; conexov2: boolean&lt;br/&gt; connected: boolean&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1301" y="841" width="286" height="234" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-38" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;User&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- phoneNumber: Integer&lt;br&gt;- countryCode: String&lt;br&gt;- password: String&lt;br&gt;- zip: String&lt;br&gt;- username: String&lt;br&gt;- email: String&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ hashCode(): int&lt;br&gt;+ toString(): String&lt;br&gt;+ equals(Object): boolean&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="497" y="969" width="194" height="271" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-39" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;testApp&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ testSelfQuotes(): void&lt;br/&gt;+ testWriteReadDBBIN(DataBaseLog): void&lt;br/&gt;+ testSearchPapersByAuthorPeriod(DataBase&amp;lt;Author, Paper&amp;gt;): void&lt;br/&gt;+ testGenerateArticleUsageReport(int, int, int): void&lt;br/&gt;+ testWriteReadDBTxt(DataBaseLog): void&lt;br/&gt;+ testWriteReadAuthorsGraphTxt(): void&lt;br/&gt;+ testCalculateSecondOrderQuotes(): void&lt;br/&gt;+ testListPapersConferenceTime(): void&lt;br/&gt;+ testListVertexAuthorAffilliation(): void&lt;br/&gt;+ testRemoveAuthor(DataBase&amp;lt;Author, Paper&amp;gt;): void&lt;br/&gt;+ testNumPapersBetweenAuthors(): void&lt;br/&gt;+ top3ArtigosMaisUsados(DataBase&amp;lt;Author, Paper&amp;gt;): void&lt;br/&gt;+ testPapersNotDownloadedNotViewed(DataBase&amp;lt;Author, Paper&amp;gt;): void&lt;br/&gt;+ testAuthorQuotesPeriod(): void&lt;br/&gt;+ testSubGraphAuthorsFilter(): void&lt;br/&gt;+ testSubGraphArticleFilter(): void&lt;br/&gt;+ testGenerateAuthorsAndPapersReport(): void&lt;br/&gt;+ testWriteReadAuthorsGraphBin(): void&lt;br/&gt;+ main(String[]): void&lt;br/&gt;+ testJournalQuotes(): void&lt;br/&gt;+ testCalculateFirstOrderQuotes(): void&lt;br/&gt;+ testMinimumHopsBetweenAuthors(): void&lt;br/&gt;+ testListPapersJournalAndTime(): void&lt;br/&gt;+ testNumCoAuthors(): void&lt;br/&gt;+ testDijkstraShortestPath(): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1164" y="-13" width="484" height="639" as="geometry" />
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-40" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#000082;exitX=1.000;exitY=0.500;exitDx=0;exitDy=0;entryX=1.000;entryY=0.500;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-1" target="rJBRQVCrozy0cixBzUwv-30">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="433" y="1672" />
+              <mxPoint x="433" y="845" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-41" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=0.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-2" target="rJBRQVCrozy0cixBzUwv-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="265" y="2598" />
+              <mxPoint x="265" y="2264" />
+              <mxPoint x="155" y="2264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-42" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.000;entryY=0.500;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-2" target="rJBRQVCrozy0cixBzUwv-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="733" y="2598" />
+              <mxPoint x="733" y="1568" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-43" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-4" target="rJBRQVCrozy0cixBzUwv-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="471" y="3058" />
+              <mxPoint x="265" y="3058" />
+              <mxPoint x="265" y="2264" />
+              <mxPoint x="155" y="2264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-44" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=block;endSize=12;strokeColor=#008200;exitX=0.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.900;entryY=1.000;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-4" target="rJBRQVCrozy0cixBzUwv-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="204" y="3575" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-45" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=block;endSize=12;strokeColor=#008200;exitX=0.082;exitY=0.000;exitDx=0;exitDy=0;entryX=0.000;entryY=0.864;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-4" target="rJBRQVCrozy0cixBzUwv-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="284" y="2000" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-46" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.000;entryY=0.500;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-4" target="rJBRQVCrozy0cixBzUwv-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="733" y="3575" />
+              <mxPoint x="733" y="1568" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-50" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-19" target="rJBRQVCrozy0cixBzUwv-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="265" y="2349" />
+              <mxPoint x="265" y="2264" />
+              <mxPoint x="155" y="2264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-51" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.000;entryY=0.500;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-20" target="rJBRQVCrozy0cixBzUwv-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="733" y="1943" />
+              <mxPoint x="733" y="1568" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-56" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#000082;exitX=0.000;exitY=0.500;exitDx=0;exitDy=0;entryX=1.000;entryY=0.869;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-26" target="rJBRQVCrozy0cixBzUwv-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1252" y="3066" />
+              <mxPoint x="1252" y="1922" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-57" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#000082;exitX=0.000;exitY=0.500;exitDx=0;exitDy=0;entryX=1.000;entryY=0.869;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-27" target="rJBRQVCrozy0cixBzUwv-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1252" y="2447" />
+              <mxPoint x="1252" y="1922" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-58" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=0.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.000;entryY=0.500;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-28" target="rJBRQVCrozy0cixBzUwv-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="733" y="2658" />
+              <mxPoint x="733" y="1568" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-59" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#000082;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-37" target="rJBRQVCrozy0cixBzUwv-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1444" y="823" />
+              <mxPoint x="1812" y="823" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rJBRQVCrozy0cixBzUwv-60" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#000082;exitX=0.000;exitY=0.500;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-38" target="rJBRQVCrozy0cixBzUwv-30">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="497" y="1171" />
+              <mxPoint x="433" y="1171" />
+              <mxPoint x="433" y="845" />
+              <mxPoint x="386" y="845" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--7" value="Has" style="endArrow=none;html=1;endSize=12;startArrow=none;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;rounded=0;endFill=0;entryX=-0.001;entryY=0.454;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.587;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-1" target="rJBRQVCrozy0cixBzUwv-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="470" y="1550" as="sourcePoint" />
+            <mxPoint x="630" y="1550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--8" value="1..n" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;" connectable="0" vertex="1" parent="04KKT0l5AmS4IfEu6Tn--7">
+          <mxGeometry x="-1" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--9" value="0..n" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" connectable="0" vertex="1" parent="04KKT0l5AmS4IfEu6Tn--7">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--11" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="1075" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.015;entryY=0.431;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-30" target="rJBRQVCrozy0cixBzUwv-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="811" />
+              <mxPoint x="500" y="811" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--15" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="806" y="785" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--16" value="-birth" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="795" y="808" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.57;entryY=0.997;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-25" target="rJBRQVCrozy0cixBzUwv-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--18" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="945" y="1008" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--19" value="-date" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="965" y="1008" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.999;entryY=0.344;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="rJBRQVCrozy0cixBzUwv-5" target="rJBRQVCrozy0cixBzUwv-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="780" y="3400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="700" y="3415" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--21" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="695" y="3415" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--22" value="-db" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="690" y="3378" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--23" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;Periodicity&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ values(): Periodicity[]&lt;br/&gt;+ valueOf(String): Periodicity&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1660" y="2281" width="212" height="109" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--25" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1625" y="2308" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="04KKT0l5AmS4IfEu6Tn--26" value="-periodicity" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1590" y="2338" width="80" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
