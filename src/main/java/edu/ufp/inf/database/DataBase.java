@@ -107,6 +107,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
      */
     @Override
     public boolean remove(A author, String fn) {
+       if(!removeAuthorPapersMap((ArrayList<P>) author.getPapers(), author)) return false;
         //remove from Hashmap that maps user  id to the author
         mapUID.remove(author.getIdNumber(), author);
         //add to the HashMap to store the id and the name of the author
@@ -114,7 +115,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         //Write to a txt file the name of the author deleted
         authorsDeletedLog(fn);
         //remove from paper
-       return removeAuthorPapersMap((ArrayList<P>) author.getPapers(), author);
+       return true;
     }
 
     /**
