@@ -8,7 +8,6 @@ import edu.ufp.inf.paper_author.PaperJournal;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 
@@ -100,12 +99,14 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
      * 2. Adds the author's ID and name to another HashMap for tracking removed authors.
      * 3. Logs the removal by writing the author's name to a specified text file.
      * 4. Removes the author's papers from the system.
-     *</p>
+     * </p>
+     *
      * @param author the author to be removed
      * @param fn     the filename of the text file where the author's name will be logged
+     * @return
      */
     @Override
-    public void remove(A author, String fn) {
+    public boolean remove(A author, String fn) {
         //remove from Hashmap that maps user  id to the author
         mapUID.remove(author.getIdNumber(), author);
         //add to the HashMap to store the id and the name of the author
@@ -113,7 +114,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
         //Write to a txt file the name of the author deleted
         authorsDeletedLog(fn);
         //remove from paper
-        removeAuthorPapersMap((ArrayList<P>) author.getPapers(), author);
+       return removeAuthorPapersMap((ArrayList<P>) author.getPapers(), author);
     }
 
     /**
@@ -154,7 +155,7 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
      * @param papers the list of papers authored by the specified author
      * @param a      the author whose papers are being processed
      */
-    private void removeAuthorPapersMap(ArrayList<P> papers, A a){
+    private boolean removeAuthorPapersMap(ArrayList<P> papers, A a){
         for (P paper : papers) {
             ArrayList<Author> authorsAL = null;
             authorsAL = paper.getAuthors();
@@ -163,9 +164,11 @@ public class DataBase<A extends Author, P extends edu.ufp.inf.paper_author.Paper
                 remove(paper);
             } else {
                 //remove author from paper list of authors
-                paper.getAuthors().remove(a);
+                //paper.getAuthors().remove(a);
+                return false;
             }
         }
+        return true;
     }
 
 

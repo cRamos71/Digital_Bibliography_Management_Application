@@ -9,7 +9,7 @@ public interface ManageAuthorsI<A extends Author> {
 
     public void update(A author);
 
-    public void remove(A author, String fn);
+    public boolean remove(A author, String fn);
 
     public ArrayList<Author> listAuthors();
 }
