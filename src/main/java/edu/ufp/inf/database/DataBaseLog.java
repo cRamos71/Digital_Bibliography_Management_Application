@@ -168,7 +168,7 @@ public class DataBaseLog {
                 if (p instanceof PaperConference) {
                     fp.println("Paper: " + p.getDoi() + "; Title: " + p.getTitle() + " ;Keywords: " + p.getKeywords() +
                             " ; anAbstract: " + p.getAnAbstract() + " ; Date: " + p.getDate() +
-                            " ; TotalNumViews: " + p.getTotalNumViews() + " ; TotalNumLikes: " + p.getTotalNumViews() +
+                            " ; TotalNumViews: " + p.getTotalNumViews() + " ; TotalNumLikes: " + p.getTotalNumLikes() +
                             " ; numDownloads: " + p.getNumDownloads() + "; editionNumber: " + ((PaperConference) p).getEditionNumber() +
                             " ; Local: " + ((PaperConference) p).getLocal());
                 } else if (p instanceof PaperJournal) {
