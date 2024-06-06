@@ -1,1 +1,2 @@
-# Digital_Bibliography_Management_Application_42855_20221211538_aed2_lp2_202324
+# Digital_Bibliography_Management_Application 
+Technologies: Java, Javafx
